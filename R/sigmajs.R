@@ -1,0 +1,109 @@
+#' Initialise
+#'
+#' Initialise a graph.
+#' 
+#' @param width,height Dimensions of graph.
+#' @param elementId Id of elment.
+#' @param kill Whether to kill the graph, set to \code{FALSE} 
+#' if using \code{\link{sigmajsProxy}}, else set to \code{TRUE}. Only useful in Shiny.
+#' @param type Renderer type, one of \code{canvas}, \code{webgl} or \code{svg}.
+#' 
+#' @examples 
+#' nodes <- sg_make_nodes()
+#' edges <- sg_make_edges(nodes)
+#'
+#' sigmajs("svg") %>%
+#'   sg_nodes(nodes, id, label, size, color) %>%
+#'   sg_edges(edges, id, source, target) 
+#'
+#' @import htmlwidgets
+#' @importFrom stats runif
+#' 
+#' @note Keep \code{width} at \code{100\%} for a responsive visualisation.
+#' 
+#' @seealso \code{\link{sg_kill}}.
+#'
+#' @export
+sigmajs <- function(type = "canvas", width = "100%", kill = FALSE, height = NULL, elementId = NULL) {
+
+  # forward options using x
+  x = list(
+    kill = kill,
+    data = list(),
+		type = type,
+		button = list(event = "none", label = ""),
+		crosstalk = list(
+		  crosstalk_key = NULL,
+		  crosstalk_group = NULL
+		)
+  )
+  
+  if(rstudioapi::isAvailable() && isTRUE(interactive()))
+    warning("Graph does not show in the RStudio Viewer; opening in browser", call. = FALSE)
+
+  # create widget
+  htmlwidgets::createWidget(
+    name = 'sigmajs',
+    x,
+    width = width,
+    height = height,
+    package = 'sigmajs',
+    elementId = elementId,
+    sizingPolicy = htmlwidgets::sizingPolicy(
+      viewer.suppress = TRUE,
+      browser.fill = TRUE,
+      padding = 20,
+      browser.external = TRUE
+    ),
+    dependencies = crosstalk::crosstalkLibs()
+  )
+}
+
+#' Shiny bindings for sigmajs
+#'
+#' Output and render functions for using sigmajs within Shiny
+#' applications and interactive Rmd documents.
+#'
+#' @param outputId,id output variable to read from
+#' @param width,height Must be a valid CSS unit (like \code{'100\%'},
+#'   \code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
+#'   string and have \code{'px'} appended.
+#' @param expr An expression that generates a sigmajs
+#' @param env The environment in which to evaluate \code{expr}.
+#' @param quoted Is \code{expr} a quoted expression (with \code{quote()})? This
+#'   is useful if you want to save an expression in a variable.
+#' @param session A valid shiny session.
+#'
+#' @name sigmajs-shiny
+#'
+#' @export
+sigmajsOutput <- function(outputId, width = '100%', height = '400px'){
+  htmlwidgets::shinyWidgetOutput(outputId, 'sigmajs', width, height, package = 'sigmajs')
+}
+
+#' @rdname sigmajs-shiny
+#' @export
+renderSigmajs <- function(expr, env = parent.frame(), quoted = FALSE) {
+  if (!quoted) { expr <- substitute(expr) } # force quoted
+  htmlwidgets::shinyRenderWidget(expr, sigmajsOutput, env, quoted = TRUE)
+}
+
+#' @rdname sigmajs-shiny
+#' @export
+sigmajsProxy <- function(id, session = shiny::getDefaultReactiveDomain()) {
+
+	proxy <- list(id = id, session = session)
+	class(proxy) <- "sigmajsProxy"
+
+	return(proxy)
+}
+
+sigmajs_html <- function(id, style, class, ...){
+  htmltools::tags$div(
+    id = id, class = class, style = style,
+    htmltools::tags$button(
+      type = "button",
+      style = "display:block;"
+    )
+  )
+}
