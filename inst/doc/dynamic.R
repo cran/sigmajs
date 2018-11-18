@@ -4,6 +4,7 @@ knitr::opts_chunk$set(
   comment = "#>",
   warning = FALSE
 )
+library(htmltools)
 library(sigmajs)
 
 ## ------------------------------------------------------------------------
@@ -20,9 +21,10 @@ sigmajs() %>%
   sg_add_edges(edges, delay, id, source, target, refresh = TRUE) %>% # read delay documentation
   sg_force_stop(last_edge) %>% 
   sg_button(
-    "Add edges", # label
     "add_edges", # event
-    class = "btn btn-primary"
+    class = "btn btn-primary", # button class
+    tag = tags$a,
+    "Add edges" # label
   )
 
 ## ------------------------------------------------------------------------
@@ -36,11 +38,12 @@ sigmajs() %>%
   sg_force_start() %>%
   sg_nodes(nodes, id, size, color) %>%
   sg_add_edges(edges, delay, id, source, target, refresh = TRUE) %>% # read delay documentation
-  sg_progress(edges, delay, dates, class = "text-warning") %>% # add progress text
+  sg_progress(edges, delay, dates, class = "text-warning", position = "bottom") %>% # add progress text
   sg_force_stop(last_edge) %>% 
   sg_button(
-    "Add edges", # label
     "add_edges", # event
-    class = "btn btn-primary"
+    class = "btn btn-primary",
+    tag = tags$a,
+    "Add edges" # label
   )
 

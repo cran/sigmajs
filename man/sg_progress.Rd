@@ -4,8 +4,8 @@
 \alias{sg_progress}
 \title{Text}
 \usage{
-sg_progress(sg, data, delay, text, position = "right", element = "p",
-  class = NULL, cumsum = TRUE)
+sg_progress(sg, data, delay, text, ..., position = "top", id = NULL,
+  tag = htmltools::span, cumsum = TRUE)
 }
 \arguments{
 \item{sg}{An object of class \code{sigmajs}as intatiated by \code{\link{sigmajs}}.}
@@ -16,11 +16,13 @@ sg_progress(sg, data, delay, text, position = "right", element = "p",
 
 \item{text}{Text to appear on graph.}
 
-\item{position}{Text position on graph.}
+\item{...}{Content of the button, complient with \code{htmltools}.}
 
-\item{element}{DOM to contain the \code{text}.}
+\item{position}{Position of button, \code{top} or \code{bottom}.}
 
-\item{class}{CSS class of \code{element} added.}
+\item{id}{A valid CSS id.}
+
+\item{tag}{A Valid \link[htmltools]{tags} function.}
 
 \item{cumsum}{Whether to compute the cumulative sum on the \code{delay}.}
 }
@@ -46,7 +48,7 @@ nodes2$text <- seq.Date(Sys.Date(), Sys.Date() + 9, "days")
 sigmajs() \%>\%
   sg_nodes(nodes, id, label, size, color) \%>\%
   sg_add_nodes(nodes2, delay, id, label, size, color) \%>\% 
-  sg_button("add", "add_nodes") \%>\% 
-  sg_progress(nodes2, delay, text, element = "h3")
+  sg_progress(nodes2, delay, text, element = "h3") \%>\%
+  sg_button(c("add_nodes", "progress"), "add") 
 
 }

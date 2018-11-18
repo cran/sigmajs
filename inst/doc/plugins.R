@@ -4,6 +4,7 @@ knitr::opts_chunk$set(
   comment = "#>",
   warning = FALSE
 )
+library(htmltools)
 library(sigmajs)
 
 ## ------------------------------------------------------------------------
@@ -51,10 +52,11 @@ sigmajs() %>%
   sg_edges(edges, id, source, target) %>% 
   sg_export_svg() %>% 
   sg_layout() %>% 
-  sg_button(
-    "<i class='fa fa-download'></i>", 
+  sg_button( 
     "export_svg", 
-    class = "btn btn-success"
+    tags$i(class = "fa fa-download"),
+    class = "btn btn-success",
+    tag = tags$a
   )
 
 ## ------------------------------------------------------------------------

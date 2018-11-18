@@ -88,7 +88,7 @@ globalVariables(c("from", "to", "."))
     "drag_nodes", "relative_size", "add_nodes", 
     "add_edges", "drop_nodes", "drop_edges", 
     "animate", "export_svg", "export_img",
-    "add_nodes_edges")
+    "add_nodes_edges", "progress")
 }
 
 
@@ -126,4 +126,8 @@ globalVariables(c("from", "to", "."))
   
   return(g)
   
+}
+
+.make_rand_id <- function(){
+  paste0(sample(LETTERS, 5), 1:9, collapse = "")
 }
