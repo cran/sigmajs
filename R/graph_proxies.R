@@ -329,12 +329,6 @@ sg_add_edges_delay_p <- function(proxy, data, delay, ..., refresh = TRUE, cumsum
 #' @param ids Column containing ids to drop from the graph.
 #' @param refresh Whether to refresh the graph after node is dropped, required to take effect.
 #' @param rate Refresh rate, either \code{once}, the graph is refreshed after data.frame of nodes is added or at each \code{iteration} (row-wise). Only applies if \code{refresh} is set to \code{TRUE}.
-#' 
-#' @examples
-#' \dontrun{
-#' demo("add-nodes", package = "sigmajs")
-#' demo("add-edges", package = "sigmajs")
-#' }
 #'
 #' @note Have the parameters from your initial graph match that of the node you add, i.e.: if you pass \code{size} in your initial chart,
 #' make sure you also have it in your proxy.
@@ -484,4 +478,250 @@ sg_drop_edges_delay_p <- function(proxy, data, ids, delay, refresh = TRUE, cumsu
   proxy$session$sendCustomMessage("sg_drop_edges_delay_p", message)
   
   return(proxy)
+}
+
+#' Read
+#'
+#' Read nodes and edges to add to the graph. Other proxy methods to add data to a graph have to add nodes and edges one by one, 
+#' thereby draining the browser, this method will add multiple nodes and edges more efficiently.
+#'
+#' @param proxy An object of class \code{sigmajsProxy} as returned by \code{\link{sigmajsProxy}}.
+#' @param data A \code{data.frame} of _one_ node or edge.
+#' @param ... any column.
+#'
+#' @section Functions:
+#' \itemize{
+#'   \item{\code{sg_read_nodes_p} read nodes.}
+#'   \item{\code{sg_read_edges_p} read edges.}
+#'   \item{\code{sg_read_exec_p} send read nodes and edges to JavaScript front end.}
+#' }
+#' 
+#' @examples
+#' library(shiny)
+#' 
+#' ui <- fluidPage(
+#' 	actionButton("add", "add nodes & edges"),
+#' 	sigmajsOutput("sg")
+#' )
+#' 
+#' server <- function(input, output, session){
+#' 
+#' 	nodes <- sg_make_nodes()
+#' 	edges <- sg_make_edges(nodes)
+#' 
+#' 	output$sg <- renderSigmajs({
+#' 		sigmajs() %>% 
+#' 			sg_nodes(nodes, id, label, color, size) %>% 
+#' 			sg_edges(edges, id, source, target) %>% 
+#' 			sg_layout()
+#' 	})
+#' 
+#' 	i <- 10
+#' 
+#' 	observeEvent(input$add, {
+#' 		new_nodes <- sg_make_nodes()
+#' 		new_nodes$id <- as.character(as.numeric(new_nodes$id) + i)
+#' 		i <<- i + 10
+#' 		ids <- 1:(i)
+#' 		new_edges <- data.frame(
+#' 			id = as.character((i * 2 + 15):(i * 2 + 29)),
+#' 			source = as.character(sample(ids, 15)),
+#' 			target = as.character(sample(ids, 15))
+#' 		)
+#' 		
+#' 		sigmajsProxy("sg") %>% 
+#' 			sg_force_kill_p() %>% 
+#' 			sg_read_nodes_p(new_nodes, id, label, color, size) %>% 
+#' 			sg_read_edges_p(new_edges, id, source, target) %>% 
+#' 			sg_read_exec_p() %>% 
+#' 			sg_force_start_p() %>% 
+#' 			sg_refresh_p()
+#' 	})
+#' 
+#' }
+#' 
+#' if(interactive()) shinyApp(ui, server)
+#' 
+#' @name read
+#' @export
+sg_read_nodes_p <- function(proxy, data, ...){
+  
+  .test_proxy(proxy)
+
+	# build data
+	nodes <- data %>% 
+		.build_data(...) %>%
+		.check_ids() %>%
+		.check_x_y() %>%
+		.as_list()
+
+	proxy$message$data$nodes <- nodes
+
+	return(proxy)
+}
+
+#' @rdname read
+#' @export
+sg_read_edges_p <- function(proxy, data, ...){
+  .test_proxy(proxy)
+
+	# build data
+	edges <- data %>% 
+		.build_data(...) %>%
+		.check_ids() %>%
+		.check_x_y() %>%
+		.as_list()
+
+	proxy$message$data$edges <- edges
+
+	return(proxy)
+}
+
+#' @rdname read
+#' @export
+sg_read_exec_p <- function(proxy){
+	.test_proxy(proxy)
+
+	proxy$message$id <- proxy$id
+
+	if(is.null(proxy$message$data$edges))
+		proxy$message$data$edges <- list()
+
+	if(is.null(proxy$message$data$nodes))
+		proxy$message$data$nodes <- list()
+
+	proxy$session$sendCustomMessage("sg_read_exec_p", proxy$message)
+	return(proxy)
+}
+
+#' Batch read
+#' 
+#' Read nodes and edges by batch with a delay.
+#'
+#' @param proxy An object of class \code{sigmajsProxy} as returned by \code{\link{sigmajsProxy}}.
+#' @param data A \code{data.frame} of nodes or edges to add to the graph.
+#' @param ... any column.
+#' @param delay Column name of containing batch identifier.
+#' @param refresh Whether to refresh the graph after each batch (\code{delay}) has been added to the graph.
+#' Note that this will also automatically restart any running force layout.
+#'
+#' @details Add nodes and edges with \code{sg_read_delay_nodes_p} and \code{sg_read_delay_edges_p} then execute (send to JavaScript end) with \code{sg_read_delay_exec_p}.
+#'
+#' @examples
+#' library(shiny)
+#' 
+#' ui <- fluidPage(
+#' 	actionButton("add", "add nodes & edges"),
+#' 	sigmajsOutput("sg")
+#' )
+#' 
+#' server <- function(input, output, session){
+#' 
+#' 	output$sg <- renderSigmajs({
+#' 		sigmajs()
+#' 	})
+#' 
+#' 	observeEvent(input$add, {
+#' 		nodes <- sg_make_nodes(50)
+#' 		nodes$batch <- c(
+#' 			rep(1000, 25),
+#' 			rep(3000, 25)
+#' 		)
+#' 
+#' 		edges <- data.frame(
+#' 			id = 1:80,
+#' 			source = c(
+#' 				sample(1:25, 40, replace = TRUE),
+#' 				sample(1:50, 40, replace = TRUE)
+#' 			),
+#' 			target = c(
+#' 				sample(1:25, 40, replace = TRUE),
+#' 				sample(1:50, 40, replace = TRUE)
+#' 			),
+#' 			batch = c(
+#' 				rep(1000, 40),
+#' 				rep(3000, 40)
+#' 			)
+#' 		) %>% 
+#' 		dplyr::mutate_all(as.character)
+#' 
+#' 		sigmajsProxy("sg") %>% 
+#'      sg_force_start_p() %>% 
+#' 			sg_read_delay_nodes_p(nodes, id, color, label, size, delay = batch) %>% 
+#' 			sg_read_delay_edges_p(edges, id, source, target, delay = batch) %>% 
+#' 			sg_read_delay_exec_p()  %>% 
+#' 			sg_force_stop_p()
+#' 	})
+#' 
+#' }
+#' 
+#' if(interactive()) shinyApp(ui, server)
+#' 
+#' @name read-batch
+#' @export
+sg_read_delay_nodes_p <- function(proxy, data, ..., delay){
+  
+  .test_proxy(proxy)
+
+	if(missing(delay) || missing(data))
+		stop("missing data or delay", call. = FALSE)
+
+	delay <- deparse(substitute(delay))
+
+	# build data
+	nodes <- data %>% 
+		.build_data(..., delay = delay) %>%
+		.check_ids() %>%
+		.check_x_y() %>%
+		split(.[["delay"]]) %>% 
+		purrr::map(.as_list)
+
+	proxy$message$data$nodes <- nodes
+
+	return(proxy)
+}
+
+#' @rdname read-batch
+#' @export
+sg_read_delay_edges_p <- function(proxy, data, ..., delay){
+  .test_proxy(proxy)
+
+	if(missing(delay) || missing(data))
+		stop("missing data or delay", call. = FALSE)
+
+	delay <- deparse(substitute(delay))
+
+	# build data
+	edges <- data %>% 
+		.build_data(..., delay = delay) %>%
+		.check_ids() %>%
+		.check_x_y() %>%
+		split(.[["delay"]]) %>% 
+		purrr::map(.as_list)
+
+	proxy$message$data$edges <- edges
+
+	return(proxy)
+}
+
+#' @rdname read-batch
+#' @export
+sg_read_delay_exec_p <- function(proxy, refresh = TRUE){
+	.test_proxy(proxy)
+
+	proxy$message$id <- proxy$id
+
+	if(is.null(proxy$message$data$edges))
+		proxy$message$data$edges <- list()
+
+	if(is.null(proxy$message$data$nodes))
+		proxy$message$data$nodes <- list()
+
+	proxy$message$data <- purrr::map2(proxy$message$data$nodes, proxy$message$data$edges, .grp) %>% 
+		unname()
+
+	proxy$message$refresh <- refresh
+
+	proxy$session$sendCustomMessage("sg_read_bacth_exec_p", proxy$message)
+	return(proxy)
 }

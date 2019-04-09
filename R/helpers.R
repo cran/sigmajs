@@ -94,17 +94,64 @@ sg_make_nodes_edges <- function(n, ...){
   )
 }
 
-#' Kill
+#' Kill or clear
 #' 
 #' Kill the graph to ensure new data is redrawn, useful in Shiny 
-#' when graph is not updated bz \code{\link{sigmajsProxy}}.
+#' when graph is not updated by \code{\link{sigmajsProxy}}.
 #' 
 #' @inheritParams sg_nodes
 #' 
+#' @rdname clear-kill
 #' @export
 sg_kill <- function(sg){
   .test_sg(sg)
   
   sg$x$kill <- TRUE
   sg
+}
+
+#' @rdname clear-kill
+#' @export
+sg_clear <- function(sg){
+  .test_sg(sg)
+  
+  sg$x$clear <- TRUE
+  sg
+}
+
+
+#' Color
+#' 
+#' Scale color by node size.
+#' 
+#' @inheritParams sg_nodes
+#' @param pal Vector of color.
+#' 
+#' @examples 
+#' nodes <- sg_make_nodes() 
+#' edges <- sg_make_edges(nodes, 20)
+#' 
+#' sigmajs() %>% 
+#'   sg_nodes(nodes, id, size) %>% 
+#'   sg_scale_color(pal = c("red", "blue"))
+#' 
+#' @name color-scale
+#' @export
+sg_scale_color <- function(sg, pal){
+  
+  size <- purrr::map(sg$x$data$nodes, "size") %>% 
+    unlist() %>% 
+    as.numeric()
+  
+  if(!length(size))
+    stop("no node size passed", call. = FALSE)
+  
+  color <- scales::col_numeric(pal, domain = range(size))(size)
+  
+  sg$x$data$nodes <- purrr::map2(sg$x$data$nodes, color, function(x, y){
+    x$color <- y
+    return(x)
+  })
+  
+  return(sg)
 }

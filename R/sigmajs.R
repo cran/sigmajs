@@ -1,3 +1,8 @@
+sigmajs_render <- function(sg){
+  assign("igraph", NULL, envir = storage_env)
+  return(sg)
+}
+
 #' Initialise
 #'
 #' Initialise a graph.
@@ -25,6 +30,8 @@
 #'
 #' @export
 sigmajs <- function(type = "canvas", width = "100%", kill = FALSE, height = NULL, elementId = NULL) {
+  
+  assign("igraph", NULL, envir = storage_env)
 
   # forward options using x
   x = list(
@@ -49,8 +56,10 @@ sigmajs <- function(type = "canvas", width = "100%", kill = FALSE, height = NULL
     elementId = elementId,
     sizingPolicy = htmlwidgets::sizingPolicy(
       browser.fill = TRUE,
+      viewer.fill = TRUE,
       padding = 20
     ),
+    preRenderHook = sigmajs_render,
     dependencies = crosstalk::crosstalkLibs()
   )
 }
@@ -93,13 +102,3 @@ sigmajsProxy <- function(id, session = shiny::getDefaultReactiveDomain()) {
 
 	return(proxy)
 }
-
-# sigmajs_html <- function(id, style, class, ...){
-#   htmltools::tags$div(
-#     id = id, class = class, style = style,
-#     htmltools::tags$button(
-#       type = "button",
-#       style = "display:block;"
-#     )
-#   )
-# }

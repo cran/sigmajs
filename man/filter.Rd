@@ -3,11 +3,27 @@
 \name{sg_filter_gt_p}
 \alias{sg_filter_gt_p}
 \alias{sg_filter_lt_p}
+\alias{sg_filter_eq_p}
+\alias{sg_filter_not_eq_p}
+\alias{sg_filter_undo_p}
+\alias{sg_filter_neighbours_p}
 \title{FIlter}
 \usage{
-sg_filter_gt_p(proxy, input, var, target = "nodes")
+sg_filter_gt_p(proxy, input, var, target = c("nodes", "edges", "both"),
+  name = NULL)
 
-sg_filter_lt_p(proxy, input, var, target = "nodes")
+sg_filter_lt_p(proxy, input, var, target = c("nodes", "edges", "both"),
+  name = NULL)
+
+sg_filter_eq_p(proxy, input, var, target = c("nodes", "edges", "both"),
+  name = NULL)
+
+sg_filter_not_eq_p(proxy, input, var, target = c("nodes", "edges",
+  "both"), name = NULL)
+
+sg_filter_undo_p(proxy, name)
+
+sg_filter_neighbours_p(proxy, node, name = NULL)
 }
 \arguments{
 \item{proxy}{An object of class \code{sigmajsProxy} as returned by \code{\link{sigmajsProxy}}.}
@@ -17,6 +33,10 @@ sg_filter_lt_p(proxy, input, var, target = "nodes")
 \item{var}{Variable to filter.}
 
 \item{target}{Target of filter, \code{nodes}, \code{edges}, or \code{both}.}
+
+\item{name}{Name of the filter, useful to undo the filter later on with \code{sg_filter_undo}.}
+
+\item{node}{Node id to filter neighbours.}
 }
 \description{
 Filter nodes and/or edges.
@@ -26,6 +46,9 @@ Filter nodes and/or edges.
 \itemize{
   \item{\code{sg_filter_gt_p} Filter greater than \code{var}.}
   \item{\code{sg_filter_lt_p} Filter less than \code{var}.}
+  \item{\code{sg_filter_eq_p} Filter equal to \code{var}.}
+  \item{\code{sg_filter_not_eq_p} Filter not equal to \code{var}.}
+  \item{\code{sg_filter_undo_p} Undo filters, accepts vector of \code{name}s.}
 }
 }
 

@@ -12,7 +12,7 @@
 
 <meta name="author" content="John Coene" />
 
-<meta name="date" content="2018-11-18" />
+<meta name="date" content="2019-04-09" />
 
 <title>Plugins</title>
 
@@ -866,1050 +866,12 @@
 <script>(function(){"use strict";function a(a,b){function c(a){var b=window.getComputedStyle(a),c=function(a){return parseInt(b.getPropertyValue(a).replace("px",""))||0};return{left:a.getBoundingClientRect().left+c("padding-left"),top:a.getBoundingClientRect().top+c("padding-top")}}function d(a){t=!1,l.removeEventListener("mousemove",i),l.removeEventListener("mouseup",h),r.length||(p=null)}function e(a){s[a.data.node.id]||(r.push(a.data.node),s[a.data.node.id]=!0,r.length&&!t&&(p=r[r.length-1],n.addEventListener("mousedown",g)))}function f(a){var b=r.map(function(a){return a}).indexOf(a.data.node);r.splice(b,1),delete s[a.data.node.id],r.length&&!t?p=r[r.length-1]:n.removeEventListener("mousedown",g)}function g(a){t=!0;var b=k.graph.nodes().length;if(p&&b>1){n.removeEventListener("mousedown",g),l.addEventListener("mousemove",i),l.addEventListener("mouseup",h);var c,d;for(c in k.cameras)d=k.cameras[c],void 0!==d.edgequadtree&&(d.edgequadtree._enabled=!1);m.settings({mouseEnabled:!1,enableHovering:!1}),k.refresh(),j.dispatchEvent("startdrag",{node:p,captor:a,renderer:m})}}function h(a){t=!1,n.addEventListener("mousedown",g),l.removeEventListener("mousemove",i),l.removeEventListener("mouseup",h);var b,c;for(b in k.cameras)c=k.cameras[b],void 0!==c.edgequadtree&&(c.edgequadtree._enabled=!0);m.settings({mouseEnabled:!0,enableHovering:!0}),k.refresh(),u&&j.dispatchEvent("drop",{node:p,captor:a,renderer:m}),j.dispatchEvent("dragend",{node:p,captor:a,renderer:m}),u=!1,p=null}function i(a){function b(){for(var b=c(m.container),d=a.clientX-b.left,e=a.clientY-b.top,f=Math.cos(o.angle),g=Math.sin(o.angle),h=k.graph.nodes(),i=[],l=0;l<2;l++){var n=h[l],r={x:n.x*f+n.y*g,y:n.y*f-n.x*g,renX:n[q+"x"],renY:n[q+"y"]};i.push(r)}if(i[0].x===i[1].x&&i[0].y===i[1].y){var s=0===i[0].renX?1:i[0].renX,t=0===i[0].renY?1:i[0].renY;d=i[0].x/s*(d-i[0].renX)+i[0].x,e=i[0].y/t*(e-i[0].renY)+i[0].y}else{var s=(i[1].renX-i[0].renX)/(i[1].x-i[0].x),t=(i[1].renY-i[0].renY)/(i[1].y-i[0].y);i[1].x===i[0].x&&(s=t),i[1].y===i[0].y&&(t=s),d=(d-i[0].renX)/s+i[0].x,e=(e-i[0].renY)/t+i[0].y}p.x=d*f-e*g,p.y=e*f+d*g,k.refresh(),u=!0,j.dispatchEvent("drag",{node:p,captor:a,renderer:m})}if(navigator.userAgent.toLowerCase().indexOf("firefox")>-1){clearTimeout(d);var d=setTimeout(b,0)}else b()}sigma.classes.dispatcher.extend(this);var j=this,k=a,l=document.body,m=b,n=b.container.lastChild,o=b.camera,p=null,q="",r=[],s={},t=!1,u=!1;b instanceof sigma.renderers.svg&&(n=b.container.firstChild),q=b instanceof sigma.renderers.webgl?b.options.prefix.substr(5):b.options.prefix,b.bind("overNode",e),b.bind("outNode",f),b.bind("click",d),k.bind("kill",function(){j.unbindAll()}),this.unbindAll=function(){n.removeEventListener("mousedown",g),l.removeEventListener("mousemove",i),l.removeEventListener("mouseup",h),m.unbind("overNode",e),m.unbind("outNode",f)}}if("undefined"==typeof sigma)throw"sigma is not declared";sigma.utils.pkg("sigma.plugins");var b={};sigma.plugins.dragNodes=function(c,d){return b[c.id]||(b[c.id]=new a(c,d)),c.bind("kill",function(){sigma.plugins.killDragNodes(c)}),b[c.id]},sigma.plugins.killDragNodes=function(c){b[c.id]instanceof a&&(b[c.id].unbindAll(),delete b[c.id])}}).call(window);</script>
 <script>!function(){"use strict";sigma.utils.pkg("sigma.canvas.edgehovers"),sigma.canvas.edgehovers.dashed=function(a,b,c,d,e){var f=a.active?a.active_color||e("defaultEdgeActiveColor"):a.color,g=e("prefix")||"",h=a[g+"size"]||1,i=e("edgeColor"),j=e("defaultNodeColor"),k=e("defaultEdgeColor");if(!f)switch(i){case"source":f=b.color||j;break;case"target":f=c.color||j;break;default:f=k}f="edge"===e("edgeHoverColor")?a.hover_color||f:a.hover_color||e("defaultEdgeHoverColor")||f,h*=e("edgeHoverSizeRatio"),d.save(),d.setLineDash([8,3]),d.strokeStyle=f,d.lineWidth=h,d.beginPath(),d.moveTo(b[g+"x"],b[g+"y"]),d.lineTo(c[g+"x"],c[g+"y"]),d.stroke(),d.restore()}}(),function(){"use strict";sigma.utils.pkg("sigma.canvas.edgehovers"),sigma.canvas.edgehovers.dotted=function(a,b,c,d,e){var f=a.active?a.active_color||e("defaultEdgeActiveColor"):a.color,g=e("prefix")||"",h=a[g+"size"]||1,i=e("edgeColor"),j=e("defaultNodeColor"),k=e("defaultEdgeColor");if(!f)switch(i){case"source":f=b.color||j;break;case"target":f=c.color||j;break;default:f=k}f="edge"===e("edgeHoverColor")?a.hover_color||f:a.hover_color||e("defaultEdgeHoverColor")||f,h*=e("edgeHoverSizeRatio"),d.save(),d.setLineDash([2]),d.strokeStyle=f,d.lineWidth=h,d.beginPath(),d.moveTo(b[g+"x"],b[g+"y"]),d.lineTo(c[g+"x"],c[g+"y"]),d.stroke(),d.restore()}}(),function(){"use strict";sigma.utils.pkg("sigma.canvas.edgehovers"),sigma.canvas.edgehovers.parallel=function(a,b,c,d,e){var f,g,h=a.active?a.active_color||e("defaultEdgeActiveColor"):a.color,i=e("prefix")||"",j=a[i+"size"]||1,k=e("edgeColor"),l=e("defaultNodeColor"),m=e("defaultEdgeColor"),n=b[i+"x"],o=b[i+"y"],p=c[i+"x"],q=c[i+"y"],r=sigma.utils.getDistance(n,o,p,q);if(!h)switch(k){case"source":h=b.color||l;break;case"target":h=c.color||l;break;default:h=m}h="edge"===e("edgeHoverColor")?a.hover_color||h:a.hover_color||e("defaultEdgeHoverColor")||h,j*=e("edgeHoverSizeRatio"),f=sigma.utils.getCircleIntersection(n,o,j,p,q,r),g=sigma.utils.getCircleIntersection(p,q,j,n,o,r),d.save(),d.strokeStyle=h,d.lineWidth=j,d.beginPath(),d.moveTo(f.xi,f.yi),d.lineTo(g.xi_prime,g.yi_prime),d.closePath(),d.stroke(),d.beginPath(),d.moveTo(f.xi_prime,f.yi_prime),d.lineTo(g.xi,g.yi),d.closePath(),d.stroke(),d.restore()}}(),function(){"use strict";sigma.utils.pkg("sigma.canvas.edgehovers"),sigma.canvas.edgehovers.tapered=function(a,b,c,d,e){var f=a.active?a.active_color||e("defaultEdgeActiveColor"):a.color,g=e("prefix")||"",h=a[g+"size"]||1,i=e("edgeColor"),g=e("prefix")||"",j=e("defaultNodeColor"),k=e("defaultEdgeColor"),l=b[g+"x"],m=b[g+"y"],n=c[g+"x"],o=c[g+"y"],p=sigma.utils.getDistance(l,m,n,o);if(!f)switch(i){case"source":f=b.color||j;break;case"target":f=c.color||j;break;default:f=k}f="edge"===e("edgeHoverColor")?a.hover_color||f:a.hover_color||e("defaultEdgeHoverColor")||f,h*=e("edgeHoverSizeRatio");var q=sigma.utils.getCircleIntersection(l,m,h,n,o,p);d.save(),d.globalAlpha=.65,d.fillStyle=f,d.beginPath(),d.moveTo(n,o),d.lineTo(q.xi,q.yi),d.lineTo(q.xi_prime,q.yi_prime),d.closePath(),d.fill(),d.restore()}}(),function(){"use strict";sigma.utils.pkg("sigma.canvas.edges"),sigma.canvas.edges.dashed=function(a,b,c,d,e){var f=a.active?a.active_color||e("defaultEdgeActiveColor"):a.color,g=e("prefix")||"",h=a[g+"size"]||1,i=e("edgeColor"),j=e("defaultNodeColor"),k=e("defaultEdgeColor");if(!f)switch(i){case"source":f=b.color||j;break;case"target":f=c.color||j;break;default:f=k}d.save(),a.active?d.strokeStyle="edge"===e("edgeActiveColor")?f||k:e("defaultEdgeActiveColor"):d.strokeStyle=f,d.setLineDash([8,3]),d.lineWidth=h,d.beginPath(),d.moveTo(b[g+"x"],b[g+"y"]),d.lineTo(c[g+"x"],c[g+"y"]),d.stroke(),d.restore()}}(),function(){"use strict";sigma.utils.pkg("sigma.canvas.edges"),sigma.canvas.edges.dotted=function(a,b,c,d,e){var f=a.active?a.active_color||e("defaultEdgeActiveColor"):a.color,g=e("prefix")||"",h=a[g+"size"]||1,i=e("edgeColor"),j=e("defaultNodeColor"),k=e("defaultEdgeColor");if(!f)switch(i){case"source":f=b.color||j;break;case"target":f=c.color||j;break;default:f=k}d.save(),a.active?d.strokeStyle="edge"===e("edgeActiveColor")?f||k:e("defaultEdgeActiveColor"):d.strokeStyle=f,d.setLineDash([2]),d.lineWidth=h,d.beginPath(),d.moveTo(b[g+"x"],b[g+"y"]),d.lineTo(c[g+"x"],c[g+"y"]),d.stroke(),d.restore()}}(),function(){"use strict";sigma.utils.pkg("sigma.canvas.edges"),sigma.canvas.edges.parallel=function(a,b,c,d,e){var f,g,h=a.active?a.active_color||e("defaultEdgeActiveColor"):a.color,i=e("prefix")||"",j=a[i+"size"]||1,k=e("edgeColor"),l=e("defaultNodeColor"),m=e("defaultEdgeColor"),n=b[i+"x"],o=b[i+"y"],p=c[i+"x"],q=c[i+"y"],r=sigma.utils.getDistance(n,o,p,q);if(!h)switch(k){case"source":h=b.color||l;break;case"target":h=c.color||l;break;default:h=m}f=sigma.utils.getCircleIntersection(n,o,j,p,q,r),g=sigma.utils.getCircleIntersection(p,q,j,n,o,r),d.save(),a.active?d.strokeStyle="edge"===e("edgeActiveColor")?h||m:e("defaultEdgeActiveColor"):d.strokeStyle=h,d.lineWidth=j,d.beginPath(),d.moveTo(f.xi,f.yi),d.lineTo(g.xi_prime,g.yi_prime),d.closePath(),d.stroke(),d.beginPath(),d.moveTo(f.xi_prime,f.yi_prime),d.lineTo(g.xi,g.yi),d.closePath(),d.stroke(),d.restore()}}(),function(){"use strict";sigma.utils.pkg("sigma.canvas.edges"),sigma.canvas.edges.tapered=function(a,b,c,d,e){var f=a.active?a.active_color||e("defaultEdgeActiveColor"):a.color,g=e("prefix")||"",h=a[g+"size"]||1,i=e("edgeColor"),g=e("prefix")||"",j=e("defaultNodeColor"),k=e("defaultEdgeColor"),l=b[g+"x"],m=b[g+"y"],n=c[g+"x"],o=c[g+"y"],p=sigma.utils.getDistance(l,m,n,o);if(!f)switch(i){case"source":f=b.color||j;break;case"target":f=c.color||j;break;default:f=k}var q=sigma.utils.getCircleIntersection(l,m,h,n,o,p);d.save(),a.active?d.fillStyle="edge"===e("edgeActiveColor")?f||k:e("defaultEdgeActiveColor"):d.fillStyle=f,d.globalAlpha=.65,d.beginPath(),d.moveTo(n,o),d.lineTo(q.xi,q.yi),d.lineTo(q.xi_prime,q.yi_prime),d.closePath(),d.fill(),d.restore()}}();</script>
 <script>(function(){"use strict";if("undefined"==typeof sigma)throw"sigma is not declared";sigma.utils.pkg("sigma.plugins");sigma.plugins.relativeSize=function(a,b){for(var c=a.graph.nodes(),d=0;d<c.length;d++){var e=a.graph.degree(c[d].id);c[d].size=b*Math.sqrt(e)}a.refresh()}}).call(window);</script>
-<script>!function(){"use strict";function a(a,b,c,d,f,g,h,i,j){a.beginPath(),a.fillStyle=j;var k=e(b,c,d.x,d.y,f,g,h);a.arc(k.x,k.y,3*i,0,2*Math.PI,!1),a.fill()}function b(a,b,c,d){var e=1-a;return e*e*b+2*e*a*c+a*a*d}function c(a,c,d,e,f,g,h){return{x:b(h,a,d,f),y:b(h,c,e,g)}}function d(a,b,c,d){return Math.sqrt((c-a)*(c-a)+(d-b)*(d-b))}function e(a,b,e,f,g,h,i){for(var j=0,k=1e3,l=.001,m=0;m<1;m+=l){var n=c(a,b,e,f,g,h,m),o=d(a,b,n.x,n.y);Math.abs(o-i)<k&&(k=Math.abs(o-i),j=m)}return c(a,b,e,f,g,h,j)}sigma.utils.pkg("sigma.canvas.edges"),sigma.canvas.edges.dotCurve=function(b,c,d,e,f){var g=b.color,h=f("prefix")||"",i=b[h+"size"]||1,j=f("edgeColor"),k=f("defaultNodeColor"),l=f("defaultEdgeColor"),m={},n=c[h+"size"],o=c[h+"x"],p=c[h+"y"],q=d[h+"x"],r=d[h+"y"];if(m=c.id===d.id?sigma.utils.getSelfLoopControlPoints(o,p,n):sigma.utils.getQuadraticControlPoint(o,p,q,r),!g)switch(j){case"source":g=c.color||k;break;case"target":g=d.color||k;break;default:g=l}if(e.strokeStyle=g,e.lineWidth=i,e.beginPath(),e.moveTo(o,p),c.id===d.id?e.bezierCurveTo(m.x1,m.y1,m.x2,m.y2,q,r):e.quadraticCurveTo(m.x,m.y,q,r),e.stroke(),void 0!=b.sourceDotColor||void 0!=b.targetDotColor){var s=b.dotOffset||3,t=b.dotSize||1;t*=i,s*=n,void 0!=b.sourceDotColor&&a(e,o,p,m,q,r,s,t,b.sourceDotColor),void 0!=b.targetDotColor&&a(e,q,r,m,o,p,s,t,b.targetDotColor)}}}(),function(){"use strict";function a(a,b,c,d,f,g,h,i,j){a.beginPath(),a.fillStyle=j;var k=e(b,c,d.x,d.y,f,g,h);a.arc(k.x,k.y,3*i,0,2*Math.PI,!1),a.fill()}function b(a,b,c,d){var e=1-a;return e*e*b+2*e*a*c+a*a*d}function c(a,c,d,e,f,g,h){return{x:b(h,a,d,f),y:b(h,c,e,g)}}function d(a,b,c,d){return Math.sqrt((c-a)*(c-a)+(d-b)*(d-b))}function e(a,b,e,f,g,h,i){for(var j=0,k=1e3,l=.001,m=0;m<1;m+=l){var n=c(a,b,e,f,g,h,m),o=d(a,b,n.x,n.y);Math.abs(o-i)<k&&(k=Math.abs(o-i),j=m)}return c(a,b,e,f,g,h,j)}sigma.utils.pkg("sigma.canvas.edges"),sigma.canvas.edges.dotCurvedArrow=function(b,c,d,e,f){var g,h,i,j,k,l=b.color,m=f("prefix")||"",n=f("edgeColor"),o=f("defaultNodeColor"),p=f("defaultEdgeColor"),q={},r=b[m+"size"]||1,s=b.count||0,t=d[m+"size"],u=c[m+"x"],v=c[m+"y"],w=d[m+"x"],x=d[m+"y"],y=Math.max(2.5*r,f("minArrowSize"));if(q=c.id===d.id?sigma.utils.getSelfLoopControlPoints(u,v,t,s):sigma.utils.getQuadraticControlPoint(u,v,w,x,s),c.id===d.id?(g=Math.sqrt(Math.pow(w-q.x1,2)+Math.pow(x-q.y1,2)),h=q.x1+(w-q.x1)*(g-y-t)/g,i=q.y1+(x-q.y1)*(g-y-t)/g,j=(w-q.x1)*y/g,k=(x-q.y1)*y/g):(g=Math.sqrt(Math.pow(w-q.x,2)+Math.pow(x-q.y,2)),h=q.x+(w-q.x)*(g-y-t)/g,i=q.y+(x-q.y)*(g-y-t)/g,j=(w-q.x)*y/g,k=(x-q.y)*y/g),!l)switch(n){case"source":l=c.color||o;break;case"target":l=d.color||o;break;default:l=p}if(e.strokeStyle=l,e.lineWidth=r,e.beginPath(),e.moveTo(u,v),c.id===d.id?e.bezierCurveTo(q.x2,q.y2,q.x1,q.y1,h,i):e.quadraticCurveTo(q.x,q.y,h,i),e.stroke(),e.fillStyle=l,e.beginPath(),e.moveTo(h+j,i+k),e.lineTo(h+.6*k,i-.6*j),e.lineTo(h-.6*k,i+.6*j),e.lineTo(h+j,i+k),e.closePath(),e.fill(),void 0!=b.sourceDotColor||void 0!=b.targetDotColor){var z=b.dotOffset||3,A=b.dotSize||1;A*=r,z*=t,void 0!=b.sourceDotColor&&a(e,u,v,q,w,x,z,A,b.sourceDotColor),void 0!=b.targetDotColor&&a(e,w,x,q,u,v,z,A,b.targetDotColor)}}}();</script>
 <script>(function(a){"use strict";if("undefined"==typeof sigma)throw"sigma is not declared";sigma.utils.pkg("sigma.settings");var b={defaultEdgeLabelColor:"#000",defaultEdgeLabelActiveColor:"#000",defaultEdgeLabelSize:10,edgeLabelSize:"fixed",edgeLabelSizePowRatio:1,edgeLabelThreshold:1};sigma.settings=sigma.utils.extend(sigma.settings||{},b),sigma.settings.drawEdgeLabels=!0}).call(this),function(a){"use strict";if("undefined"==typeof sigma)throw"sigma is not declared";sigma.utils.pkg("sigma.canvas.edges.labels"),sigma.canvas.edges.labels.curve=function(a,b,c,d,e){if("string"==typeof a.label){var f=e("prefix")||"",g=a[f+"size"]||1;if(!(g<e("edgeLabelThreshold"))){var h,i,j,k=b[f+"size"],l=b[f+"x"],m=b[f+"y"],n=c[f+"x"],o=c[f+"y"],p=n-l,q=o-m,r=l<n?1:-1,s={},t=.5;b.id===c.id?(s=sigma.utils.getSelfLoopControlPoints(l,m,k),i=sigma.utils.getPointOnBezierCurve(t,l,m,n,o,s.x1,s.y1,s.x2,s.y2),j=Math.atan2(1,1)):(s=sigma.utils.getQuadraticControlPoint(l,m,n,o),i=sigma.utils.getPointOnQuadraticCurve(t,l,m,n,o,s.x,s.y),j=Math.atan2(q*r,p*r)),h="fixed"===e("edgeLabelSize")?e("defaultEdgeLabelSize"):e("defaultEdgeLabelSize")*g*Math.pow(g,-1/e("edgeLabelSizePowRatio")),d.save(),a.active?(d.font=[e("activeFontStyle"),h+"px",e("activeFont")||e("font")].join(" "),d.fillStyle="edge"===e("edgeActiveColor")?a.active_color||e("defaultEdgeActiveColor"):e("defaultEdgeLabelActiveColor")):(d.font=[e("fontStyle"),h+"px",e("font")].join(" "),d.fillStyle="edge"===e("edgeLabelColor")?a.color||e("defaultEdgeColor"):e("defaultEdgeLabelColor")),d.textAlign="center",d.textBaseline="alphabetic",d.translate(i.x,i.y),d.rotate(j),d.fillText(a.label,0,-g/2-3),d.restore()}}}}.call(this),function(a){"use strict";if("undefined"==typeof sigma)throw"sigma is not declared";sigma.utils.pkg("sigma.canvas.edges.labels"),sigma.canvas.edges.labels.curvedArrow=function(a,b,c,d,e){sigma.canvas.edges.labels.curve(a,b,c,d,e)}}.call(this),function(a){"use strict";if("undefined"==typeof sigma)throw"sigma is not declared";sigma.utils.pkg("sigma.canvas.edges.labels"),sigma.canvas.edges.labels.def=function(a,b,c,d,e){if("string"==typeof a.label&&b!=c){var f=e("prefix")||"",g=a[f+"size"]||1;if(!(g<e("edgeLabelThreshold"))){if(0===e("edgeLabelSizePowRatio"))throw'"edgeLabelSizePowRatio" must not be 0.';var h,i=(b[f+"x"]+c[f+"x"])/2,j=(b[f+"y"]+c[f+"y"])/2,k=c[f+"x"]-b[f+"x"],l=c[f+"y"]-b[f+"y"],m=b[f+"x"]<c[f+"x"]?1:-1,n=Math.atan2(l*m,k*m);h="fixed"===e("edgeLabelSize")?e("defaultEdgeLabelSize"):e("defaultEdgeLabelSize")*g*Math.pow(g,-1/e("edgeLabelSizePowRatio")),d.save(),a.active?(d.font=[e("activeFontStyle"),h+"px",e("activeFont")||e("font")].join(" "),d.fillStyle="edge"===e("edgeActiveColor")?a.active_color||e("defaultEdgeActiveColor"):e("defaultEdgeLabelActiveColor")):(d.font=[e("fontStyle"),h+"px",e("font")].join(" "),d.fillStyle="edge"===e("edgeLabelColor")?a.color||e("defaultEdgeColor"):e("defaultEdgeLabelColor")),d.textAlign="center",d.textBaseline="alphabetic",d.translate(i,j),d.rotate(n),d.fillText(a.label,0,-g/2-3),d.restore()}}}}.call(this);</script>
 <script>(function(a){"use strict";function b(a){var b={id:a.id,label:a.label};return a.viz&&(b.viz=a.viz),a.attributes&&(b.attributes=a.attributes),b}function c(a){var b={id:a.id,type:a.type||"undirected",label:a.label||"",source:a.source,target:a.target,weight:+a.weight||1};return a.viz&&(b.viz=a.viz),a.attributes&&(b.attributes=a.attributes),b}function d(a){function d(){var a={};return l.els.meta?(a.lastmodifieddate=l.els.meta.getAttribute("lastmodifieddate"),h.nodeListEach(l.els.meta.childNodes,function(b){a[b.tagName.toLowerCase()]=b.textContent}),a):a}function e(a){var b=[];return l.els.model[a]&&h.nodeListEach(l.els.model[a],function(a){var c={id:a.getAttribute("id")||a.getAttribute("for"),type:a.getAttribute("type")||"string",title:a.getAttribute("title")||""},d=h.nodeListToArray(a.childNodes);d.length>0&&(c.defaultValue=d[0].textContent),b.push(c)}),b.length>0&&b}function f(a,b){var c={},d=b.getElementsByTagName("attvalue"),e=h.nodeListToHash(d,function(a){var b=h.namedNodeMapToObject(a.attributes);return{key:b.id||b.for,value:b.value}});return a.map(function(a){c[a.id]=!(a.id in e)&&"defaultValue"in a?h.enforceType(a.type,a.defaultValue):h.enforceType(a.type,e[a.id])}),c}function g(a){var c=[];return h.nodeListEach(l.els.nodes,function(d){var e={id:d.getAttribute("id"),label:d.getAttribute("label")||""};a&&(e.attributes=f(a,d)),l.hasViz&&(e.viz=i(d)),c.push(b(e))}),c}function i(a){var b={},c=h.getFirstElementByTagNS(a,"viz","color");if(c){var d=["r","g","b","a"].map(function(a){return c.getAttribute(a)});b.color=h.getRGB(d)}var e=h.getFirstElementByTagNS(a,"viz","position");e&&(b.position={},["x","y","z"].map(function(a){b.position[a]=+e.getAttribute(a)}));var f=h.getFirstElementByTagNS(a,"viz","size");f&&(b.size=+f.getAttribute("value"));var g=h.getFirstElementByTagNS(a,"viz","shape");return g&&(b.shape=g.getAttribute("value")),b}function j(a,b){var d=[];return h.nodeListEach(l.els.edges,function(e){var g=h.namedNodeMapToObject(e.attributes);"type"in g||(g.type=b),a&&(g.attributes=f(a,e)),l.hasViz&&(g.viz=k(e)),d.push(c(g))}),d}function k(a){var b={},c=h.getFirstElementByTagNS(a,"viz","color");if(c){var d=["r","g","b","a"].map(function(a){return c.getAttribute(a)});b.color=h.getRGB(d)}var e=h.getFirstElementByTagNS(a,"viz","shape");e&&(b.shape=e.getAttribute("value"));var f=h.getFirstElementByTagNS(a,"viz","thickness");return f&&(b.thickness=+f.getAttribute("value")),b}var l={};l.els={root:a.getElementsByTagName("gexf")[0],graph:a.getElementsByTagName("graph")[0],meta:a.getElementsByTagName("meta")[0],nodes:a.getElementsByTagName("node"),edges:a.getElementsByTagName("edge"),model:h.getModelTags(a)},l.hasViz=!!h.getAttributeNS(l.els.root,"xmlns","viz"),l.version=l.els.root.getAttribute("version")||"1.0",l.mode=l.els.graph.getAttribute("mode")||"static";var m=l.els.graph.getAttribute("defaultedgetype");l.defaultEdgetype=m||"undirected";var n=e("node"),o=e("edge"),p={version:l.version,mode:l.mode,defaultEdgeType:l.defaultEdgetype,meta:d(),model:{},nodes:g(n),edges:j(o,l.defaultEdgetype)};return n&&(p.model.node=n),o&&(p.model.edge=o),p}function e(a,b){var c=function(){if(window.XMLHttpRequest)return new XMLHttpRequest;var a,b;if(window.ActiveXObject){a=["Msxml2.XMLHTTP.6.0","Msxml2.XMLHTTP.3.0","Msxml2.XMLHTTP","Microsoft.XMLHTTP"];for(b in a)try{return new ActiveXObject(a[b])}catch(a){}}return null}();if(!c)throw"XMLHttpRequest not supported, cannot load the file.";var d,e="function"==typeof b;return c.overrideMimeType?(c.overrideMimeType("text/xml"),d=function(a){return a.responseXML}):d=function(a){return(new DOMParser).parseFromString(a.responseText,"application/xml")},c.open("GET",a,e),e&&(c.onreadystatechange=function(){4===c.readyState&&b(d(c))}),c.send(),e?c:d(c)}function f(a){return d(a)}function g(a,b){return"function"==typeof b?e(a,function(a){b(d(a))}):d(e(a))}var h={getModelTags:function(a){var b,c=a.getElementsByTagName("attributes"),d={},e=c.length;for(b=0;b<e;b++)d[c[b].getAttribute("class")]=c[b].childNodes;return d},nodeListToArray:function(a){for(var b=[],c=0,d=a.length;c<d;++c)"#text"!==a[c].nodeName&&b.push(a[c]);return b},nodeListEach:function(a,b){for(var c=0,d=a.length;c<d;++c)"#text"!==a[c].nodeName&&b(a[c])},nodeListToHash:function(a,b){for(var c={},d=0;d<a.length;d++)if("#text"!==a[d].nodeName){var e=b(a[d]);c[e.key]=e.value}return c},namedNodeMapToObject:function(a){for(var b={},c=0;c<a.length;c++)b[a[c].name]=a[c].value;return b},getFirstElementByTagNS:function(a,b,c){var d=a.getElementsByTagName(b+":"+c)[0];return d||(d=a.getElementsByTagNameNS(b,c)[0]),d||(d=a.getElementsByTagName(c)[0]),d},getAttributeNS:function(b,c,d){var e=b.getAttribute(c+":"+d);return e===a&&(e=b.getAttributeNS(c,d)),e===a&&(e=b.getAttribute(d)),e},enforceType:function(a,b){switch(a){case"boolean":b="true"===b;break;case"integer":case"long":case"float":case"double":b=+b;break;case"liststring":b=b?b.split("|"):[]}return b},getRGB:function(a){return a[3]?"rgba("+a.join(",")+")":"rgb("+a.slice(0,-1).join(",")+")"}};if(void 0!==this.gexf)throw'gexf: error - a variable called "gexf" already exists in the global scope';this.gexf={parse:f,fetch:g,version:"0.1.1"},"undefined"!=typeof exports&&this.exports!==exports&&(module.exports=this.gexf)}).call(this),function(a){"use strict";function b(){return"e"+c++}if("undefined"==typeof sigma)throw"sigma is not declared";sigma.utils.pkg("sigma.parsers");var c=0;sigma.parsers.gexf=function(a,c,d){function e(a){for(h=a.nodes,f=0,g=h.length;f<g;f++)i=h[f],i.id=i.id,i.viz&&"object"==typeof i.viz&&(i.viz.position&&"object"==typeof i.viz.position&&(i.x=i.viz.position.x,i.y=-i.viz.position.y),i.size=i.viz.size,i.color=i.viz.color);for(h=a.edges,f=0,g=h.length;f<g;f++)i=h[f],i.id="string"==typeof i.id?i.id:b(),i.source=""+i.source,i.target=""+i.target,i.viz&&"object"==typeof i.viz&&(i.color=i.viz.color,i.size=i.viz.thickness),i.size=i.weight,i.direction=i.type,delete i.type;if(c instanceof sigma){for(c.graph.clear(),h=a.nodes,f=0,g=h.length;f<g;f++)c.graph.addNode(h[f]);for(h=a.edges,f=0,g=h.length;f<g;f++)c.graph.addEdge(h[f])}else"object"==typeof c?(c.graph=a,c=new sigma(c)):"function"==typeof c&&(d=c,c=null);return d?void d(c||a):a}var f,g,h,i;if("string"==typeof a)gexf.fetch(a,e);else if("object"==typeof a)return e(gexf.parse(a))}}.call(this);</script>
-<script>;(function(undefined) {
-  'use strict';
-
-  /**
-   * Sigma SVG Exporter
-   * ===================
-   *
-   * This plugin is designed to export a graph to a svg file that can be
-   * downloaded or just used elsewhere.
-   *
-   * Author: Guillaume Plique (Yomguithereal)
-   * Version: 0.0.1
-   */
-
-  // Terminating if sigma were not to be found
-  if (typeof sigma === 'undefined')
-    throw 'sigma.renderers.snapshot: sigma not in scope.';
-
-
-  /**
-   * Polyfills
-   */
-  var URL = this.URL || this.webkitURL || this;
-
-
-  /**
-   * Utilities
-   */
-  function createBlob(data) {
-    return new Blob(
-      [data],
-      {type: 'image/svg+xml;charset=utf-8'}
-    );
-  }
-
-  function download(string, filename) {
-
-    // Creating blob href
-    var blob = createBlob(string);
-
-    // Anchor
-    var o = {};
-    o.anchor = document.createElement('a');
-    o.anchor.setAttribute('href', URL.createObjectURL(blob));
-    o.anchor.setAttribute('download', filename);
-
-    // Click event
-    var event = document.createEvent('MouseEvent');
-    event.initMouseEvent('click', true, false, window, 0, 0, 0 ,0, 0,
-      false, false, false, false, 0, null);
-
-    URL.revokeObjectURL(blob);
-
-    o.anchor.dispatchEvent(event);
-    delete o.anchor;
-  }
-
-
-  /**
-   * Defaults
-   */
-  var DEFAULTS = {
-    size: '1000',
-    width: '1000',
-    height: '1000',
-    classes: true,
-    labels: true,
-    data: false,
-    download: false,
-    filename: 'graph.svg'
-  };
-
-  var XMLNS = 'http://www.w3.org/2000/svg';
-
-
-  /**
-   * Subprocesses
-   */
-  function optimize(svg, prefix, params) {
-    var nodeColorIndex = {},
-        edgeColorIndex = {},
-        count = 0,
-        color,
-        style,
-        styleText = '',
-        f,
-        i,
-        l;
-
-    // Creating style tag if needed
-    if (params.classes) {
-      style = document.createElementNS(XMLNS, 'style');
-      style.setAttribute('type', 'text/css')
-      svg.insertBefore(style, svg.firstChild);
-    }
-
-    // Iterating over nodes
-    var nodes = svg.querySelectorAll('[id="' + prefix + '-group-nodes"] > [class="' + prefix + '-node"]');
-
-    for (i = 0, l = nodes.length, f = true; i < l; i++) {
-      color = nodes[i].getAttribute('fill');
-
-      if (!params.data)
-        nodes[i].removeAttribute('data-node-id');
-
-      if (params.classes) {
-
-        if (!(color in nodeColorIndex)) {
-          nodeColorIndex[color] = (f ? prefix + '-node' : 'c-' + (count++));
-          styleText += '.' + nodeColorIndex[color] + '{fill: ' + color + '}';
-        }
-
-        if (nodeColorIndex[color] !== prefix + '-node')
-          nodes[i].setAttribute('class', nodes[i].getAttribute('class') + ' ' + nodeColorIndex[color]);
-        nodes[i].removeAttribute('fill');
-      }
-
-      f = false;
-    }
-
-    // Iterating over edges
-    var edges = svg.querySelectorAll('[id="' + prefix + '-group-edges"] > [class="' + prefix + '-edge"]');
-
-    for (i = 0, l = edges.length, f = true; i < l; i++) {
-      color = edges[i].getAttribute('stroke');
-
-      if (!params.data)
-        edges[i].removeAttribute('data-edge-id');
-
-      if (params.classes) {
-
-        if (!(color in edgeColorIndex)) {
-          edgeColorIndex[color] = (f ? prefix + '-edge' : 'c-' + (count++));
-          styleText += '.' + edgeColorIndex[color] + '{stroke: ' + color + '}';
-        }
-
-        if (edgeColorIndex[color] !== prefix + '-edge')
-          edges[i].setAttribute('class', edges[i].getAttribute('class') + ' ' + edgeColorIndex[color]);
-        edges[i].removeAttribute('stroke');
-      }
-
-      f = false;
-    }
-
-    if (params.classes)
-      style.appendChild(document.createTextNode(styleText));
-  }
-
-
-  /**
-   * Extending prototype
-   */
-  sigma.prototype.toSVG = function(params) {
-    params = params || {};
-
-    var prefix = this.settings('classPrefix'),
-        w = params.size || params.width || DEFAULTS.size,
-        h = params.size || params.height || DEFAULTS.size;
-
-    // Creating a dummy container
-    var container = document.createElement('div');
-    container.setAttribute('width', w);
-    container.setAttribute('height', h);
-    container.setAttribute('style', 'position:absolute; top: 0px; left:0px; width: ' + w + 'px; height: ' + h + 'px;');
-
-    // Creating a camera
-    var camera = this.addCamera();
-
-    // Creating a svg renderer
-    var renderer = this.addRenderer({
-      camera: camera,
-      container: container,
-      type: 'svg',
-      forceLabels: !!params.labels
-    });
-
-    // Refreshing
-    renderer.resize(w, h);
-    this.refresh();
-
-    // Dropping camera and renderers before something nasty happens
-    this.killRenderer(renderer);
-    this.killCamera(camera);
-
-    // Retrieving svg
-    var svg = container.querySelector('svg');
-    svg.removeAttribute('style');
-    svg.setAttribute('width', w + 'px');
-    svg.setAttribute('height', h + 'px');
-    svg.setAttribute('x', '0px');
-    svg.setAttribute('y', '0px');
-    // svg.setAttribute('viewBox', '0 0 1000 1000');
-
-    // Dropping labels
-    if (!params.labels) {
-      var labelGroup = svg.querySelector('[id="' + prefix + '-group-labels"]');
-      svg.removeChild(labelGroup);
-    }
-
-    // Dropping hovers
-    var hoverGroup = svg.querySelector('[id="' + prefix + '-group-hovers"]');
-    svg.removeChild(hoverGroup);
-
-    // Optims?
-    params.classes = (params.classes !== false);
-    if (!params.data || params.classes)
-      optimize(svg, prefix, params);
-
-    // Retrieving svg string
-    var svgString = svg.outerHTML;
-
-    // Paranoid cleanup
-    container = null;
-
-    // Output string
-    var output = '<?xml version="1.0" encoding="utf-8"?>\n';
-    output += '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">\n';
-    output += svgString;
-
-    if (params.download)
-      download(output, params.filename || DEFAULTS.filename);
-
-    return output;
-  };
-}).call(this);
-</script>
-<script>/**
- * This plugin provides a method to retrieve the neighborhood of a node.
- * Basically, it loads a graph and stores it in a headless sigma.classes.graph
- * instance, that you can query to retrieve neighborhoods.
- *
- * It is useful for people who want to provide a neighborhoods navigation
- * inside a big graph instead of just displaying it, and without having to
- * deploy an API or the list of every neighborhoods.
- *
- * This plugin also adds to the graph model a method called "neighborhood".
- * Check the code for more information.
- *
- * Here is how to use it:
- *
- *  > var db = new sigma.plugins.neighborhoods();
- *  > db.load('path/to/my/graph.json', function() {
- *  >   var nodeId = 'anyNodeID';
- *  >   mySigmaInstance
- *  >     .read(db.neighborhood(nodeId))
- *  >     .refresh();
- *  > });
- */
-(function() {
-  'use strict';
-
-  if (typeof sigma === 'undefined')
-    throw 'sigma is not declared';
-
-  /**
-   * This method takes the ID of node as argument and returns the graph of the
-   * specified node, with every other nodes that are connected to it and every
-   * edges that connect two of the previously cited nodes. It uses the built-in
-   * indexes from sigma's graph model to search in the graph.
-   *
-   * @param  {string} centerId The ID of the center node.
-   * @return {object}          The graph, as a simple descriptive object, in
-   *                           the format required by the "read" graph method.
-   */
-  sigma.classes.graph.addMethod(
-    'neighborhood',
-    function(centerId) {
-      var k1,
-          k2,
-          k3,
-          node,
-          center,
-          // Those two local indexes are here just to avoid duplicates:
-          localNodesIndex = {},
-          localEdgesIndex = {},
-          // And here is the resulted graph, empty at the moment:
-          graph = {
-            nodes: [],
-            edges: []
-          };
-
-      // Check that the exists:
-      if (!this.nodes(centerId))
-        return graph;
-
-      // Add center. It has to be cloned to add it the "center" attribute
-      // without altering the current graph:
-      node = this.nodes(centerId);
-      center = {};
-      center.center = true;
-      for (k1 in node)
-        center[k1] = node[k1];
-
-      localNodesIndex[centerId] = true;
-      graph.nodes.push(center);
-
-      // Add neighbors and edges between the center and the neighbors:
-      for (k1 in this.allNeighborsIndex[centerId]) {
-        if (!localNodesIndex[k1]) {
-          localNodesIndex[k1] = true;
-          graph.nodes.push(this.nodesIndex[k1]);
-        }
-
-        for (k2 in this.allNeighborsIndex[centerId][k1])
-          if (!localEdgesIndex[k2]) {
-            localEdgesIndex[k2] = true;
-            graph.edges.push(this.edgesIndex[k2]);
-          }
-      }
-
-      // Add edges connecting two neighbors:
-      for (k1 in localNodesIndex)
-        if (k1 !== centerId)
-          for (k2 in localNodesIndex)
-            if (
-              k2 !== centerId &&
-              k1 !== k2 &&
-              this.allNeighborsIndex[k1][k2]
-            )
-              for (k3 in this.allNeighborsIndex[k1][k2])
-                if (!localEdgesIndex[k3]) {
-                  localEdgesIndex[k3] = true;
-                  graph.edges.push(this.edgesIndex[k3]);
-                }
-
-      // Finally, let's return the final graph:
-      return graph;
-    }
-  );
-
-  sigma.utils.pkg('sigma.plugins');
-
-  /**
-   * sigma.plugins.neighborhoods constructor.
-   */
-  sigma.plugins.neighborhoods = function() {
-    var ready = false,
-        readyCallbacks = [],
-        graph = new sigma.classes.graph();
-
-    /**
-     * This method just returns the neighborhood of a node.
-     *
-     * @param  {string} centerNodeID The ID of the center node.
-     * @return {object}              Returns the neighborhood.
-     */
-    this.neighborhood = function(centerNodeID) {
-      return graph.neighborhood(centerNodeID);
-    };
-
-    /**
-     * This method loads the JSON graph at "path", stores it in the local graph
-     * instance, and executes the callback.
-     *
-     * @param {string}    path     The path of the JSON graph file.
-     * @param {?function} callback Eventually a callback to execute.
-     */
-    this.load = function(path, callback) {
-      // Quick XHR polyfill:
-      var xhr = (function() {
-        if (window.XMLHttpRequest)
-          return new XMLHttpRequest();
-
-        var names,
-            i;
-
-        if (window.ActiveXObject) {
-          names = [
-            'Msxml2.XMLHTTP.6.0',
-            'Msxml2.XMLHTTP.3.0',
-            'Msxml2.XMLHTTP',
-            'Microsoft.XMLHTTP'
-          ];
-
-          for (i in names)
-            try {
-              return new ActiveXObject(names[i]);
-            } catch (e) {}
-        }
-
-        return null;
-      })();
-
-      if (!xhr)
-        throw 'XMLHttpRequest not supported, cannot load the data.';
-
-      xhr.open('GET', path, true);
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4) {
-          graph.clear().read(JSON.parse(xhr.responseText));
-
-          if (callback)
-            callback();
-        }
-      };
-
-      // Start loading the file:
-      xhr.send();
-
-      return this;
-    };
-
-    /**
-     * This method cleans the graph instance "reads" a graph into it.
-     *
-     * @param {object} g The graph object to read.
-     */
-    this.read = function(g) {
-      graph.clear().read(g);
-    };
-  };
-}).call(window);
-</script>
-<script>;(function(undefined) {
-  'use strict';
-
-  if (typeof sigma === 'undefined')
-    throw 'sigma is not declared';
-
-  // Initialize package:
-  sigma.utils.pkg('sigma.plugins');
-
-  // Add custom graph methods:
-  /**
-   * This methods returns an array of nodes that are adjacent to a node.
-   *
-   * @param  {string} id The node id.
-   * @return {array}     The array of adjacent nodes.
-   */
-  if (!sigma.classes.graph.hasMethod('adjacentNodes'))
-    sigma.classes.graph.addMethod('adjacentNodes', function(id) {
-      if (typeof id !== 'string')
-        throw 'adjacentNodes: the node id must be a string.';
-
-      var target,
-          nodes = [];
-      for(target in this.allNeighborsIndex[id]) {
-        nodes.push(this.nodesIndex[target]);
-      }
-      return nodes;
-    });
-
-  /**
-   * This methods returns an array of edges that are adjacent to a node.
-   *
-   * @param  {string} id The node id.
-   * @return {array}     The array of adjacent edges.
-   */
-  if (!sigma.classes.graph.hasMethod('adjacentEdges'))
-    sigma.classes.graph.addMethod('adjacentEdges', function(id) {
-      if (typeof id !== 'string')
-        throw 'adjacentEdges: the node id must be a string.';
-
-      var a = this.allNeighborsIndex[id],
-          eid,
-          target,
-          edges = [];
-      for(target in a) {
-        for(eid in a[target]) {
-          edges.push(a[target][eid]);
-        }
-      }
-      return edges;
-    });
-
-  /**
-   * Sigma Filter
-   * =============================
-   *
-   * @author Sébastien Heymann <seb@linkurio.us> (Linkurious)
-   * @version 0.1
-   */
-
-   var _g = undefined,
-       _s = undefined,
-       _chain = [], // chain of wrapped filters
-       _keysIndex = Object.create(null),
-       Processors = {};   // available predicate processors
-
-
-  /**
-   * Library of processors
-   * ------------------
-   */
-
-   /**
-    *
-    * @param  {function} fn The predicate.
-    */
-  Processors.nodes = function nodes(fn) {
-    var n = _g.nodes(),
-        ln = n.length,
-        e = _g.edges(),
-        le = e.length;
-
-    // hide node, or keep former value
-    while(ln--)
-      n[ln].hidden = !fn.call(_g, n[ln]) || n[ln].hidden;
-
-    while(le--)
-      if (_g.nodes(e[le].source).hidden || _g.nodes(e[le].target).hidden)
-        e[le].hidden = true;
-  };
-
-   /**
-    *
-    * @param  {function} fn The predicate.
-    */
-  Processors.edges = function edges(fn) {
-    var e = _g.edges(),
-        le = e.length;
-
-    // hide edge, or keep former value
-    while(le--)
-      e[le].hidden = !fn.call(_g, e[le]) || e[le].hidden;
-  };
-
-   /**
-    *
-    * @param  {string} id The center node.
-    */
-  Processors.neighbors = function neighbors(id) {
-    var n = _g.nodes(),
-        ln = n.length,
-        e = _g.edges(),
-        le = e.length,
-        neighbors = _g.adjacentNodes(id),
-        nn = neighbors.length,
-        no = {};
-
-    while(nn--)
-      no[neighbors[nn].id] = true;
-
-    while(ln--)
-      if (n[ln].id !== id && !(n[ln].id in no))
-        n[ln].hidden = true;
-
-    while(le--)
-      if (_g.nodes(e[le].source).hidden || _g.nodes(e[le].target).hidden)
-        e[le].hidden = true;
-  };
-
-
-  /**
-   * This function adds a filter to the chain of filters.
-   *
-   * @param  {function} fn  The filter (i.e. predicate processor).
-   * @param  {function} p   The predicate.
-   * @param  {?string}  key The key to identify the filter.
-   */
-  function register(fn, p, key) {
-    if (key != undefined && typeof key !== 'string')
-      throw 'The filter key "'+ key.toString() +'" must be a string.';
-
-    if (key != undefined && !key.length)
-      throw 'The filter key must be a non-empty string.';
-
-    if (typeof fn !== 'function')
-      throw 'The predicate of key "'+ key +'" must be a function.';
-
-    if ('undo' === key)
-      throw '"undo" is a reserved key.';
-
-    if (_keysIndex[key])
-      throw 'The filter "' + key + '" already exists.';
-
-    if (key)
-      _keysIndex[key] = true;
-
-    _chain.push({
-      'key': key,
-      'processor': fn,
-      'predicate': p
-    });
-  };
-
-  /**
-   * This function removes a set of filters from the chain.
-   *
-   * @param {object} o The filter keys.
-   */
-  function unregister (o) {
-    _chain = _chain.filter(function(a) {
-      return !(a.key in o);
-    });
-
-    for(var key in o)
-      delete _keysIndex[key];
-  };
-
-
-
-
-  /**
-   * Filter Object
-   * ------------------
-   * @param  {sigma} s The related sigma instance.
-   */
-  function Filter(s) {
-    _s = s;
-    _g = s.graph;
-  };
-
-
-  /**
-   * This method is used to filter the nodes. The method must be called with
-   * the predicate, which is a function that takes a node as argument and
-   * returns a boolean. It may take an identifier as argument to undo the
-   * filter later. The method wraps the predicate into an anonymous function
-   * that looks through each node in the graph. When executed, the anonymous
-   * function hides the nodes that fail a truth test (predicate). The method
-   * adds the anonymous function to the chain of filters. The filter is not
-   * executed until the apply() method is called.
-   *
-   * > var filter = new sigma.plugins.filter(s);
-   * > filter.nodesBy(function(n) {
-   * >   return this.degree(n.id) > 0;
-   * > }, 'degreeNotNull');
-   *
-   * @param  {function}             fn  The filter predicate.
-   * @param  {?string}              key The key to identify the filter.
-   * @return {sigma.plugins.filter}     Returns the instance.
-   */
-  Filter.prototype.nodesBy = function(fn, key) {
-    // Wrap the predicate to be applied on the graph and add it to the chain.
-    register(Processors.nodes, fn, key);
-
-    return this;
-  };
-
-  /**
-   * This method is used to filter the edges. The method must be called with
-   * the predicate, which is a function that takes a node as argument and
-   * returns a boolean. It may take an identifier as argument to undo the
-   * filter later. The method wraps the predicate into an anonymous function
-   * that looks through each edge in the graph. When executed, the anonymous
-   * function hides the edges that fail a truth test (predicate). The method
-   * adds the anonymous function to the chain of filters. The filter is not
-   * executed until the apply() method is called.
-   *
-   * > var filter = new sigma.plugins.filter(s);
-   * > filter.edgesBy(function(e) {
-   * >   return e.size > 1;
-   * > }, 'edgeSize');
-   *
-   * @param  {function}             fn  The filter predicate.
-   * @param  {?string}              key The key to identify the filter.
-   * @return {sigma.plugins.filter}     Returns the instance.
-   */
-  Filter.prototype.edgesBy = function(fn, key) {
-    // Wrap the predicate to be applied on the graph and add it to the chain.
-    register(Processors.edges, fn, key);
-
-    return this;
-  };
-
-  /**
-   * This method is used to filter the nodes which are not direct connections
-   * of a given node. The method must be called with the node identifier. It
-   * may take an identifier as argument to undo the filter later. The filter
-   * is not executed until the apply() method is called.
-   *
-   * > var filter = new sigma.plugins.filter(s);
-   * > filter.neighborsOf('n0');
-   *
-   * @param  {string}               id  The node id.
-   * @param  {?string}              key The key to identify the filter.
-   * @return {sigma.plugins.filter}     Returns the instance.
-   */
-  Filter.prototype.neighborsOf = function(id, key) {
-    if (typeof id !== 'string')
-      throw 'The node id "'+ id.toString() +'" must be a string.';
-    if (!id.length)
-      throw 'The node id must be a non-empty string.';
-
-    // Wrap the predicate to be applied on the graph and add it to the chain.
-    register(Processors.neighbors, id, key);
-
-    return this;
-  };
-
-  /**
-   * This method is used to execute the chain of filters and to refresh the
-   * display.
-   *
-   * > var filter = new sigma.plugins.filter(s);
-   * > filter
-   * >   .nodesBy(function(n) {
-   * >     return this.degree(n.id) > 0;
-   * >   }, 'degreeNotNull')
-   * >   .apply();
-   *
-   * @return {sigma.plugins.filter}      Returns the instance.
-   */
-  Filter.prototype.apply = function() {
-    for (var i = 0, len = _chain.length; i < len; ++i) {
-      _chain[i].processor(_chain[i].predicate);
-    };
-
-    if (_chain[0] && 'undo' === _chain[0].key) {
-      _chain.shift();
-    }
-
-    _s.refresh();
-
-    return this;
-  };
-
-  /**
-   * This method undoes one or several filters, depending on how it is called.
-   *
-   * To undo all filters, call "undo" without argument. To undo a specific
-   * filter, call it with the key of the filter. To undo multiple filters, call
-   * it with an array of keys or multiple arguments, and it will undo each
-   * filter, in the same order. The undo is not executed until the apply()
-   * method is called. For instance:
-   *
-   * > var filter = new sigma.plugins.filter(s);
-   * > filter
-   * >   .nodesBy(function(n) {
-   * >     return this.degree(n.id) > 0;
-   * >   }, 'degreeNotNull');
-   * >   .edgesBy(function(e) {
-   * >     return e.size > 1;
-   * >   }, 'edgeSize')
-   * >   .undo();
-   *
-   * Other examples:
-   * > filter.undo();
-   * > filter.undo('myfilter');
-   * > filter.undo(['myfilter1', 'myfilter2']);
-   * > filter.undo('myfilter1', 'myfilter2');
-   *
-   * @param  {?(string|array|*string))} v Eventually one key, an array of keys.
-   * @return {sigma.plugins.filter}       Returns the instance.
-   */
-  Filter.prototype.undo = function(v) {
-    var q = Object.create(null),
-        la = arguments.length;
-
-    // find removable filters
-    if (la === 1) {
-      if (Object.prototype.toString.call(v) === '[object Array]')
-        for (var i = 0, len = v.length; i < len; i++)
-          q[v[i]] = true;
-
-      else // 1 filter key
-        q[v] = true;
-
-    } else if (la > 1) {
-      for (var i = 0; i < la; i++)
-        q[arguments[i]] = true;
-    }
-    else
-      this.clear();
-
-    unregister(q);
-
-    function processor() {
-      var n = _g.nodes(),
-          ln = n.length,
-          e = _g.edges(),
-          le = e.length;
-
-      while(ln--)
-        n[ln].hidden = false;
-
-      while(le--)
-        e[le].hidden = false;
-    };
-
-    _chain.unshift({
-      'key': 'undo',
-      'processor': processor
-    });
-
-    return this;
-  };
-
-  // fast deep copy function
-  function deepCopy(o) {
-    var copy = Object.create(null);
-    for (var i in o) {
-      if (typeof o[i] === "object" && o[i] !== null) {
-        copy[i] = deepCopy(o[i]);
-      }
-      else if (typeof o[i] === "function" && o[i] !== null) {
-        // clone function:
-        eval(" copy[i] = " +  o[i].toString());
-        //copy[i] = o[i].bind(_g);
-      }
-
-      else
-        copy[i] = o[i];
-    }
-    return copy;
-  };
-
-  function cloneChain(chain) {
-    // Clone the array of filters:
-    var copy = chain.slice(0);
-    for (var i = 0, len = copy.length; i < len; i++) {
-      copy[i] = deepCopy(copy[i]);
-      if (typeof copy[i].processor === "function")
-        copy[i].processor = 'filter.processors.' + copy[i].processor.name;
-    };
-    return copy;
-  }
-
-  /**
-   * This method is used to empty the chain of filters.
-   * Prefer the undo() method to reset filters.
-   *
-   * > var filter = new sigma.plugins.filter(s);
-   * > filter.clear();
-   *
-   * @return {sigma.plugins.filter} Returns the instance.
-   */
-  Filter.prototype.clear = function() {
-    _chain.length = 0; // clear the array
-    _keysIndex = Object.create(null);
-    return this;
-  };
-
-  /**
-   * This method clones the filter chain and return the copy.
-   *
-   * > var filter = new sigma.plugins.filter(s);
-   * > var chain = filter.export();
-   *
-   * @return {object}   The cloned chain of filters.
-   */
-  Filter.prototype.export = function() {
-    var c = cloneChain(_chain);
-    return c;
-  };
-
-  /**
-   * This method sets the chain of filters with the specified chain.
-   *
-   * > var filter = new sigma.plugins.filter(s);
-   * > var chain = [
-   * >   {
-   * >     key: 'my-filter',
-   * >     predicate: function(n) {...},
-   * >     processor: 'filter.processors.nodes'
-   * >   }, ...
-   * > ];
-   * > filter.import(chain);
-   *
-   * @param {array} chain The chain of filters.
-   * @return {sigma.plugins.filter} Returns the instance.
-   */
-  Filter.prototype.import = function(chain) {
-    if (chain === undefined)
-      throw 'Wrong arguments.';
-
-    if (Object.prototype.toString.call(chain) !== '[object Array]')
-      throw 'The chain" must be an array.';
-
-    var copy = cloneChain(chain);
-
-    for (var i = 0, len = copy.length; i < len; i++) {
-      if (copy[i].predicate === undefined || copy[i].processor === undefined)
-        throw 'Wrong arguments.';
-
-      if (copy[i].key != undefined && typeof copy[i].key !== 'string')
-        throw 'The filter key "'+ copy[i].key.toString() +'" must be a string.';
-
-      if (typeof copy[i].predicate !== 'function')
-        throw 'The predicate of key "'+ copy[i].key +'" must be a function.';
-
-      if (typeof copy[i].processor !== 'string')
-        throw 'The processor of key "'+ copy[i].key +'" must be a string.';
-
-      // Replace the processor name by the corresponding function:
-      switch(copy[i].processor) {
-        case 'filter.processors.nodes':
-          copy[i].processor = Processors.nodes;
-          break;
-        case 'filter.processors.edges':
-          copy[i].processor = Processors.edges;
-          break;
-        case 'filter.processors.neighbors':
-          copy[i].processor = Processors.neighbors;
-          break;
-        default:
-          throw 'Unknown processor ' + copy[i].processor;
-      }
-    };
-
-    _chain = copy;
-
-    return this;
-  };
-
-
-  /**
-   * Interface
-   * ------------------
-   *
-   * > var filter = new sigma.plugins.filter(s);
-   */
-  var filter = null;
-
-  /**
-   * @param  {sigma} s The related sigma instance.
-   */
-  sigma.plugins.filter = function(s) {
-    // Create filter if undefined
-    if (!filter) {
-      filter = new Filter(s);
-    }
-    return filter;
-  };
-
-}).call(this);
-</script>
-<script>;(function(undefined) {
-
-  /**
-   * Sigma Renderer Snapshot Utility
-   * ================================
-   *
-   * The aim of this plugin is to enable users to retrieve a static image
-   * of the graph being rendered.
-   *
-   * Author: Guillaume Plique (Yomguithereal)
-   * Version: 0.0.1
-   */
-
-  // Terminating if sigma were not to be found
-  if (typeof sigma === 'undefined')
-    throw 'sigma.renderers.snapshot: sigma not in scope.';
-
-  // Constants
-  var CONTEXTS = ['scene', 'edges', 'nodes', 'labels'],
-      TYPES = {
-        png: 'image/png',
-        jpg: 'image/jpeg',
-        gif: 'image/gif',
-        tiff: 'image/tiff'
-      };
-
-  // Utilities
-  function download(dataUrl, extension, filename) {
-
-    // Anchor
-    var anchor = document.createElement('a');
-    anchor.setAttribute('href', dataUrl);
-    anchor.setAttribute('download', filename || 'graph.' + extension);
-
-    // Click event
-    var event = document.createEvent('MouseEvent');
-    event.initMouseEvent('click', true, false, window, 0, 0, 0 ,0, 0,
-      false, false, false, false, 0, null);
-
-    anchor.dispatchEvent(event);
-    delete anchor;
-  }
-
-  // Main function
-  function snapshot(params) {
-    params = params || {};
-
-    // Enforcing
-    if (params.format && !(params.format in TYPES))
-      throw Error('sigma.renderers.snaphot: unsupported format "' +
-                  params.format + '".');
-
-    var self = this,
-        webgl = this instanceof sigma.renderers.webgl,
-        doneContexts = [];
-
-    // Creating a false canvas where we'll merge the other
-    var merged = document.createElement('canvas'),
-        mergedContext = merged.getContext('2d'),
-        sized = false;
-
-    // Iterating through context
-    CONTEXTS.forEach(function(name) {
-      if (!self.contexts[name])
-        return;
-
-      if (params.labels === false && name === 'labels')
-        return;
-
-      var canvas = self.domElements[name] || self.domElements['scene'],
-          context = self.contexts[name];
-
-      if (~doneContexts.indexOf(context))
-        return;
-
-      if (!sized) {
-        merged.width = webgl && context instanceof WebGLRenderingContext ?
-         canvas.width / 2 :
-         canvas.width;
-        merged.height = webgl && context instanceof WebGLRenderingContext ?
-          canvas.height / 2 :
-          canvas.height
-        sized = true;
-
-        // Do we want a background color?
-        if (params.background) {
-          mergedContext.rect(0, 0, merged.width, merged.height);
-          mergedContext.fillStyle = params.background;
-          mergedContext.fill();
-        }
-      }
-
-      if (context instanceof WebGLRenderingContext)
-        mergedContext.drawImage(canvas, 0, 0,
-          canvas.width / 2, canvas.height / 2);
-      else
-        mergedContext.drawImage(canvas, 0, 0);
-
-      doneContexts.push(context);
-    });
-
-    var dataUrl = merged.toDataURL(TYPES[params.format || 'png']);
-
-    if (params.download)
-      download(
-        dataUrl,
-        params.format || 'png',
-        params.filename
-      );
-
-    // Cleaning
-    delete mergedContext;
-    delete merged;
-    delete doneContexts;
-
-    return dataUrl;
-  }
-
-  // Extending canvas and webl renderers
-  sigma.renderers.canvas.prototype.snapshot = snapshot;
-  sigma.renderers.webgl.prototype.snapshot = snapshot;
-}).call(this);
-</script>
+<script>(function(a){"use strict";function b(a){return new Blob([a],{type:"image/svg+xml;charset=utf-8"})}function c(a,c){var d=b(a),f={};f.anchor=document.createElement("a"),f.anchor.setAttribute("href",e.createObjectURL(d)),f.anchor.setAttribute("download",c);var g=document.createEvent("MouseEvent");g.initMouseEvent("click",!0,!1,window,0,0,0,0,0,!1,!1,!1,!1,0,null),e.revokeObjectURL(d),f.anchor.dispatchEvent(g),delete f.anchor}function d(a,b,c){var d,e,f,h,i,j={},k={},l=0,m="";c.classes&&(e=document.createElementNS(g,"style"),e.setAttribute("type","text/css"),a.insertBefore(e,a.firstChild));var n=a.querySelectorAll('[id="'+b+'-group-nodes"] > [class="'+b+'-node"]');for(h=0,i=n.length,f=!0;h<i;h++)d=n[h].getAttribute("fill"),c.data||n[h].removeAttribute("data-node-id"),c.classes&&(d in j||(j[d]=f?b+"-node":"c-"+l++,m+="."+j[d]+"{fill: "+d+"}"),j[d]!==b+"-node"&&n[h].setAttribute("class",n[h].getAttribute("class")+" "+j[d]),n[h].removeAttribute("fill")),f=!1;var o=a.querySelectorAll('[id="'+b+'-group-edges"] > [class="'+b+'-edge"]');for(h=0,i=o.length,f=!0;h<i;h++)d=o[h].getAttribute("stroke"),c.data||o[h].removeAttribute("data-edge-id"),c.classes&&(d in k||(k[d]=f?b+"-edge":"c-"+l++,m+="."+k[d]+"{stroke: "+d+"}"),k[d]!==b+"-edge"&&o[h].setAttribute("class",o[h].getAttribute("class")+" "+k[d]),o[h].removeAttribute("stroke")),f=!1;c.classes&&e.appendChild(document.createTextNode(m))}if("undefined"==typeof sigma)throw"sigma.renderers.snapshot: sigma not in scope.";var e=this.URL||this.webkitURL||this,f={size:"1000",width:"1000",height:"1000",classes:!0,labels:!0,data:!1,download:!1,filename:"graph.svg"},g="http://www.w3.org/2000/svg";sigma.prototype.toSVG=function(a){a=a||{};var b=this.settings("classPrefix"),e=a.size||a.width||f.size,g=a.size||a.height||f.size,h=document.createElement("div");h.setAttribute("width",e),h.setAttribute("height",g),h.setAttribute("style","position:absolute; top: 0px; left:0px; width: "+e+"px; height: "+g+"px;");var i=this.addCamera(),j=this.addRenderer({camera:i,container:h,type:"svg",forceLabels:!!a.labels});j.resize(e,g),this.refresh(),this.killRenderer(j),this.killCamera(i);var k=h.querySelector("svg");if(k.removeAttribute("style"),k.setAttribute("width",e+"px"),k.setAttribute("height",g+"px"),k.setAttribute("x","0px"),k.setAttribute("y","0px"),!a.labels){var l=k.querySelector('[id="'+b+'-group-labels"]');k.removeChild(l)}var m=k.querySelector('[id="'+b+'-group-hovers"]');k.removeChild(m),a.classes=!1!==a.classes,a.data&&!a.classes||d(k,b,a);var n=k.outerHTML;h=null;var o='<?xml version="1.0" encoding="utf-8"?>\n';return o+='<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">\n',o+=n,a.download&&c(o,a.filename||f.filename),o}}).call(this);</script>
+<script>(function(){"use strict";if("undefined"==typeof sigma)throw"sigma is not declared";sigma.classes.graph.addMethod("neighborhood",function(a){var b,c,d,e,f,g={},h={},i={nodes:[],edges:[]};if(!this.nodes(a))return i;e=this.nodes(a),f={},f.center=!0;for(b in e)f[b]=e[b];g[a]=!0,i.nodes.push(f);for(b in this.allNeighborsIndex[a]){g[b]||(g[b]=!0,i.nodes.push(this.nodesIndex[b]));for(c in this.allNeighborsIndex[a][b])h[c]||(h[c]=!0,i.edges.push(this.edgesIndex[c]))}for(b in g)if(b!==a)for(c in g)if(c!==a&&b!==c&&this.allNeighborsIndex[b][c])for(d in this.allNeighborsIndex[b][c])h[d]||(h[d]=!0,i.edges.push(this.edgesIndex[d]));return i}),sigma.utils.pkg("sigma.plugins"),sigma.plugins.neighborhoods=function(){var a=new sigma.classes.graph;this.neighborhood=function(b){return a.neighborhood(b)},this.load=function(b,c){var d=function(){if(window.XMLHttpRequest)return new XMLHttpRequest;var a,b;if(window.ActiveXObject){a=["Msxml2.XMLHTTP.6.0","Msxml2.XMLHTTP.3.0","Msxml2.XMLHTTP","Microsoft.XMLHTTP"];for(b in a)try{return new ActiveXObject(a[b])}catch(a){}}return null}();if(!d)throw"XMLHttpRequest not supported, cannot load the data.";return d.open("GET",b,!0),d.onreadystatechange=function(){4===d.readyState&&(a.clear().read(JSON.parse(d.responseText)),c&&c())},d.send(),this},this.read=function(b){a.clear().read(b)}}}).call(window);</script>
+<script>(function(undefined){"use strict";function register(a,b,c){if(c!=undefined&&"string"!=typeof c)throw'The filter key "'+c.toString()+'" must be a string.';if(c!=undefined&&!c.length)throw"The filter key must be a non-empty string.";if("function"!=typeof a)throw'The predicate of key "'+c+'" must be a function.';if("undo"===c)throw'"undo" is a reserved key.';if(_keysIndex[c])throw'The filter "'+c+'" already exists.';c&&(_keysIndex[c]=!0),_chain.push({key:c,processor:a,predicate:b})}function unregister(a){_chain=_chain.filter(function(b){return!(b.key in a)});for(var b in a)delete _keysIndex[b]}function Filter(a){_s=a,_g=a.graph}function deepCopy(o){var copy=Object.create(null);for(var i in o)"object"==typeof o[i]&&null!==o[i]?copy[i]=deepCopy(o[i]):"function"==typeof o[i]&&null!==o[i]?eval(" copy[i] = "+o[i].toString()):copy[i]=o[i];return copy}function cloneChain(a){for(var b=a.slice(0),c=0,d=b.length;c<d;c++)b[c]=deepCopy(b[c]),"function"==typeof b[c].processor&&(b[c].processor="filter.processors."+b[c].processor.name);return b}if("undefined"==typeof sigma)throw"sigma is not declared";sigma.utils.pkg("sigma.plugins"),sigma.classes.graph.hasMethod("adjacentNodes")||sigma.classes.graph.addMethod("adjacentNodes",function(a){if("string"!=typeof a)throw"adjacentNodes: the node id must be a string.";var b,c=[];for(b in this.allNeighborsIndex[a])c.push(this.nodesIndex[b]);return c}),sigma.classes.graph.hasMethod("adjacentEdges")||sigma.classes.graph.addMethod("adjacentEdges",function(a){if("string"!=typeof a)throw"adjacentEdges: the node id must be a string.";var b,c,d=this.allNeighborsIndex[a],e=[];for(c in d)for(b in d[c])e.push(d[c][b]);return e});var _g=undefined,_s=undefined,_chain=[],_keysIndex=Object.create(null),Processors={};Processors.nodes=function(a){for(var b=_g.nodes(),c=b.length,d=_g.edges(),e=d.length;c--;)b[c].hidden=!a.call(_g,b[c])||b[c].hidden;for(;e--;)(_g.nodes(d[e].source).hidden||_g.nodes(d[e].target).hidden)&&(d[e].hidden=!0)},Processors.edges=function(a){for(var b=_g.edges(),c=b.length;c--;)b[c].hidden=!a.call(_g,b[c])||b[c].hidden},Processors.neighbors=function(a){for(var b=_g.nodes(),c=b.length,d=_g.edges(),e=d.length,f=_g.adjacentNodes(a),g=f.length,h={};g--;)h[f[g].id]=!0;for(;c--;)b[c].id===a||b[c].id in h||(b[c].hidden=!0);for(;e--;)(_g.nodes(d[e].source).hidden||_g.nodes(d[e].target).hidden)&&(d[e].hidden=!0)},Filter.prototype.nodesBy=function(a,b){return register(Processors.nodes,a,b),this},Filter.prototype.edgesBy=function(a,b){return register(Processors.edges,a,b),this},Filter.prototype.neighborsOf=function(a,b){if("string"!=typeof a)throw'The node id "'+a.toString()+'" must be a string.';if(!a.length)throw"The node id must be a non-empty string.";return register(Processors.neighbors,a,b),this},Filter.prototype.apply=function(){for(var a=0,b=_chain.length;a<b;++a)_chain[a].processor(_chain[a].predicate);return _chain[0]&&"undo"===_chain[0].key&&_chain.shift(),_s.refresh(),this},Filter.prototype.undo=function(a){function b(){for(var a=_g.nodes(),b=a.length,c=_g.edges(),d=c.length;b--;)a[b].hidden=!1;for(;d--;)c[d].hidden=!1}var c=Object.create(null),d=arguments.length;if(1===d)if("[object Array]"===Object.prototype.toString.call(a))for(var e=0,f=a.length;e<f;e++)c[a[e]]=!0;else c[a]=!0;else if(d>1)for(var e=0;e<d;e++)c[arguments[e]]=!0;else this.clear();return unregister(c),_chain.unshift({key:"undo",processor:b}),this},Filter.prototype.clear=function(){return _chain.length=0,_keysIndex=Object.create(null),this},Filter.prototype.export=function(){return cloneChain(_chain)},Filter.prototype.import=function(a){if(a===undefined)throw"Wrong arguments.";if("[object Array]"!==Object.prototype.toString.call(a))throw'The chain" must be an array.';for(var b=cloneChain(a),c=0,d=b.length;c<d;c++){if(b[c].predicate===undefined||b[c].processor===undefined)throw"Wrong arguments.";if(b[c].key!=undefined&&"string"!=typeof b[c].key)throw'The filter key "'+b[c].key.toString()+'" must be a string.';if("function"!=typeof b[c].predicate)throw'The predicate of key "'+b[c].key+'" must be a function.';if("string"!=typeof b[c].processor)throw'The processor of key "'+b[c].key+'" must be a string.';switch(b[c].processor){case"filter.processors.nodes":b[c].processor=Processors.nodes;break;case"filter.processors.edges":b[c].processor=Processors.edges;break;case"filter.processors.neighbors":b[c].processor=Processors.neighbors;break;default:throw"Unknown processor "+b[c].processor}}return _chain=b,this};var filter=null;sigma.plugins.filter=function(a){return filter||(filter=new Filter(a)),filter}}).call(this);</script>
+<script>(function(a){function b(a,b,c){var d=document.createElement("a");d.setAttribute("href",a),d.setAttribute("download",c||"graph."+b);var e=document.createEvent("MouseEvent");e.initMouseEvent("click",!0,!1,window,0,0,0,0,0,!1,!1,!1,!1,0,null),d.dispatchEvent(e),delete d}function c(a){if(a=a||{},a.format&&!(a.format in e))throw Error('sigma.renderers.snaphot: unsupported format "'+a.format+'".');var c=this,f=this instanceof sigma.renderers.webgl,g=[],h=document.createElement("canvas"),i=h.getContext("2d"),j=!1;d.forEach(function(b){if(c.contexts[b]&&(!1!==a.labels||"labels"!==b)){var d=c.domElements[b]||c.domElements.scene,e=c.contexts[b];~g.indexOf(e)||(j||(h.width=f&&e instanceof WebGLRenderingContext?d.width/2:d.width,h.height=f&&e instanceof WebGLRenderingContext?d.height/2:d.height,j=!0,a.background&&(i.rect(0,0,h.width,h.height),i.fillStyle=a.background,i.fill())),e instanceof WebGLRenderingContext?i.drawImage(d,0,0,d.width/2,d.height/2):i.drawImage(d,0,0),g.push(e))}});var k=h.toDataURL(e[a.format||"png"]);return a.download&&b(k,a.format||"png",a.filename),delete i,delete h,delete g,k}if("undefined"==typeof sigma)throw"sigma.renderers.snapshot: sigma not in scope.";var d=["scene","edges","nodes","labels"],e={png:"image/png",jpg:"image/jpeg",gif:"image/gif",tiff:"image/tiff"};sigma.renderers.canvas.prototype.snapshot=c,sigma.renderers.webgl.prototype.snapshot=c}).call(this);</script>
 <script>sigma.classes.graph.addMethod('neighbors', function(nodeId) {
     var k,
         neighbors = {},
@@ -1965,29 +927,23 @@ HTMLWidgets.widget({
 						}
 					);
 				} else {
-					// create
-					if(!initialized){
-					  initialized = true;
-    				s = new sigma({
-    					graph: x.data,
-    					settings: x.settings
-    				});
-					} 
-					
-					if(x.kill === true){
-					  
-					  s.kill();
-					  
-    				s = new sigma({
-    					graph: x.data,
-    					settings: x.settings
-    				});
+
+					if (HTMLWidgets.shinyMode) { 
+						sigInst = document.getElementById(el.id)
+						while (sigInst.firstChild) {
+							sigInst.removeChild(sigInst.firstChild);
+						}
 					}
 					
+					s = new sigma({
+						graph: x.data,
+						settings: x.settings
+					});
+					s.refresh();
+
 				  renderer = s.addRenderer({
 						container: el.id,
 						type: x.type
-						
 				  });
 				}
 				
@@ -2399,6 +1355,42 @@ HTMLWidgets.widget({
 			  }
 			  
 			}
+
+			if(x.hasOwnProperty('read')){
+			  
+				var is_it_running = s.isForceAtlas2Running();
+				
+			  if(x.buttonevent.indexOf('read_exec') > -1){
+  			  for (var i = 0; i < x.button.length; i++){
+    		    x.button[i].btn.addEventListener("click", function(event) {
+      				x.read.data.forEach(function(data){
+								setTimeout(function(){
+									if(x.read.refresh == true && is_it_running == true)
+										s.killForceAtlas2();
+								
+									s.graph.read(data);
+		
+									if(x.read.refresh == true && is_it_running == true)
+										s.startForceAtlas2();
+								}, data.nodes[0].delay)
+							});
+    		    });  
+  			  }
+			  } else {
+					x.read.data.forEach(function(data){
+						setTimeout(function(){
+							if(x.read.refresh == true && is_it_running == true)
+								s.killForceAtlas2();
+							
+							s.graph.read(data);
+
+							if(x.read.refresh == true && is_it_running == true)
+								s.startForceAtlas2();
+							
+						}, data.nodes[0].delay)
+					});
+				}
+			}
 			
       sel_handle.setGroup(x.crosstalk.crosstalk_group);
       //filter_handle.setGroup(x.crosstalk.crosstalk_group);
@@ -2414,7 +1406,7 @@ HTMLWidgets.widget({
 
 					// click nodeS
 					s.bind('clickNodes', function (e) {
-						Shiny.setInputValue(el.id + '_click_nodes' + ":sigmajsParseJS", e.data.nodes);
+						Shiny.setInputValue(el.id + '_click_nodes' + ":sigmajsParseJS", e.data.node);
 					});
 
 					// click edge
@@ -2424,22 +1416,22 @@ HTMLWidgets.widget({
 
 					// click edgeS
 					s.bind('clickEdges', function (e) {
-						Shiny.setInputValue(el.id + '_click_edges' + ":sigmajsParseJS", e.data.edges);
+						Shiny.setInputValue(el.id + '_click_edges' + ":sigmajsParseJS", e.data.edge);
 					});
 
 					// click stage
 					s.bind('clickStage', function (e) {
-						Shiny.setInputValue(el.id + '_click_stage' + ":sigmajsParseJS", true);
+						Shiny.setInputValue(el.id + '_click_stage' + ":sigmajsParseJS", e.data, {priority: "event"});
 					});
 
 					// double click stage
 					s.bind('doubleClickStage', function (e) {
-						Shiny.setInputValue(el.id + '_double_click_stage' + ":sigmajsParseJS", true);
+						Shiny.setInputValue(el.id + '_double_click_stage' + ":sigmajsParseJS", e.data, {priority: "event"});
 					});
 
 					// right click stage
 					s.bind('rightClickStage', function (e) {
-						Shiny.setInputValue(el.id + '_right_click_stage' + ":sigmajsParseJS", true);
+						Shiny.setInputValue(el.id + '_right_click_stage' + ":sigmajsParseJS", e.data, {priority: "event"});
 					});
 
 					// double click node
@@ -2449,7 +1441,7 @@ HTMLWidgets.widget({
 
 					// double click nodeS
 					s.bind('doubleClickNodes', function (e) {
-						Shiny.setInputValue(el.id + '_double_click_nodes' + ":sigmajsParseJS", e.data.nodes);
+						Shiny.setInputValue(el.id + '_double_click_nodes' + ":sigmajsParseJS", e.data.node);
 					});
 
 					// double click edge
@@ -2459,7 +1451,7 @@ HTMLWidgets.widget({
 
 					// double click edgeS
 					s.bind('doubleClickEdges', function (e) {
-						Shiny.setInputValue(el.id + '_double_click_edges' + ":sigmajsParseJS", e.data.edges);
+						Shiny.setInputValue(el.id + '_double_click_edges' + ":sigmajsParseJS", e.data.edge);
 					});
 
 					// right click node
@@ -2479,7 +1471,7 @@ HTMLWidgets.widget({
 
 					// right click edgeS
 					s.bind('rightClickEdges', function (e) {
-						Shiny.setInputValue(el.id + '_right_click_edges' + ":sigmajsParseJS", e.data.edges);
+						Shiny.setInputValue(el.id + '_right_click_edges' + ":sigmajsParseJS", e.data.edge);
 					});
 
 					// over node
@@ -2489,7 +1481,7 @@ HTMLWidgets.widget({
 
 					// over nodeS
 					s.bind('overNodes', function (e) {
-						Shiny.setInputValue(el.id + '_over_nodes' + ":sigmajsParseJS", e.data.nodes);
+						Shiny.setInputValue(el.id + '_over_nodes' + ":sigmajsParseJS", e.data.node);
 					});
 
 					// over edge
@@ -2499,7 +1491,7 @@ HTMLWidgets.widget({
 
 					// over edgeS
 					s.bind('overEdges', function (e) {
-						Shiny.setInputValue(el.id + '_over_edges' + ":sigmajsParseJS", e.data.edges);
+						Shiny.setInputValue(el.id + '_over_edges' + ":sigmajsParseJS", e.data.edge);
 					});
 
 					// out node
@@ -2509,7 +1501,7 @@ HTMLWidgets.widget({
 
 					// out nodeS
 					s.bind('outNodes', function (e) {
-						Shiny.setInputValue(el.id + '_out_nodes' + ":sigmajsParseJS", e.data.nodes);
+						Shiny.setInputValue(el.id + '_out_nodes' + ":sigmajsParseJS", e.data.node);
 					});
 
 					// out edge
@@ -2519,9 +1511,11 @@ HTMLWidgets.widget({
 
 					// out edgeS
 					s.bind('outEdges', function (e) {
-						Shiny.setInputValue(el.id + '_out_edges' + ":sigmajsParseJS", e.data.edges);
+						Shiny.setInputValue(el.id + '_out_edges' + ":sigmajsParseJS", e.data.edge);
 					});
 				}
+
+				var initialized = true;
 			
 		},
 
@@ -2532,6 +1526,10 @@ HTMLWidgets.widget({
 		
 		getCamera: function() {
 		  return cam;
+		},
+
+		getEl: function() {
+		  return el.id;
 		},
 
 		getChart: function () {
@@ -2556,6 +1554,20 @@ function get_sigma_graph(id) {
 
 	if (typeof htmlWidgetsObj != 'undefined') { // get chart if defined
 		s = htmlWidgetsObj.getChart();
+	}
+
+	return (s);
+}
+
+// get element id
+function get_sigma_element(id) {
+
+	var htmlWidgetsObj = HTMLWidgets.find("#" + id); // find object
+
+	var s; // define
+
+	if (typeof htmlWidgetsObj != 'undefined') { // get chart if defined
+		s = htmlWidgetsObj.getEl();
 	}
 
 	return (s);
@@ -2816,6 +1828,42 @@ if (HTMLWidgets.shinyMode) {
 			}
 		}
 	);
+
+	Shiny.addCustomMessageHandler('sg_drop_nodes_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			if (typeof s != 'undefined') {
+				message.data.forEach((element) => {
+					s.graph.dropNode(element);
+					if (message.refresh === true && message.rate === "iteration") {
+						s.refresh();
+					}
+				});
+
+				if (message.refresh === true && message.rate === "once") {
+					s.refresh();
+				}
+			}
+		}
+	);
+
+	Shiny.addCustomMessageHandler('sg_drop_edges_p',
+	function (message) {
+		var s = get_sigma_graph(message.id);
+		if (typeof s != 'undefined') {
+			message.data.forEach((element) => {
+				s.graph.dropEdge(element);
+				if (message.refresh === true && message.rate === "iteration") {
+					s.refresh();
+				}
+			});
+
+			if (message.refresh === true && message.rate === "once") {
+				s.refresh();
+			}
+		}
+	}
+);
 	
 	// add edges delay
 	Shiny.addCustomMessageHandler('sg_drop_edges_delay_p',
@@ -2888,6 +1936,50 @@ if (HTMLWidgets.shinyMode) {
 			}
 		}
 	);
+
+	// read data
+	Shiny.addCustomMessageHandler('sg_read_exec_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			if (typeof s != 'undefined') {
+				s.graph.read(message.data)
+			}
+		}
+	);
+
+	// read batch data
+	Shiny.addCustomMessageHandler('sg_read_bacth_exec_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			if (typeof s != 'undefined') {
+				message.data.forEach(function(data){
+					var running = s.isForceAtlas2Running();
+					setTimeout(function () {
+						if (message.refresh === true && running === true) {
+							s.killForceAtlas2();
+						}
+						s.graph.read(data);
+						if(message.refresh === true)
+							s.refresh();
+						if (message.refresh === true && running === true) {
+							s.startForceAtlas2();
+						}
+					}, data.nodes[0].delay);
+				});
+			}
+		}
+	);
+
+	// noverlap
+	Shiny.addCustomMessageHandler('sg_noverlap_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			if (typeof s != 'undefined') {
+				var listener_proxy = s.configNoverlap(message.config);
+				s.startNoverlap();
+			}
+		}
+	);
 	
 	// export
 	Shiny.addCustomMessageHandler('sg_export_svg_p',
@@ -2907,6 +1999,85 @@ if (HTMLWidgets.shinyMode) {
 			}
 		}
 	);
+
+	Shiny.addCustomMessageHandler('sg_zoom_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			if (typeof s != 'undefined') {
+				let n = s.graph.nodes()[message.node];
+				sigma.misc.animation.camera(
+					s.camera, 
+					{
+						x: n[s.camera.readPrefix + 'x'], 
+						y: n[s.camera.readPrefix + 'y'],
+						ratio: message.ratio
+					}, 
+					{duration: message.duration}
+				);
+			}
+		}
+	);
+
+	Shiny.addCustomMessageHandler('sg_get_nodes_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			var id = get_sigma_element(message.id);
+			if (typeof s != 'undefined') {
+				Shiny.setInputValue(id + '_nodes' + ":sigmajsParseJS", s.graph.nodes(), {priority: "event"});
+			}
+		}
+	);
+
+	Shiny.addCustomMessageHandler('sg_get_edges_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			var id = get_sigma_element(message.id);
+			if (typeof s != 'undefined') {
+				Shiny.setInputValue(id + '_edges' + ":sigmajsParseJS", s.graph.edges(), {priority: "event"});
+			}
+		}
+	);
+
+	// change node attributes
+	Shiny.addCustomMessageHandler('sg_change_nodes_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			var i = 0;
+			if (typeof s != 'undefined') {
+				s.graph.nodes().forEach((n) => {
+					n[message.message.attribute] = message.message.value[i];
+					if (message.message.refresh === true && message.message.rate === "iteration") {
+						s.refresh();
+					}
+					i = i + 1
+				});
+
+				if (message.message.refresh === true && message.message.rate === "once") {
+					s.refresh();
+				}
+			}
+		}
+	);
+
+	Shiny.addCustomMessageHandler('sg_change_edges_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			var i = 0;
+			if (typeof s != 'undefined') {
+				s.graph.edges().forEach((n) => {
+					n[message.message.attribute] = message.message.value[i];
+					if (message.message.refresh === true && message.message.rate === "iteration") {
+						s.refresh();
+					}
+					i = i + 1
+				});
+
+				if (message.message.refresh === true && message.message.rate === "once") {
+					s.refresh();
+				}
+			}
+		}
+	);
 	
 	// filter greater than
 	Shiny.addCustomMessageHandler('sg_filter_gt_p',
@@ -2919,27 +2090,24 @@ if (HTMLWidgets.shinyMode) {
 			  
 			  if(message.target === "both"){
           filter
-            .undo()
             .nodesBy(function(n) {
               return n[message.var] > message.input;
-            })
+            }, message.name[0])
             .edgesBy(function(e) {
               return e[message.var] > message.input;
-            })
+            }, message.name[1])
             .apply();
 			  } else if(message.target === "nodes"){
           filter
-            .undo()
             .nodesBy(function(n) {
               return n[message.var] > message.input;
-            })
+            }, message.name)
             .apply();
 			  } else {
           filter
-            .undo()
             .edgesBy(function(e) {
               return e[message.var] > message.input;
-            })
+            }, message.name)
             .apply();
 			  }
 				
@@ -2958,30 +2126,182 @@ if (HTMLWidgets.shinyMode) {
 			  
 			  if(message.target === "both"){
           filter
-            .undo()
             .nodesBy(function(n) {
               return n[message.var] < message.input;
-            })
+            }, message.name[0])
             .edgesBy(function(e) {
               return e[message.var] < message.input;
-            })
+            }, message.name[1])
             .apply();
 			  } else if(message.target === "nodes"){
           filter
-            .undo()
             .nodesBy(function(n) {
               return n[message.var] < message.input;
-            })
+            }, message.name)
             .apply();
 			  } else {
           filter
-            .undo()
             .edgesBy(function(e) {
               return e[message.var] < message.input;
-            })
+            }, message.name)
             .apply();
 			  }
 				
+			}
+		}
+	);
+
+	// filter equal
+	Shiny.addCustomMessageHandler('sg_filter_eq_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			
+			if (typeof s != 'undefined') {
+			  
+			  var filter = new sigma.plugins.filter(s);
+			  
+			  if(message.target === "both"){
+          filter
+            .nodesBy(function(n) {
+              return n[message.var] == message.input;
+            }, message.name[0])
+            .edgesBy(function(e) {
+              return e[message.var] == message.input;
+            }, message.name[1])
+            .apply();
+			  } else if(message.target === "nodes"){
+          filter
+            .nodesBy(function(n) {
+              return n[message.var] == message.input;
+            }, message.name)
+            .apply();
+			  } else {
+          filter
+            .edgesBy(function(e) {
+              return e[message.var] == message.input;
+            }, message.name)
+            .apply();
+			  }
+				
+			}
+		}
+	);
+
+	// filter not equal
+	Shiny.addCustomMessageHandler('sg_filter_not_eq_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			
+			if (typeof s != 'undefined') {
+			  
+			  var filter = new sigma.plugins.filter(s);
+			  
+			  if(message.target === "both"){
+          filter
+            .nodesBy(function(n) {
+              return n[message.var] != message.input;
+            }, message.name[0])
+            .edgesBy(function(e) {
+              return e[message.var] != message.input;
+            }, message.name[1])
+            .apply();
+			  } else if(message.target === "nodes"){
+          filter
+            .nodesBy(function(n) {
+              return n[message.var] != message.input;
+            }, message.name)
+            .apply();
+			  } else {
+          filter
+            .edgesBy(function(e) {
+              return e[message.var] != message.input;
+            }, message.name)
+            .apply();
+			  }
+				
+			}
+		}
+	);
+
+	// filter undo
+	Shiny.addCustomMessageHandler('sg_filter_undo_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			
+			if (typeof s != 'undefined') {
+			  
+			  var filter = new sigma.plugins.filter(s);
+			  
+				filter
+					.undo(message.name)
+					.apply()
+				
+			}
+		}
+	);
+
+	// filter neighbours
+	Shiny.addCustomMessageHandler('sg_filter_neighbours_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			
+			if (typeof s != 'undefined') {
+			  
+			  var filter = new sigma.plugins.filter(s);
+			  
+				filter
+					.neighborsOf(message.node, message.name)
+					.apply()
+				
+			}
+		}
+	);
+
+	// set neightbours highlight
+	Shiny.addCustomMessageHandler('sg_neighbours_p',
+		function(message){
+			var s = get_sigma_graph(message.id);
+			
+			if (typeof s != 'undefined') {
+			  
+				db = new sigma.plugins.neighborhoods();
+
+				s.graph.nodes().forEach(function(n) {
+					n.originalColor = n.color;
+				});
+				s.graph.edges().forEach(function(e) {
+					e.originalColor = e.color;
+				});
+				s.bind("clickNode", function(e) {
+					var nodeId = e.data.node.id,
+							toKeep = s.graph.neighbors(nodeId);
+					toKeep[nodeId] = e.data.node;
+					sel_handle.set(nodeId);
+					s.graph.nodes().forEach(function(n) {
+						if (toKeep[n.id])
+							n.color = n.originalColor;
+						else
+							n.color = message.nodes;
+					});
+					s.graph.edges().forEach(function(e) {
+						if (toKeep[e.source] && toKeep[e.target])
+							e.color = e.originalColor;
+						else
+							e.color = message.edges;
+					});
+					s.refresh();
+				});
+				s.bind("clickStage", function(e) {
+					s.graph.nodes().forEach(function(n) {
+						n.color = n.originalColor;
+					});
+					s.graph.edges().forEach(function(e) {
+						e.color = e.originalColor;
+					});
+					s.refresh();
+					sel_handle.clear();
+				});
+
 			}
 		}
 	);
@@ -3022,27 +2342,21 @@ padding-right: inherit;
 
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; min-height: 1.25em; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
+code.sourceCode { white-space: pre; }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
 a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
 pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
+  { position: relative; }
 pre.numberSource a.sourceLine::before
   { content: attr(data-line-number);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -3050,41 +2364,61 @@ pre.numberSource a.sourceLine::before
     color: #aaaaaa;
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; color: initial; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.dt { color: #902000; } /* DataType */
 code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
+code span.bn { color: #40a070; } /* BaseN */
 code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
+code span.ch { color: #4070a0; } /* Char */
 code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.ot { color: #007020; } /* Other */
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.fu { color: #06287e; } /* Function */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #880000; } /* Constant */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #19177c; } /* Variable */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.op { color: #666666; } /* Operator */
+code span.bu { } /* BuiltIn */
+code span.ex { } /* Extension */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.at { color: #7d9029; } /* Attribute */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+
 </style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
 
@@ -3272,6 +2606,9 @@ code > span.al { color: #ff0000; font-weight: bold; }
 code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
+
+
+
 </head>
 
 <body>
@@ -3280,8 +2617,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 <h1 class="title toc-ignore">Plugins</h1>
-<h4 class="author"><em>John Coene</em></h4>
-<h4 class="date"><em>2018-11-18</em></h4>
+<h4 class="author">John Coene</h4>
+<h4 class="date">2019-04-09</h4>
 
 
 
@@ -3309,7 +2646,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <li>Relative size</li>
 <li>Drag nodes</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">nodes &lt;-<span class="st"> </span><span class="kw">sg_make_nodes</span>(<span class="dv">100</span>)</a>
+<pre class="sourceCode r" id="cb1"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">nodes &lt;-<span class="st"> </span><span class="kw">sg_make_nodes</span>(<span class="dv">100</span>)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">edges &lt;-<span class="st"> </span><span class="kw">sg_make_edges</span>(nodes, <span class="dv">75</span>)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co"># add type</span></a>
@@ -3322,14 +2659,14 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb1-11" data-line-number="11"><span class="st">  </span><span class="kw">sg_force</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># start forceAtlas2</span></a>
 <a class="sourceLine" id="cb1-12" data-line-number="12"><span class="st">  </span><span class="kw">sg_relative_size</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># size node relative to one another</span></a>
 <a class="sourceLine" id="cb1-13" data-line-number="13"><span class="st">  </span><span class="kw">sg_drag_nodes</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># enable drag nodes</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="st">  </span><span class="kw">sg_force_stop</span>(<span class="dv">10000</span>) <span class="co"># stop layout algo after 10 seconds</span></a></code></pre></div>
-<div id="htmlwidget-cece1235340c76770227" style="width:100%;height:288px;" class="sigmajs html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cece1235340c76770227">{"x":{"kill":false,"data":{"nodes":[{"id":"1","color":"#B1E2A3","x":"15.354447","y":"14.435300"},{"id":"2","color":"#AFE1A3","x":" 3.435881","y":"14.835413"},{"id":"3","color":"#AEE0A3","x":"15.962276","y":"13.225133"},{"id":"4","color":"#ADE0A3","x":" 5.333575","y":" 4.065861"},{"id":"5","color":"#ACDFA3","x":" 3.442500","y":" 3.650335"},{"id":"6","color":"#ABDEA3","x":" 1.812316","y":" 1.475970"},{"id":"7","color":"#AADEA3","x":"11.260066","y":" 3.435228"},{"id":"8","color":"#A9DDA3","x":"17.189136","y":"13.488169"},{"id":"9","color":"#A8DDA3","x":" 2.690524","y":"19.210856"},{"id":"10","color":"#A7DCA3","x":"10.885807","y":" 3.917096"},{"id":"11","color":"#A6DBA3","x":" 6.353953","y":" 8.368286"},{"id":"12","color":"#A5DBA3","x":" 2.386781","y":" 4.763219"},{"id":"13","color":"#A4DAA3","x":" 2.740033","y":" 3.776200"},{"id":"14","color":"#A3DAA4","x":" 4.826263","y":"19.460637"},{"id":"15","color":"#A2D9A4","x":" 5.833237","y":"10.308886"},{"id":"16","color":"#A1D8A4","x":" 7.199689","y":" 7.413045"},{"id":"17","color":"#A0D8A4","x":"13.873762","y":"19.758919"},{"id":"18","color":"#9FD7A4","x":"11.786989","y":" 5.494105"},{"id":"19","color":"#9ED7A4","x":" 4.825996","y":" 2.880810"},{"id":"20","color":"#9DD6A4","x":"11.835565","y":"15.748678"},{"id":"21","color":"#9CD5A4","x":"11.884927","y":"19.170175"},{"id":"22","color":"#9BD5A4","x":" 6.941442","y":" 2.186824"},{"id":"23","color":"#9AD4A4","x":" 2.207505","y":" 3.781564"},{"id":"24","color":"#99D4A4","x":" 2.049947","y":"13.248771"},{"id":"25","color":"#98D3A4","x":" 6.748243","y":" 9.362491"},{"id":"26","color":"#96D2A4","x":" 4.506745","y":" 1.955198"},{"id":"27","color":"#92CFA3","x":" 7.657550","y":" 4.829276"},{"id":"28","color":"#8ECCA1","x":" 2.624566","y":" 2.029399"},{"id":"29","color":"#8AC9A0","x":"10.145449","y":" 3.319751"},{"id":"30","color":"#86C69F","x":" 7.511892","y":" 6.748185"},{"id":"31","color":"#82C39D","x":" 3.800791","y":"13.786938"},{"id":"32","color":"#7EC09C","x":" 6.687563","y":"17.898694"},{"id":"33","color":"#7ABD9B","x":"13.204933","y":" 9.646930"},{"id":"34","color":"#75BA99","x":"11.041645","y":"14.013032"},{"id":"35","color":"#71B798","x":" 9.273341","y":"12.649356"},{"id":"36","color":"#6DB496","x":" 3.000410","y":" 6.513074"},{"id":"37","color":"#69B195","x":"13.407465","y":"12.650904"},{"id":"38","color":"#65AE94","x":" 5.052553","y":"16.371983"},{"id":"39","color":"#61AB92","x":"19.741708","y":"10.456986"},{"id":"40","color":"#5DA891","x":"18.012309","y":" 5.764430"},{"id":"41","color":"#59A590","x":"16.543462","y":"19.354947"},{"id":"42","color":"#55A28E","x":" 2.029572","y":"10.431391"},{"id":"43","color":"#509F8D","x":" 5.530360","y":"16.897263"},{"id":"44","color":"#4C9C8B","x":"17.299497","y":" 7.048565"},{"id":"45","color":"#48998A","x":"12.287085","y":" 8.920350"},{"id":"46","color":"#449689","x":"11.794270","y":"13.510396"},{"id":"47","color":"#409387","x":" 1.845747","y":"12.928314"},{"id":"48","color":"#3C9086","x":"13.552869","y":"12.382390"},{"id":"49","color":"#388D85","x":"15.686444","y":" 3.029493"},{"id":"50","color":"#348A83","x":"17.545119","y":"13.139955"},{"id":"51","color":"#318882","x":" 8.467196","y":" 5.365482"},{"id":"52","color":"#308681","x":" 4.854746","y":"11.683589"},{"id":"53","color":"#2F8481","x":"11.436548","y":" 8.964359"},{"id":"54","color":"#2E8280","x":" 6.674775","y":" 3.920390"},{"id":"55","color":"#2D807F","x":"14.595749","y":" 5.667992"},{"id":"56","color":"#2D7E7E","x":"18.560621","y":"15.790861"},{"id":"57","color":"#2C7D7E","x":" 7.175468","y":"13.142138"},{"id":"58","color":"#2B7B7D","x":" 2.528670","y":"12.454679"},{"id":"59","color":"#2A797C","x":"14.551953","y":" 8.464582"},{"id":"60","color":"#29777B","x":" 8.262042","y":" 6.772860"},{"id":"61","color":"#28757A","x":"11.845461","y":"13.691149"},{"id":"62","color":"#27747A","x":" 4.788789","y":" 6.001083"},{"id":"63","color":"#267279","x":" 6.469793","y":" 5.894324"},{"id":"64","color":"#257078","x":"13.376001","y":" 1.009815"},{"id":"65","color":"#256E77","x":" 3.109677","y":" 8.458139"},{"id":"66","color":"#246C77","x":"16.842309","y":" 3.886642"},{"id":"67","color":"#236A76","x":"12.422979","y":"13.231088"},{"id":"68","color":"#226975","x":"18.707741","y":" 3.275056"},{"id":"69","color":"#216774","x":"10.519890","y":" 2.926840"},{"id":"70","color":"#206574","x":"15.420711","y":"18.082810"},{"id":"71","color":"#1F6373","x":"18.520122","y":"13.570190"},{"id":"72","color":"#1E6172","x":" 5.375420","y":" 7.381024"},{"id":"73","color":"#1D6071","x":"17.345869","y":"11.660363"},{"id":"74","color":"#1D5E70","x":"13.457554","y":" 4.121154"},{"id":"75","color":"#1C5C70","x":" 5.111664","y":"14.746092"},{"id":"76","color":"#1C5F6F","x":" 7.340674","y":"16.769241"},{"id":"77","color":"#1C636F","x":" 5.912803","y":" 3.873705"},{"id":"78","color":"#1C686F","x":"19.563979","y":"10.546583"},{"id":"79","color":"#1D6C6F","x":"13.272200","y":" 5.376046"},{"id":"80","color":"#1D706F","x":"10.838994","y":"13.464387"},{"id":"81","color":"#1D756E","x":" 9.023033","y":"13.044250"},{"id":"82","color":"#1E796E","x":" 9.745379","y":"10.854288"},{"id":"83","color":"#1E7E6E","x":" 9.323644","y":"12.698961"},{"id":"84","color":"#1E826E","x":"15.539315","y":"16.904165"},{"id":"85","color":"#1F866E","x":" 8.205093","y":"16.312228"},{"id":"86","color":"#1F8B6D","x":" 2.754865","y":"11.076585"},{"id":"87","color":"#1F8F6D","x":" 3.275013","y":" 3.935494"},{"id":"88","color":"#20946D","x":" 8.283999","y":" 3.547493"},{"id":"89","color":"#20986D","x":" 9.430775","y":"19.781931"},{"id":"90","color":"#209C6D","x":"17.389489","y":"13.038279"},{"id":"91","color":"#21A16C","x":" 2.703049","y":"10.549104"},{"id":"92","color":"#21A56C","x":"11.281673","y":"16.024523"},{"id":"93","color":"#21AA6C","x":"19.065382","y":"14.309585"},{"id":"94","color":"#22AE6C","x":"11.615733","y":" 2.484366"},{"id":"95","color":"#22B26C","x":"11.294602","y":" 7.039179"},{"id":"96","color":"#22B76B","x":"12.979744","y":" 9.697329"},{"id":"97","color":"#23BB6B","x":" 4.766679","y":" 8.330971"},{"id":"98","color":"#23C06B","x":" 1.047857","y":"17.333248"},{"id":"99","color":"#23C46B","x":" 7.947986","y":"16.200491"},{"id":"100","color":"#24C96B","x":"19.024770","y":"11.075507"}],"edges":[{"id":"1","source":"20","target":"20","type":"dotted"},{"id":"2","source":"11","target":"59","type":"dotted"},{"id":"3","source":"24","target":"40","type":"tapered"},{"id":"4","source":"5","target":"89","type":"dotted"},{"id":"5","source":"80","target":"16","type":"tapered"},{"id":"6","source":"45","target":"53","type":"parallel"},{"id":"7","source":"22","target":"65","type":"tapered"},{"id":"8","source":"93","target":"56","type":"dotted"},{"id":"9","source":"92","target":"73","type":"curve"},{"id":"10","source":"70","target":"80","type":"tapered"},{"id":"11","source":"31","target":"89","type":"curve"},{"id":"12","source":"56","target":"97","type":"curve"},{"id":"13","source":"22","target":"19","type":"dotted"},{"id":"14","source":"17","target":"4","type":"dashed"},{"id":"15","source":"41","target":"56","type":"dashed"},{"id":"16","source":"85","target":"44","type":"curve"},{"id":"17","source":"88","target":"59","type":"parallel"},{"id":"18","source":"79","target":"32","type":"curve"},{"id":"19","source":"38","target":"67","type":"parallel"},{"id":"20","source":"78","target":"44","type":"curve"},{"id":"21","source":"55","target":"55","type":"tapered"},{"id":"22","source":"61","target":"94","type":"parallel"},{"id":"23","source":"28","target":"1","type":"curve"},{"id":"24","source":"32","target":"36","type":"dashed"},{"id":"25","source":"20","target":"35","type":"dotted"},{"id":"26","source":"29","target":"54","type":"dotted"},{"id":"27","source":"93","target":"57","type":"curve"},{"id":"28","source":"26","target":"92","type":"curve"},{"id":"29","source":"83","target":"77","type":"dotted"},{"id":"30","source":"44","target":"53","type":"dashed"},{"id":"31","source":"90","target":"48","type":"curve"},{"id":"32","source":"45","target":"44","type":"curve"},{"id":"33","source":"99","target":"96","type":"tapered"},{"id":"34","source":"50","target":"8","type":"parallel"},{"id":"35","source":"28","target":"45","type":"tapered"},{"id":"36","source":"43","target":"30","type":"dashed"},{"id":"37","source":"48","target":"82","type":"parallel"},{"id":"38","source":"83","target":"24","type":"dotted"},{"id":"39","source":"27","target":"89","type":"parallel"},{"id":"40","source":"48","target":"49","type":"dashed"},{"id":"41","source":"6","target":"13","type":"dashed"},{"id":"42","source":"86","target":"54","type":"dotted"},{"id":"43","source":"68","target":"49","type":"dashed"},{"id":"44","source":"81","target":"44","type":"curve"},{"id":"45","source":"50","target":"19","type":"dotted"},{"id":"46","source":"75","target":"58","type":"dotted"},{"id":"47","source":"93","target":"100","type":"tapered"},{"id":"48","source":"66","target":"64","type":"curve"},{"id":"49","source":"69","target":"63","type":"curve"},{"id":"50","source":"44","target":"40","type":"dotted"},{"id":"51","source":"32","target":"87","type":"curve"},{"id":"52","source":"100","target":"65","type":"dotted"},{"id":"53","source":"16","target":"84","type":"parallel"},{"id":"54","source":"22","target":"26","type":"parallel"},{"id":"55","source":"76","target":"90","type":"dotted"},{"id":"56","source":"61","target":"13","type":"curve"},{"id":"57","source":"10","target":"50","type":"parallel"},{"id":"58","source":"77","target":"96","type":"tapered"},{"id":"59","source":"5","target":"93","type":"tapered"},{"id":"60","source":"13","target":"17","type":"dotted"},{"id":"61","source":"76","target":"54","type":"tapered"},{"id":"62","source":"23","target":"81","type":"tapered"},{"id":"63","source":"30","target":"79","type":"curve"},{"id":"64","source":"79","target":"74","type":"dotted"},{"id":"65","source":"47","target":"97","type":"dashed"},{"id":"66","source":"21","target":"15","type":"parallel"},{"id":"67","source":"84","target":"34","type":"dashed"},{"id":"68","source":"15","target":"51","type":"dotted"},{"id":"69","source":"61","target":"81","type":"parallel"},{"id":"70","source":"67","target":"36","type":"parallel"},{"id":"71","source":"94","target":"13","type":"dashed"},{"id":"72","source":"15","target":"32","type":"dashed"},{"id":"73","source":"46","target":"21","type":"dotted"},{"id":"74","source":"3","target":"63","type":"parallel"},{"id":"75","source":"47","target":"37","type":"tapered"}]},"type":"canvas","button":[],"buttonevent":[],"crosstalk":{"crosstalk_key":null,"crosstalk_group":null},"force":[],"relativeSize":1,"dragNodes":true,"forceStopDelay":10000},"evals":[],"jsHooks":[]}</script>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="st">  </span><span class="kw">sg_force_stop</span>(<span class="dv">10000</span>) <span class="co"># stop layout algo after 10 seconds</span></a></code></pre>
+<div id="htmlwidget-b165ea0a7cd077ca3a1f" style="width:100%;height:288px;" class="sigmajs html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b165ea0a7cd077ca3a1f">{"x":{"kill":false,"data":{"nodes":[{"id":"1","color":"#B1E2A3","x":"15.205803","y":"19.752963"},{"id":"2","color":"#AFE1A3","x":"15.123460","y":"16.965793"},{"id":"3","color":"#AEE0A3","x":"12.616706","y":"13.260750"},{"id":"4","color":"#ADE0A3","x":" 3.631948","y":"16.219744"},{"id":"5","color":"#ACDFA3","x":" 4.683526","y":"13.607443"},{"id":"6","color":"#ABDEA3","x":" 6.584620","y":" 6.749359"},{"id":"7","color":"#AADEA3","x":"17.470411","y":"16.148842"},{"id":"8","color":"#A9DDA3","x":" 7.643005","y":"18.793585"},{"id":"9","color":"#A8DDA3","x":"11.502861","y":" 6.554259"},{"id":"10","color":"#A7DCA3","x":" 5.308042","y":"13.135284"},{"id":"11","color":"#A6DBA3","x":" 9.726717","y":"19.313682"},{"id":"12","color":"#A5DBA3","x":"11.729332","y":" 5.462122"},{"id":"13","color":"#A4DAA3","x":"10.933500","y":"18.433526"},{"id":"14","color":"#A3DAA4","x":" 6.131722","y":"12.992854"},{"id":"15","color":"#A2D9A4","x":" 9.480436","y":" 1.808062"},{"id":"16","color":"#A1D8A4","x":"14.878907","y":"11.916733"},{"id":"17","color":"#A0D8A4","x":" 1.053111","y":"14.150218"},{"id":"18","color":"#9FD7A4","x":" 5.348172","y":" 6.886525"},{"id":"19","color":"#9ED7A4","x":" 6.628894","y":" 1.061116"},{"id":"20","color":"#9DD6A4","x":"14.211533","y":" 8.688111"},{"id":"21","color":"#9CD5A4","x":"16.286832","y":"18.589237"},{"id":"22","color":"#9BD5A4","x":"15.852426","y":" 6.404821"},{"id":"23","color":"#9AD4A4","x":"10.170402","y":"10.546091"},{"id":"24","color":"#99D4A4","x":"14.909829","y":"14.404478"},{"id":"25","color":"#98D3A4","x":"14.470585","y":"15.956288"},{"id":"26","color":"#96D2A4","x":" 6.788595","y":"19.289266"},{"id":"27","color":"#92CFA3","x":"10.938323","y":"12.149830"},{"id":"28","color":"#8ECCA1","x":"13.731323","y":"10.074133"},{"id":"29","color":"#8AC9A0","x":"12.563175","y":" 1.130852"},{"id":"30","color":"#86C69F","x":"18.934093","y":" 2.284278"},{"id":"31","color":"#82C39D","x":"11.631071","y":"12.861066"},{"id":"32","color":"#7EC09C","x":" 8.791245","y":" 1.164299"},{"id":"33","color":"#7ABD9B","x":"19.672292","y":" 8.147116"},{"id":"34","color":"#75BA99","x":"15.817017","y":"15.233442"},{"id":"35","color":"#71B798","x":"14.045534","y":"12.285163"},{"id":"36","color":"#6DB496","x":"17.207288","y":"11.947288"},{"id":"37","color":"#69B195","x":"16.245890","y":"15.443681"},{"id":"38","color":"#65AE94","x":"17.227071","y":"16.420686"},{"id":"39","color":"#61AB92","x":"13.273130","y":"13.601740"},{"id":"40","color":"#5DA891","x":"13.138472","y":"16.516618"},{"id":"41","color":"#59A590","x":" 7.030354","y":"18.674402"},{"id":"42","color":"#55A28E","x":" 5.370271","y":"16.773118"},{"id":"43","color":"#509F8D","x":"12.773743","y":" 3.152185"},{"id":"44","color":"#4C9C8B","x":"14.748987","y":" 4.687806"},{"id":"45","color":"#48998A","x":" 5.667187","y":"14.341097"},{"id":"46","color":"#449689","x":"18.309407","y":"18.135683"},{"id":"47","color":"#409387","x":"16.355401","y":" 2.892264"},{"id":"48","color":"#3C9086","x":" 8.505490","y":"17.083302"},{"id":"49","color":"#388D85","x":" 6.369590","y":"14.042429"},{"id":"50","color":"#348A83","x":"11.641930","y":"15.406015"},{"id":"51","color":"#318882","x":"13.514683","y":"13.110097"},{"id":"52","color":"#308681","x":"11.402225","y":"10.681066"},{"id":"53","color":"#2F8481","x":" 5.422406","y":" 2.203829"},{"id":"54","color":"#2E8280","x":"12.639093","y":" 7.114969"},{"id":"55","color":"#2D807F","x":" 5.513989","y":" 2.804905"},{"id":"56","color":"#2D7E7E","x":" 5.764492","y":"17.715549"},{"id":"57","color":"#2C7D7E","x":" 6.623745","y":"11.393992"},{"id":"58","color":"#2B7B7D","x":"13.298105","y":"12.591533"},{"id":"59","color":"#2A797C","x":" 1.956400","y":"19.757354"},{"id":"60","color":"#29777B","x":"14.791958","y":"17.108001"},{"id":"61","color":"#28757A","x":" 5.853477","y":"18.540866"},{"id":"62","color":"#27747A","x":"15.966496","y":" 4.353067"},{"id":"63","color":"#267279","x":" 4.885404","y":" 2.964992"},{"id":"64","color":"#257078","x":"13.278243","y":"14.571576"},{"id":"65","color":"#256E77","x":" 9.789126","y":"15.869552"},{"id":"66","color":"#246C77","x":"15.429214","y":"12.409731"},{"id":"67","color":"#236A76","x":" 3.642869","y":" 8.923099"},{"id":"68","color":"#226975","x":" 4.798358","y":"17.255438"},{"id":"69","color":"#216774","x":" 8.601481","y":" 3.409734"},{"id":"70","color":"#206574","x":" 9.183373","y":" 2.814618"},{"id":"71","color":"#1F6373","x":"16.790354","y":"19.000667"},{"id":"72","color":"#1E6172","x":" 6.517238","y":"10.397594"},{"id":"73","color":"#1D6071","x":"15.225945","y":" 6.905200"},{"id":"74","color":"#1D5E70","x":"17.510712","y":"17.395913"},{"id":"75","color":"#1C5C70","x":"12.554524","y":" 4.065086"},{"id":"76","color":"#1C5F6F","x":"18.088606","y":"10.416811"},{"id":"77","color":"#1C636F","x":" 8.456170","y":" 9.197505"},{"id":"78","color":"#1C686F","x":" 2.424305","y":" 2.014943"},{"id":"79","color":"#1D6C6F","x":"10.158385","y":" 8.243240"},{"id":"80","color":"#1D706F","x":" 2.496574","y":" 6.883364"},{"id":"81","color":"#1D756E","x":"15.572160","y":" 8.051626"},{"id":"82","color":"#1E796E","x":" 5.225832","y":"18.556267"},{"id":"83","color":"#1E7E6E","x":" 9.171225","y":"11.792181"},{"id":"84","color":"#1E826E","x":"15.691134","y":"10.199190"},{"id":"85","color":"#1F866E","x":"15.942098","y":" 8.788460"},{"id":"86","color":"#1F8B6D","x":"15.205636","y":"13.016983"},{"id":"87","color":"#1F8F6D","x":"19.196312","y":" 3.560050"},{"id":"88","color":"#20946D","x":" 3.743560","y":" 8.534418"},{"id":"89","color":"#20986D","x":" 2.313345","y":"16.621649"},{"id":"90","color":"#209C6D","x":"17.769068","y":"17.002990"},{"id":"91","color":"#21A16C","x":" 3.294651","y":"12.251962"},{"id":"92","color":"#21A56C","x":" 6.843349","y":"18.585271"},{"id":"93","color":"#21AA6C","x":" 9.758539","y":" 3.211513"},{"id":"94","color":"#22AE6C","x":"18.246447","y":" 4.562994"},{"id":"95","color":"#22B26C","x":" 3.483159","y":" 7.501202"},{"id":"96","color":"#22B76B","x":"10.275036","y":" 7.836063"},{"id":"97","color":"#23BB6B","x":"15.961554","y":"15.886799"},{"id":"98","color":"#23C06B","x":" 6.919500","y":" 5.205685"},{"id":"99","color":"#23C46B","x":"11.861307","y":"17.083004"},{"id":"100","color":"#24C96B","x":"11.237461","y":"10.326233"}],"edges":[{"id":"1","source":"8","target":"41","type":"curve"},{"id":"2","source":"23","target":"42","type":"dotted"},{"id":"3","source":"18","target":"20","type":"dotted"},{"id":"4","source":"39","target":"73","type":"tapered"},{"id":"5","source":"95","target":"99","type":"parallel"},{"id":"6","source":"35","target":"2","type":"dashed"},{"id":"7","source":"97","target":"78","type":"dashed"},{"id":"8","source":"6","target":"23","type":"dashed"},{"id":"9","source":"11","target":"60","type":"curve"},{"id":"10","source":"65","target":"9","type":"parallel"},{"id":"11","source":"98","target":"62","type":"curve"},{"id":"12","source":"85","target":"13","type":"curve"},{"id":"13","source":"14","target":"13","type":"dashed"},{"id":"14","source":"31","target":"47","type":"parallel"},{"id":"15","source":"37","target":"4","type":"tapered"},{"id":"16","source":"44","target":"55","type":"dotted"},{"id":"17","source":"3","target":"23","type":"dashed"},{"id":"18","source":"49","target":"78","type":"dashed"},{"id":"19","source":"53","target":"63","type":"curve"},{"id":"20","source":"70","target":"32","type":"dashed"},{"id":"21","source":"28","target":"50","type":"parallel"},{"id":"22","source":"35","target":"37","type":"curve"},{"id":"23","source":"37","target":"5","type":"curve"},{"id":"24","source":"86","target":"62","type":"tapered"},{"id":"25","source":"60","target":"96","type":"dotted"},{"id":"26","source":"25","target":"29","type":"tapered"},{"id":"27","source":"86","target":"11","type":"dashed"},{"id":"28","source":"23","target":"4","type":"tapered"},{"id":"29","source":"4","target":"5","type":"tapered"},{"id":"30","source":"22","target":"1","type":"tapered"},{"id":"31","source":"53","target":"17","type":"tapered"},{"id":"32","source":"86","target":"8","type":"dotted"},{"id":"33","source":"14","target":"76","type":"curve"},{"id":"34","source":"77","target":"41","type":"parallel"},{"id":"35","source":"23","target":"7","type":"dashed"},{"id":"36","source":"93","target":"25","type":"curve"},{"id":"37","source":"63","target":"97","type":"dashed"},{"id":"38","source":"95","target":"54","type":"tapered"},{"id":"39","source":"19","target":"11","type":"dotted"},{"id":"40","source":"19","target":"85","type":"tapered"},{"id":"41","source":"20","target":"59","type":"tapered"},{"id":"42","source":"84","target":"95","type":"tapered"},{"id":"43","source":"16","target":"71","type":"dotted"},{"id":"44","source":"54","target":"96","type":"tapered"},{"id":"45","source":"15","target":"77","type":"tapered"},{"id":"46","source":"75","target":"23","type":"tapered"},{"id":"47","source":"96","target":"32","type":"curve"},{"id":"48","source":"34","target":"24","type":"dotted"},{"id":"49","source":"12","target":"100","type":"dashed"},{"id":"50","source":"44","target":"11","type":"parallel"},{"id":"51","source":"72","target":"53","type":"dashed"},{"id":"52","source":"19","target":"78","type":"dotted"},{"id":"53","source":"29","target":"74","type":"parallel"},{"id":"54","source":"18","target":"73","type":"curve"},{"id":"55","source":"76","target":"87","type":"dashed"},{"id":"56","source":"60","target":"50","type":"curve"},{"id":"57","source":"21","target":"25","type":"dotted"},{"id":"58","source":"40","target":"60","type":"dashed"},{"id":"59","source":"84","target":"17","type":"dotted"},{"id":"60","source":"86","target":"6","type":"tapered"},{"id":"61","source":"31","target":"47","type":"tapered"},{"id":"62","source":"82","target":"32","type":"dashed"},{"id":"63","source":"60","target":"72","type":"dotted"},{"id":"64","source":"38","target":"62","type":"curve"},{"id":"65","source":"41","target":"10","type":"dashed"},{"id":"66","source":"29","target":"18","type":"parallel"},{"id":"67","source":"80","target":"24","type":"curve"},{"id":"68","source":"5","target":"92","type":"dotted"},{"id":"69","source":"10","target":"66","type":"dashed"},{"id":"70","source":"81","target":"44","type":"tapered"},{"id":"71","source":"37","target":"4","type":"parallel"},{"id":"72","source":"62","target":"76","type":"tapered"},{"id":"73","source":"16","target":"9","type":"tapered"},{"id":"74","source":"80","target":"76","type":"tapered"},{"id":"75","source":"41","target":"83","type":"parallel"}]},"type":"canvas","button":[],"buttonevent":[],"crosstalk":{"crosstalk_key":null,"crosstalk_group":null},"force":[],"relativeSize":1,"dragNodes":true,"forceStopDelay":10000},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="custom-shapes" class="section level2">
 <h2>Custom shapes</h2>
 <p>Use custom shapes and image as nodes.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">IMG &lt;-<span class="st"> </span><span class="kw">c</span>(</a>
+<pre class="sourceCode r" id="cb2"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">IMG &lt;-<span class="st"> </span><span class="kw">c</span>(</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">    <span class="st">'https://avatars0.githubusercontent.com/u/163582?s=400&amp;v=4'</span>,</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">    <span class="st">'https://avatars1.githubusercontent.com/u/4196?s=400&amp;v=4'</span>,</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4">    <span class="st">'https://avatars3.githubusercontent.com/u/129551?s=400&amp;v=4'</span></a>
@@ -3346,14 +2683,14 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb2-15" data-line-number="15"><span class="st">  </span><span class="kw">sg_edges</span>(edges, id, source, target) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-16" data-line-number="16"><span class="st">  </span><span class="kw">sg_layout</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb2-17" data-line-number="17"><span class="st">  </span><span class="kw">sg_add_images</span>(nodes, url, scale, clip) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="st">  </span><span class="kw">sg_settings</span>(<span class="dt">defaultNodeColor =</span> <span class="st">&quot;#0011ff&quot;</span>, <span class="dt">minNodeSize =</span> <span class="dv">8</span>, <span class="dt">maxNodeSize =</span> <span class="dv">16</span>) </a></code></pre></div>
-<div id="htmlwidget-580cc44efcfe8361a529" style="width:100%;height:288px;" class="sigmajs html-widget"></div>
-<script type="application/json" data-for="htmlwidget-580cc44efcfe8361a529">{"x":{"kill":false,"data":{"nodes":[{"id":"1","color":"#B1E2A3","size":"4","type":"diamond","x":"13.56050","y":"16.792407","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"2","color":"#AFE1A3","size":"4","type":"circle","x":"24.14744","y":"20.547514","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"3","color":"#AEE0A3","size":"5","type":"circle","x":"16.45575","y":"21.134232","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"4","color":"#ADE0A3","size":"2","type":"diamond","x":"15.18088","y":"12.100376","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"5","color":"#ACDFA3","size":"2","type":"diamond","x":"19.06806","y":"13.107567","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"6","color":"#ABDEA3","size":"4","type":"circle","x":"14.20432","y":"10.200326","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"7","color":"#AADEA3","size":"2","type":"circle","x":"23.08463","y":"16.372058","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"8","color":"#A9DDA3","size":"5","type":"square","x":"22.95483","y":" 7.764211","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"9","color":"#A8DDA3","size":"3","type":"diamond","x":"24.21491","y":"19.222305","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"10","color":"#A7DCA3","size":"2","type":"diamond","x":"21.75815","y":" 6.691438","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"11","color":"#A6DBA3","size":"3","type":"circle","x":"25.16662","y":"14.594033","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"12","color":"#A5DBA3","size":"5","type":"square","x":"22.59489","y":"19.616227","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"13","color":"#A4DAA3","size":"2","type":"circle","x":"13.38675","y":"10.938318","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"14","color":"#A3DAA4","size":"5","type":"diamond","x":"25.58464","y":"18.822605","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"15","color":"#A2D9A4","size":"2","type":"square","x":"17.42895","y":" 6.688661","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"16","color":"#A1D8A4","size":"4","type":"square","x":"14.90704","y":"19.771491","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"17","color":"#A0D8A4","size":"4","type":"square","x":"14.31498","y":"11.663983","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"18","color":"#9FD7A4","size":"4","type":"diamond","x":"20.30628","y":"21.520839","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"19","color":"#9ED7A4","size":"4","type":"diamond","x":"20.91123","y":" 8.181680","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"20","color":"#9DD6A4","size":"5","type":"diamond","x":"19.15160","y":"19.961007","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"21","color":"#9CD5A4","size":"2","type":"diamond","x":"18.64870","y":" 6.791871","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"22","color":"#9BD5A4","size":"5","type":"diamond","x":"20.17009","y":" 9.201426","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"23","color":"#9AD4A4","size":"4","type":"diamond","x":"10.68328","y":"11.408446","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"24","color":"#99D4A4","size":"2","type":"square","x":"10.74556","y":"16.269014","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"25","color":"#98D3A4","size":"4","type":"circle","x":"20.56420","y":"18.825271","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"26","color":"#96D2A4","size":"2","type":"diamond","x":"21.10910","y":" 9.622679","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"27","color":"#92CFA3","size":"2","type":"square","x":"21.00667","y":"13.734195","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"28","color":"#8ECCA1","size":"5","type":"diamond","x":"13.05410","y":"15.928646","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"29","color":"#8AC9A0","size":"3","type":"circle","x":"24.48830","y":"13.049214","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"30","color":"#86C69F","size":"3","type":"square","x":"13.71141","y":" 8.156905","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"31","color":"#82C39D","size":"2","type":"square","x":"19.84363","y":"14.981170","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"32","color":"#7EC09C","size":"5","type":"square","x":"16.16829","y":" 7.353437","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"33","color":"#7ABD9B","size":"4","type":"square","x":"25.86981","y":"17.456985","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"34","color":"#75BA99","size":"2","type":"diamond","x":"13.52577","y":"19.949040","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"35","color":"#71B798","size":"3","type":"square","x":"18.28415","y":"19.845832","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"36","color":"#6DB496","size":"5","type":"circle","x":"17.03014","y":" 8.046663","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"37","color":"#69B195","size":"2","type":"square","x":"15.51848","y":"17.106696","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"38","color":"#65AE94","size":"4","type":"circle","x":"17.10985","y":" 9.879469","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"39","color":"#61AB92","size":"2","type":"diamond","x":"22.21108","y":"18.175167","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"40","color":"#5DA891","size":"4","type":"circle","x":"10.78410","y":"15.113507","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"41","color":"#59A590","size":"2","type":"circle","x":"15.55833","y":"14.100492","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"42","color":"#55A28E","size":"2","type":"circle","x":"22.82261","y":"21.198374","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"43","color":"#509F8D","size":"2","type":"circle","x":"12.75373","y":" 8.513979","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"44","color":"#4C9C8B","size":"2","type":"circle","x":"11.41768","y":"13.888759","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"45","color":"#48998A","size":"3","type":"square","x":"12.30344","y":"14.973012","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"46","color":"#449689","size":"3","type":"circle","x":"19.62889","y":" 6.597239","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"47","color":"#409387","size":"5","type":"square","x":"16.12131","y":"16.326158","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"48","color":"#3C9086","size":"3","type":"circle","x":"25.02189","y":" 9.902587","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"49","color":"#388D85","size":"3","type":"diamond","x":"25.79735","y":"10.718958","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"50","color":"#348A83","size":"4","type":"diamond","x":"21.92741","y":" 7.614741","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"51","color":"#318882","size":"5","type":"circle","x":"17.84158","y":" 5.816051","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"52","color":"#308681","size":"2","type":"diamond","x":"26.60920","y":"16.223929","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"53","color":"#2F8481","size":"4","type":"square","x":"12.51815","y":"14.189824","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"54","color":"#2E8280","size":"4","type":"diamond","x":"23.65320","y":"12.522149","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"55","color":"#2D807F","size":"4","type":"circle","x":"26.56498","y":"13.184093","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"56","color":"#2D7E7E","size":"5","type":"square","x":"16.67910","y":"13.931929","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"57","color":"#2C7D7E","size":"2","type":"square","x":"17.82022","y":"13.627439","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"58","color":"#2B7B7D","size":"4","type":"square","x":"20.92717","y":"16.742544","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"59","color":"#2A797C","size":"5","type":"circle","x":"24.51490","y":"15.199200","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"60","color":"#29777B","size":"5","type":"diamond","x":"21.19069","y":"20.331007","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"61","color":"#28757A","size":"3","type":"diamond","x":"12.24083","y":"11.334054","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"62","color":"#27747A","size":"2","type":"circle","x":"26.81791","y":"14.672452","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"63","color":"#267279","size":"2","type":"diamond","x":"16.72714","y":"21.951500","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"64","color":"#257078","size":"2","type":"square","x":"19.06399","y":"17.643775","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"65","color":"#256E77","size":"5","type":"circle","x":"19.34392","y":"10.247415","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"66","color":"#246C77","size":"2","type":"diamond","x":"18.20478","y":"17.560747","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"67","color":"#236A76","size":"2","type":"square","x":"17.42010","y":" 8.952732","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"68","color":"#226975","size":"3","type":"circle","x":"26.20367","y":"11.595355","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"69","color":"#216774","size":"3","type":"circle","x":"17.36873","y":"22.574442","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"70","color":"#206574","size":"3","type":"circle","x":"16.58451","y":"18.985383","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"71","color":"#1F6373","size":"4","type":"diamond","x":"19.61524","y":"22.732085","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"72","color":"#1E6172","size":"3","type":"diamond","x":"21.65475","y":"22.078337","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"73","color":"#1D6071","size":"5","type":"square","x":"21.85148","y":"11.153149","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"74","color":"#1D5E70","size":"3","type":"circle","x":"14.25563","y":" 6.819874","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"75","color":"#1C5C70","size":"2","type":"circle","x":"21.56348","y":"16.107221","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"76","color":"#1C5F6F","size":"5","type":"diamond","x":"23.89117","y":"11.423126","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"77","color":"#1C636F","size":"3","type":"square","x":"11.74720","y":"18.042279","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"78","color":"#1C686F","size":"2","type":"circle","x":"10.28461","y":"13.694406","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"79","color":"#1D6C6F","size":"2","type":"square","x":"14.78090","y":" 7.533235","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"80","color":"#1D706F","size":"3","type":"diamond","x":"15.68536","y":"19.156856","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"81","color":"#1D756E","size":"4","type":"circle","x":"11.32665","y":"12.290300","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"82","color":"#1E796E","size":"5","type":"diamond","x":"24.63663","y":" 8.960100","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"83","color":"#1E7E6E","size":"4","type":"square","x":"11.14449","y":"17.253603","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"84","color":"#1E826E","size":"3","type":"circle","x":"14.21838","y":"20.448019","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"85","color":"#1F866E","size":"5","type":"diamond","x":"12.15765","y":"13.179198","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"86","color":"#1F8B6D","size":"4","type":"square","x":"22.89700","y":"13.243068","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"87","color":"#1F8F6D","size":"5","type":"diamond","x":"15.72500","y":" 8.330729","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"88","color":"#20946D","size":"2","type":"square","x":"24.74946","y":"16.064924","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"89","color":"#20986D","size":"5","type":"diamond","x":"19.98884","y":"13.904252","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"90","color":"#209C6D","size":"3","type":"square","x":"24.15106","y":"10.412239","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"91","color":"#21A16C","size":"3","type":"diamond","x":"18.62958","y":"21.654297","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"92","color":"#21A56C","size":"4","type":"circle","x":"21.89917","y":"10.189597","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"93","color":"#21AA6C","size":"5","type":"circle","x":"17.85047","y":"12.714857","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"94","color":"#22AE6C","size":"3","type":"circle","x":"12.49257","y":"10.419585","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"95","color":"#22B26C","size":"5","type":"square","x":"24.05756","y":"17.777749","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"96","color":"#22B76B","size":"5","type":"square","x":"12.16855","y":"18.884616","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"97","color":"#23BB6B","size":"5","type":"circle","x":"16.50799","y":"15.262457","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"98","color":"#23C06B","size":"3","type":"circle","x":"14.82800","y":"21.967767","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"99","color":"#23C46B","size":"2","type":"circle","x":"12.18191","y":"19.821484","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"100","color":"#24C96B","size":"3","type":"square","x":"18.55871","y":"11.350837","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}}],"edges":[{"id":"1","source":"20","target":"20"},{"id":"2","source":"11","target":"59"},{"id":"3","source":"24","target":"40"},{"id":"4","source":"5","target":"89"},{"id":"5","source":"80","target":"16"},{"id":"6","source":"45","target":"53"},{"id":"7","source":"22","target":"65"},{"id":"8","source":"93","target":"56"},{"id":"9","source":"92","target":"73"},{"id":"10","source":"70","target":"80"},{"id":"11","source":"31","target":"89"},{"id":"12","source":"56","target":"97"},{"id":"13","source":"22","target":"19"},{"id":"14","source":"17","target":"4"},{"id":"15","source":"41","target":"56"},{"id":"16","source":"85","target":"44"},{"id":"17","source":"88","target":"59"},{"id":"18","source":"79","target":"32"},{"id":"19","source":"38","target":"67"},{"id":"20","source":"78","target":"44"},{"id":"21","source":"55","target":"55"},{"id":"22","source":"61","target":"94"},{"id":"23","source":"28","target":"1"},{"id":"24","source":"32","target":"36"},{"id":"25","source":"20","target":"35"},{"id":"26","source":"29","target":"54"},{"id":"27","source":"93","target":"57"},{"id":"28","source":"26","target":"92"},{"id":"29","source":"83","target":"77"},{"id":"30","source":"44","target":"53"},{"id":"31","source":"90","target":"48"},{"id":"32","source":"45","target":"44"},{"id":"33","source":"99","target":"96"},{"id":"34","source":"50","target":"8"},{"id":"35","source":"28","target":"45"},{"id":"36","source":"43","target":"30"},{"id":"37","source":"48","target":"82"},{"id":"38","source":"83","target":"24"},{"id":"39","source":"27","target":"89"},{"id":"40","source":"48","target":"49"},{"id":"41","source":"6","target":"13"},{"id":"42","source":"86","target":"54"},{"id":"43","source":"68","target":"49"},{"id":"44","source":"81","target":"44"},{"id":"45","source":"50","target":"19"},{"id":"46","source":"75","target":"58"},{"id":"47","source":"93","target":"100"},{"id":"48","source":"66","target":"64"},{"id":"49","source":"69","target":"63"},{"id":"50","source":"44","target":"40"},{"id":"51","source":"32","target":"87"},{"id":"52","source":"100","target":"65"},{"id":"53","source":"16","target":"84"},{"id":"54","source":"22","target":"26"},{"id":"55","source":"76","target":"90"},{"id":"56","source":"61","target":"13"},{"id":"57","source":"10","target":"50"},{"id":"58","source":"77","target":"96"},{"id":"59","source":"5","target":"93"},{"id":"60","source":"13","target":"17"},{"id":"61","source":"76","target":"54"},{"id":"62","source":"23","target":"81"},{"id":"63","source":"30","target":"79"},{"id":"64","source":"79","target":"74"},{"id":"65","source":"47","target":"97"},{"id":"66","source":"21","target":"15"},{"id":"67","source":"84","target":"34"},{"id":"68","source":"15","target":"51"},{"id":"69","source":"61","target":"81"},{"id":"70","source":"67","target":"36"},{"id":"71","source":"94","target":"13"},{"id":"72","source":"15","target":"32"},{"id":"73","source":"46","target":"21"},{"id":"74","source":"3","target":"63"},{"id":"75","source":"47","target":"37"}]},"type":"canvas","button":[],"buttonevent":[],"crosstalk":{"crosstalk_key":null,"crosstalk_group":null},"customShapes":true,"settings":{"defaultNodeColor":"#0011ff","minNodeSize":8,"maxNodeSize":16}},"evals":[],"jsHooks":[]}</script>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="st">  </span><span class="kw">sg_settings</span>(<span class="dt">defaultNodeColor =</span> <span class="st">&quot;#0011ff&quot;</span>, <span class="dt">minNodeSize =</span> <span class="dv">8</span>, <span class="dt">maxNodeSize =</span> <span class="dv">16</span>) </a></code></pre>
+<div id="htmlwidget-f2d123134d0eeeee7bf7" style="width:100%;height:288px;" class="sigmajs html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f2d123134d0eeeee7bf7">{"x":{"kill":false,"data":{"nodes":[{"id":"1","color":"#B1E2A3","size":"5","type":"diamond","x":"21.29200","y":"27.20692","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"2","color":"#AFE1A3","size":"2","type":"circle","x":"27.78532","y":"15.94611","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"3","color":"#AEE0A3","size":"2","type":"circle","x":"24.28415","y":"15.81486","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"4","color":"#ADE0A3","size":"5","type":"circle","x":"25.17349","y":"14.70161","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"5","color":"#ACDFA3","size":"4","type":"square","x":"26.12818","y":"14.20053","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"6","color":"#ABDEA3","size":"2","type":"square","x":"21.83131","y":"15.33714","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"7","color":"#AADEA3","size":"3","type":"diamond","x":"24.22926","y":"13.54904","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"8","color":"#A9DDA3","size":"4","type":"diamond","x":"21.26123","y":"17.27013","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"9","color":"#A8DDA3","size":"5","type":"square","x":"26.46120","y":"19.25463","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"10","color":"#A7DCA3","size":"5","type":"circle","x":"21.56154","y":"19.90709","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"11","color":"#A6DBA3","size":"5","type":"square","x":"17.84512","y":"16.77708","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"12","color":"#A5DBA3","size":"4","type":"circle","x":"28.12268","y":"17.59282","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"13","color":"#A4DAA3","size":"4","type":"diamond","x":"16.95225","y":"13.43522","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"14","color":"#A3DAA4","size":"4","type":"circle","x":"18.04018","y":"12.99406","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"15","color":"#A2D9A4","size":"2","type":"square","x":"24.42516","y":"19.30408","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"16","color":"#A1D8A4","size":"4","type":"square","x":"27.26839","y":"19.75271","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"17","color":"#A0D8A4","size":"5","type":"circle","x":"13.23314","y":"20.23480","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"18","color":"#9FD7A4","size":"3","type":"circle","x":"18.47922","y":"24.83355","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"19","color":"#9ED7A4","size":"5","type":"diamond","x":"16.48054","y":"15.80834","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"20","color":"#9DD6A4","size":"4","type":"square","x":"19.37335","y":"25.43768","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"21","color":"#9CD5A4","size":"4","type":"diamond","x":"16.53472","y":"27.09813","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"22","color":"#9BD5A4","size":"4","type":"diamond","x":"21.51531","y":"26.37012","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"23","color":"#9AD4A4","size":"4","type":"diamond","x":"23.60949","y":"14.74632","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"24","color":"#99D4A4","size":"4","type":"diamond","x":"21.69267","y":"12.09600","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"25","color":"#98D3A4","size":"2","type":"diamond","x":"16.55049","y":"26.07782","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"26","color":"#96D2A4","size":"2","type":"square","x":"25.90698","y":"26.06564","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"27","color":"#92CFA3","size":"5","type":"diamond","x":"24.12161","y":"27.97149","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"28","color":"#8ECCA1","size":"2","type":"square","x":"18.30070","y":"20.20381","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"29","color":"#8AC9A0","size":"5","type":"diamond","x":"17.60120","y":"25.70140","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"30","color":"#86C69F","size":"4","type":"square","x":"22.48002","y":"28.44218","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"31","color":"#82C39D","size":"3","type":"diamond","x":"14.91487","y":"24.50675","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"32","color":"#7EC09C","size":"4","type":"square","x":"16.67183","y":"21.57201","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"33","color":"#7ABD9B","size":"3","type":"square","x":"26.86071","y":"24.37476","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"34","color":"#75BA99","size":"4","type":"square","x":"22.67998","y":"11.94595","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"35","color":"#71B798","size":"5","type":"square","x":"26.82229","y":"15.91440","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"36","color":"#6DB496","size":"2","type":"circle","x":"28.01326","y":"21.50788","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"37","color":"#69B195","size":"2","type":"circle","x":"25.98982","y":"15.14992","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"38","color":"#65AE94","size":"3","type":"circle","x":"20.61366","y":"14.12951","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"39","color":"#61AB92","size":"4","type":"square","x":"19.81795","y":"23.09956","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"40","color":"#5DA891","size":"4","type":"square","x":"15.71136","y":"18.22904","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"41","color":"#59A590","size":"4","type":"diamond","x":"22.16881","y":"18.61203","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"42","color":"#55A28E","size":"3","type":"circle","x":"23.17213","y":"13.69781","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"43","color":"#509F8D","size":"3","type":"circle","x":"29.58253","y":"20.43727","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"44","color":"#4C9C8B","size":"3","type":"diamond","x":"18.60181","y":"17.56282","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"45","color":"#48998A","size":"5","type":"square","x":"29.38941","y":"22.01850","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"46","color":"#449689","size":"5","type":"diamond","x":"25.48021","y":"27.39459","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"47","color":"#409387","size":"2","type":"diamond","x":"14.21296","y":"24.60421","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"48","color":"#3C9086","size":"3","type":"diamond","x":"22.60775","y":"22.57059","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"49","color":"#388D85","size":"3","type":"circle","x":"14.62612","y":"15.14240","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"50","color":"#348A83","size":"2","type":"square","x":"17.45574","y":"19.38270","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"51","color":"#318882","size":"3","type":"circle","x":"23.73907","y":"23.83882","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"52","color":"#308681","size":"5","type":"circle","x":"20.63603","y":"28.53647","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"53","color":"#2F8481","size":"2","type":"circle","x":"13.65530","y":"19.04085","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"54","color":"#2E8280","size":"2","type":"square","x":"15.05911","y":"21.19025","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"55","color":"#2D807F","size":"3","type":"diamond","x":"19.10724","y":"18.59987","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"56","color":"#2D7E7E","size":"2","type":"diamond","x":"25.22891","y":"24.58100","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"57","color":"#2C7D7E","size":"4","type":"square","x":"27.20781","y":"22.79835","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"58","color":"#2B7B7D","size":"4","type":"square","x":"29.51449","y":"18.70951","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"59","color":"#2A797C","size":"2","type":"square","x":"19.79372","y":"26.30412","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"60","color":"#29777B","size":"3","type":"diamond","x":"16.53741","y":"18.50846","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"61","color":"#28757A","size":"2","type":"square","x":"19.00513","y":"28.21065","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"62","color":"#27747A","size":"2","type":"circle","x":"19.64844","y":"14.50079","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"63","color":"#267279","size":"5","type":"circle","x":"13.46815","y":"17.86362","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"64","color":"#257078","size":"5","type":"diamond","x":"28.22925","y":"24.70733","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"65","color":"#256E77","size":"3","type":"square","x":"26.13882","y":"18.35866","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"66","color":"#246C77","size":"5","type":"diamond","x":"21.28113","y":"21.00409","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"67","color":"#236A76","size":"4","type":"circle","x":"27.24335","y":"26.03861","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"68","color":"#226975","size":"3","type":"square","x":"26.01510","y":"21.39740","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"69","color":"#216774","size":"5","type":"circle","x":"24.28710","y":"21.73667","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"70","color":"#206574","size":"2","type":"square","x":"17.68034","y":"22.07567","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"71","color":"#1F6373","size":"3","type":"square","x":"28.18557","y":"19.65826","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"72","color":"#1E6172","size":"2","type":"circle","x":"14.90472","y":"18.72968","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"73","color":"#1D6071","size":"3","type":"circle","x":"19.10351","y":"23.84644","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"74","color":"#1D5E70","size":"3","type":"square","x":"18.00262","y":"26.72999","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"75","color":"#1C5C70","size":"3","type":"square","x":"23.23875","y":"15.70592","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"76","color":"#1C5F6F","size":"2","type":"diamond","x":"19.39344","y":"13.04026","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"77","color":"#1C636F","size":"5","type":"circle","x":"23.53297","y":"18.67226","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"78","color":"#1C686F","size":"3","type":"circle","x":"15.08942","y":"16.00494","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"79","color":"#1D6C6F","size":"5","type":"circle","x":"21.54390","y":"23.96887","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"80","color":"#1D706F","size":"5","type":"circle","x":"20.61373","y":"12.41590","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"81","color":"#1D756E","size":"2","type":"diamond","x":"19.55817","y":"17.40054","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"82","color":"#1E796E","size":"3","type":"square","x":"16.50619","y":"22.70494","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"83","color":"#1E7E6E","size":"5","type":"circle","x":"22.71370","y":"19.55851","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"84","color":"#1E826E","size":"2","type":"circle","x":"13.32382","y":"21.38744","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"85","color":"#1F866E","size":"5","type":"circle","x":"16.45628","y":"14.51085","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"86","color":"#1F8B6D","size":"4","type":"diamond","x":"20.05840","y":"16.01199","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"87","color":"#1F8F6D","size":"4","type":"square","x":"19.21772","y":"12.03927","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"88","color":"#20946D","size":"2","type":"diamond","x":"22.72906","y":"25.15358","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"89","color":"#20986D","size":"5","type":"square","x":"23.13652","y":"26.96255","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"90","color":"#209C6D","size":"3","type":"diamond","x":"28.76607","y":"23.33698","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"91","color":"#21A16C","size":"5","type":"square","x":"24.29618","y":"25.93830","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"92","color":"#21A56C","size":"2","type":"circle","x":"27.04753","y":"13.89815","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"93","color":"#21AA6C","size":"5","type":"diamond","x":"15.62196","y":"25.85773","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"94","color":"#22AE6C","size":"4","type":"diamond","x":"25.48996","y":"23.00602","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"95","color":"#22B26C","size":"3","type":"circle","x":"14.19681","y":"22.03839","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"96","color":"#22B76B","size":"4","type":"square","x":"16.07298","y":"20.27557","image":{"url":"https://avatars0.githubusercontent.com/u/163582?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"97","color":"#23BB6B","size":"2","type":"square","x":"14.05653","y":"16.80169","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"98","color":"#23C06B","size":"4","type":"circle","x":"18.61091","y":"14.60185","image":{"url":"https://avatars1.githubusercontent.com/u/4196?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"99","color":"#23C46B","size":"2","type":"square","x":"14.17968","y":"23.03623","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}},{"id":"100","color":"#24C96B","size":"2","type":"circle","x":"28.86703","y":"17.13612","image":{"url":"https://avatars3.githubusercontent.com/u/129551?s=400&v=4","scale":"1.3","clip":"0.85"}}],"edges":[{"id":"1","source":"8","target":"41"},{"id":"2","source":"23","target":"42"},{"id":"3","source":"18","target":"20"},{"id":"4","source":"39","target":"73"},{"id":"5","source":"95","target":"99"},{"id":"6","source":"35","target":"2"},{"id":"7","source":"97","target":"78"},{"id":"8","source":"6","target":"23"},{"id":"9","source":"11","target":"60"},{"id":"10","source":"65","target":"9"},{"id":"11","source":"98","target":"62"},{"id":"12","source":"85","target":"13"},{"id":"13","source":"14","target":"13"},{"id":"14","source":"31","target":"47"},{"id":"15","source":"37","target":"4"},{"id":"16","source":"44","target":"55"},{"id":"17","source":"3","target":"23"},{"id":"18","source":"49","target":"78"},{"id":"19","source":"53","target":"63"},{"id":"20","source":"70","target":"32"},{"id":"21","source":"28","target":"50"},{"id":"22","source":"35","target":"37"},{"id":"23","source":"37","target":"5"},{"id":"24","source":"86","target":"62"},{"id":"25","source":"60","target":"96"},{"id":"26","source":"25","target":"29"},{"id":"27","source":"86","target":"11"},{"id":"28","source":"23","target":"4"},{"id":"29","source":"4","target":"5"},{"id":"30","source":"22","target":"1"},{"id":"31","source":"53","target":"17"},{"id":"32","source":"86","target":"8"},{"id":"33","source":"14","target":"76"},{"id":"34","source":"77","target":"41"},{"id":"35","source":"23","target":"7"},{"id":"36","source":"93","target":"25"},{"id":"37","source":"63","target":"97"},{"id":"38","source":"95","target":"54"},{"id":"39","source":"19","target":"11"},{"id":"40","source":"19","target":"85"},{"id":"41","source":"20","target":"59"},{"id":"42","source":"84","target":"95"},{"id":"43","source":"16","target":"71"},{"id":"44","source":"54","target":"96"},{"id":"45","source":"15","target":"77"},{"id":"46","source":"75","target":"23"},{"id":"47","source":"96","target":"32"},{"id":"48","source":"34","target":"24"},{"id":"49","source":"12","target":"100"},{"id":"50","source":"44","target":"11"},{"id":"51","source":"72","target":"53"},{"id":"52","source":"19","target":"78"},{"id":"53","source":"29","target":"74"},{"id":"54","source":"18","target":"73"},{"id":"55","source":"76","target":"87"},{"id":"56","source":"60","target":"50"},{"id":"57","source":"21","target":"25"},{"id":"58","source":"40","target":"60"},{"id":"59","source":"84","target":"17"},{"id":"60","source":"86","target":"6"},{"id":"61","source":"31","target":"47"},{"id":"62","source":"82","target":"32"},{"id":"63","source":"60","target":"72"},{"id":"64","source":"38","target":"62"},{"id":"65","source":"41","target":"10"},{"id":"66","source":"29","target":"18"},{"id":"67","source":"80","target":"24"},{"id":"68","source":"5","target":"92"},{"id":"69","source":"10","target":"66"},{"id":"70","source":"81","target":"44"},{"id":"71","source":"37","target":"4"},{"id":"72","source":"62","target":"76"},{"id":"73","source":"16","target":"9"},{"id":"74","source":"80","target":"76"},{"id":"75","source":"41","target":"83"}]},"type":"canvas","button":[],"buttonevent":[],"crosstalk":{"crosstalk_key":null,"crosstalk_group":null},"customShapes":true,"settings":{"defaultNodeColor":"#0011ff","minNodeSize":8,"maxNodeSize":16}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="download" class="section level2">
 <h2>Download</h2>
 <p>Allow users to download the graph to SVG.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">nodes &lt;-<span class="st"> </span><span class="kw">sg_make_nodes</span>()</a>
+<pre class="sourceCode r" id="cb3"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">nodes &lt;-<span class="st"> </span><span class="kw">sg_make_nodes</span>()</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">edges &lt;-<span class="st"> </span><span class="kw">sg_make_edges</span>(nodes)</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw">sigmajs</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -3366,26 +2703,26 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb3-11" data-line-number="11">    tags<span class="op">$</span><span class="kw">i</span>(<span class="dt">class =</span> <span class="st">&quot;fa fa-download&quot;</span>),</a>
 <a class="sourceLine" id="cb3-12" data-line-number="12">    <span class="dt">class =</span> <span class="st">&quot;btn btn-success&quot;</span>,</a>
 <a class="sourceLine" id="cb3-13" data-line-number="13">    <span class="dt">tag =</span> tags<span class="op">$</span>a</a>
-<a class="sourceLine" id="cb3-14" data-line-number="14">  )</a></code></pre></div>
-<a id="A1U2I3R4S5A6U7I8R9" class="sigmajsbtn btn btn-success">
+<a class="sourceLine" id="cb3-14" data-line-number="14">  )</a></code></pre>
+<a id="F1B2J3L4P5F6B7J8L9" class="sigmajsbtn btn btn-success">
 <i class="fa fa-download"></i>
 </a>
-<div id="htmlwidget-cbb2dd2bda35795511a9" style="width:100%;height:288px;" class="sigmajs html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cbb2dd2bda35795511a9">{"x":{"kill":false,"data":{"nodes":[{"id":"1","size":"5","color":"#B1E2A3","x":" 6.850813","y":"6.063914"},{"id":"2","size":"2","color":"#A5DBA3","x":" 6.789660","y":"7.548341"},{"id":"3","size":"4","color":"#9AD4A4","x":" 7.730984","y":"1.505521"},{"id":"4","size":"5","color":"#76BA99","x":"10.212306","y":"2.527470"},{"id":"5","size":"2","color":"#48998A","x":"11.081377","y":"3.350456"},{"id":"6","size":"4","color":"#2D7E7E","x":" 5.475540","y":"6.598846"},{"id":"7","size":"5","color":"#236B76","x":" 8.030642","y":"4.364047"},{"id":"8","size":"2","color":"#1C686F","x":" 8.901129","y":"1.719362"},{"id":"9","size":"4","color":"#20986D","x":" 9.777662","y":"3.789889"},{"id":"10","size":"2","color":"#24C96B","x":" 7.867245","y":"2.543331"}],"edges":[{"id":"1","source":"9","target":"4"},{"id":"2","source":"8","target":"4"},{"id":"3","source":"6","target":"1"},{"id":"4","source":"9","target":"9"},{"id":"5","source":"7","target":"10"},{"id":"6","source":"10","target":"8"},{"id":"7","source":"1","target":"2"},{"id":"8","source":"1","target":"7"},{"id":"9","source":"9","target":"5"},{"id":"10","source":"8","target":"3"},{"id":"11","source":"3","target":"10"},{"id":"12","source":"4","target":"5"},{"id":"13","source":"7","target":"9"},{"id":"14","source":"6","target":"6"},{"id":"15","source":"10","target":"3"}]},"type":"canvas","button":[{"id":"A1U2I3R4S5A6U7I8R9","event":"export_svg"}],"buttonevent":["export_svg"],"crosstalk":{"crosstalk_key":null,"crosstalk_group":null},"exportSVG":{"download":true,"filename":"graph.svg","size":1000,"width":1000,"height":1000,"labels":false,"data":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-b06725799dcf102b0dec" style="width:100%;height:288px;" class="sigmajs html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b06725799dcf102b0dec">{"x":{"kill":false,"data":{"nodes":[{"id":"1","size":"3","color":"#B1E2A3","x":"2.692475","y":"12.37864"},{"id":"2","size":"3","color":"#A5DBA3","x":"2.530285","y":"13.33996"},{"id":"3","size":"4","color":"#9AD4A4","x":"2.187358","y":"11.77784"},{"id":"4","size":"5","color":"#76BA99","x":"5.559717","y":"14.28479"},{"id":"5","size":"5","color":"#48998A","x":"3.489257","y":"13.12231"},{"id":"6","size":"2","color":"#2D7E7E","x":"1.585026","y":"13.21581"},{"id":"7","size":"3","color":"#236B76","x":"3.888632","y":"11.67727"},{"id":"8","size":"5","color":"#1C686F","x":"4.375231","y":"12.58484"},{"id":"9","size":"3","color":"#20986D","x":"3.805148","y":"13.79747"},{"id":"10","size":"3","color":"#24C96B","x":"3.054804","y":"10.84427"}],"edges":[{"id":"1","source":"5","target":"8"},{"id":"2","source":"6","target":"1"},{"id":"3","source":"3","target":"1"},{"id":"4","source":"7","target":"10"},{"id":"5","source":"7","target":"8"},{"id":"6","source":"7","target":"1"},{"id":"7","source":"2","target":"9"},{"id":"8","source":"2","target":"5"},{"id":"9","source":"9","target":"5"},{"id":"10","source":"8","target":"7"},{"id":"11","source":"5","target":"1"},{"id":"12","source":"6","target":"2"},{"id":"13","source":"8","target":"9"},{"id":"14","source":"10","target":"3"},{"id":"15","source":"2","target":"3"}]},"type":"canvas","button":[{"id":"F1B2J3L4P5F6B7J8L9","event":"export_svg"}],"buttonevent":["export_svg"],"crosstalk":{"crosstalk_key":null,"crosstalk_group":null},"exportSVG":{"download":true,"filename":"graph.svg","size":1000,"width":1000,"height":1000,"labels":false,"data":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="neighbours" class="section level2">
 <h2>Neighbours</h2>
 <p>Highlight node neighbours on click.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">nodes &lt;-<span class="st"> </span><span class="kw">sg_make_nodes</span>(<span class="dv">50</span>)</a>
+<pre class="sourceCode r" id="cb4"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">nodes &lt;-<span class="st"> </span><span class="kw">sg_make_nodes</span>(<span class="dv">50</span>)</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">edges &lt;-<span class="st"> </span><span class="kw">sg_make_edges</span>(nodes)</a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw">sigmajs</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">  </span><span class="kw">sg_nodes</span>(nodes, id, size, color) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="st">  </span><span class="kw">sg_edges</span>(edges, id, source, target) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-7" data-line-number="7"><span class="st">  </span><span class="kw">sg_layout</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="st">  </span><span class="kw">sg_neighbours</span>()</a></code></pre></div>
-<div id="htmlwidget-2ba4c130e9f7db84b638" style="width:100%;height:288px;" class="sigmajs html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2ba4c130e9f7db84b638">{"x":{"kill":false,"data":{"nodes":[{"id":"1","size":"2","color":"#B1E2A3","x":" 5.21248878","y":"-2.442499224"},{"id":"2","size":"4","color":"#AEE0A3","x":"-4.28199162","y":" 3.596542517"},{"id":"3","size":"4","color":"#ACDFA3","x":"-2.35790743","y":" 3.587256182"},{"id":"4","size":"3","color":"#AADEA3","x":" 2.91000626","y":" 2.475270990"},{"id":"5","size":"5","color":"#A8DDA3","x":" 5.24957343","y":" 0.787874480"},{"id":"6","size":"3","color":"#A6DBA3","x":"-2.94944816","y":" 2.810489430"},{"id":"7","size":"4","color":"#A4DAA3","x":" 6.30577484","y":"-0.007118186"},{"id":"8","size":"2","color":"#A2D9A4","x":"-0.85021499","y":" 1.242488024"},{"id":"9","size":"4","color":"#A0D8A4","x":" 3.54460948","y":" 1.731926524"},{"id":"10","size":"3","color":"#9ED6A4","x":" 4.07368541","y":"-2.051832686"},{"id":"11","size":"2","color":"#9CD5A4","x":"-0.65108154","y":"-1.630719200"},{"id":"12","size":"4","color":"#9AD4A4","x":"-4.23279476","y":" 1.913235549"},{"id":"13","size":"2","color":"#98D3A4","x":" 0.86349837","y":"-1.689917227"},{"id":"14","size":"2","color":"#91CEA2","x":"-1.12659919","y":"-0.176698633"},{"id":"15","size":"3","color":"#89C8A0","x":" 3.30312965","y":" 7.524246133"},{"id":"16","size":"2","color":"#81C29D","x":" 3.66199213","y":"-1.282710199"},{"id":"17","size":"3","color":"#78BC9A","x":"-1.72533689","y":"-0.496327572"},{"id":"18","size":"4","color":"#70B697","x":" 1.10474267","y":" 2.118356027"},{"id":"19","size":"4","color":"#68B095","x":"-0.97680741","y":" 0.609435998"},{"id":"20","size":"4","color":"#5FAA92","x":" 6.77345863","y":" 4.364964254"},{"id":"21","size":"3","color":"#57A48F","x":" 1.65356802","y":" 0.104686871"},{"id":"22","size":"2","color":"#4F9E8C","x":" 4.53056255","y":"-0.584716545"},{"id":"23","size":"2","color":"#469889","x":"-0.84431569","y":" 4.226330480"},{"id":"24","size":"2","color":"#3E9287","x":"-2.75314290","y":" 5.284393256"},{"id":"25","size":"5","color":"#368C84","x":" 2.59056630","y":" 3.176679649"},{"id":"26","size":"4","color":"#318782","x":" 1.20399885","y":" 3.692839581"},{"id":"27","size":"3","color":"#2F8380","x":" 0.27824012","y":" 6.474457223"},{"id":"28","size":"5","color":"#2D7F7F","x":" 1.85729907","y":" 4.156281192"},{"id":"29","size":"4","color":"#2B7C7D","x":" 0.17911750","y":" 4.688533389"},{"id":"30","size":"2","color":"#29787C","x":" 5.14674377","y":" 2.716337472"},{"id":"31","size":"5","color":"#28747A","x":"-3.42150418","y":" 1.081878432"},{"id":"32","size":"2","color":"#267178","x":"-1.52180390","y":" 1.671526072"},{"id":"33","size":"4","color":"#246D77","x":"-0.29632104","y":" 2.347062418"},{"id":"34","size":"2","color":"#226975","x":" 2.65633553","y":"-1.435146490"},{"id":"35","size":"3","color":"#206674","x":" 0.30953306","y":" 2.273909259"},{"id":"36","size":"2","color":"#1F6272","x":" 3.17423887","y":"-0.313108381"},{"id":"37","size":"2","color":"#1D5E71","x":" 5.50416045","y":"-1.284416224"},{"id":"38","size":"3","color":"#1C5E6F","x":"-2.51005557","y":" 1.193022720"},{"id":"39","size":"5","color":"#1C676F","x":" 4.20267613","y":" 7.087521371"},{"id":"40","size":"2","color":"#1D706F","x":" 2.37349136","y":" 7.899635072"},{"id":"41","size":"5","color":"#1E786E","x":" 2.84049147","y":" 1.337462924"},{"id":"42","size":"3","color":"#1E816E","x":" 0.53026037","y":" 0.370843181"},{"id":"43","size":"3","color":"#1F8A6D","x":"-1.90859170","y":" 4.628629252"},{"id":"44","size":"3","color":"#20936D","x":" 2.54229416","y":" 0.295921636"},{"id":"45","size":"5","color":"#209C6D","x":"-0.16818092","y":" 3.745639646"},{"id":"46","size":"4","color":"#21A56C","x":" 0.06829439","y":"-0.245742540"},{"id":"47","size":"2","color":"#22AE6C","x":" 5.74002379","y":" 5.876314119"},{"id":"48","size":"3","color":"#22B76B","x":" 1.87024381","y":" 2.606259595"},{"id":"49","size":"3","color":"#23C06B","x":"-1.74222757","y":" 3.493768485"},{"id":"50","size":"2","color":"#24C96B","x":" 1.93771152","y":" 1.608073386"}],"edges":[{"id":"1","source":"50","target":"28"},{"id":"2","source":"17","target":"46"},{"id":"3","source":"37","target":"16"},{"id":"4","source":"8","target":"6"},{"id":"5","source":"18","target":"32"},{"id":"6","source":"43","target":"6"},{"id":"7","source":"22","target":"5"},{"id":"8","source":"44","target":"4"},{"id":"9","source":"46","target":"50"},{"id":"10","source":"26","target":"4"},{"id":"11","source":"29","target":"23"},{"id":"12","source":"39","target":"15"},{"id":"13","source":"9","target":"5"},{"id":"14","source":"48","target":"18"},{"id":"15","source":"14","target":"42"},{"id":"16","source":"29","target":"26"},{"id":"17","source":"34","target":"44"},{"id":"18","source":"9","target":"48"},{"id":"19","source":"1","target":"37"},{"id":"20","source":"30","target":"9"},{"id":"21","source":"23","target":"49"},{"id":"22","source":"31","target":"12"},{"id":"23","source":"28","target":"29"},{"id":"24","source":"11","target":"13"},{"id":"25","source":"35","target":"29"},{"id":"26","source":"8","target":"19"},{"id":"27","source":"6","target":"2"},{"id":"28","source":"18","target":"25"},{"id":"29","source":"36","target":"44"},{"id":"30","source":"35","target":"19"},{"id":"31","source":"21","target":"9"},{"id":"32","source":"14","target":"32"},{"id":"33","source":"16","target":"21"},{"id":"34","source":"25","target":"50"},{"id":"35","source":"17","target":"46"},{"id":"36","source":"38","target":"3"},{"id":"37","source":"34","target":"22"},{"id":"38","source":"43","target":"24"},{"id":"39","source":"38","target":"31"},{"id":"40","source":"38","target":"17"},{"id":"41","source":"7","target":"37"},{"id":"42","source":"21","target":"46"},{"id":"43","source":"38","target":"19"},{"id":"44","source":"26","target":"33"},{"id":"45","source":"36","target":"44"},{"id":"46","source":"21","target":"8"},{"id":"47","source":"33","target":"19"},{"id":"48","source":"48","target":"45"},{"id":"49","source":"29","target":"43"},{"id":"50","source":"13","target":"42"},{"id":"51","source":"15","target":"40"},{"id":"52","source":"50","target":"48"},{"id":"53","source":"3","target":"24"},{"id":"54","source":"49","target":"43"},{"id":"55","source":"23","target":"33"},{"id":"56","source":"50","target":"36"},{"id":"57","source":"16","target":"10"},{"id":"58","source":"29","target":"27"},{"id":"59","source":"44","target":"42"},{"id":"60","source":"45","target":"3"},{"id":"61","source":"48","target":"9"},{"id":"62","source":"18","target":"41"},{"id":"63","source":"42","target":"33"},{"id":"64","source":"5","target":"7"},{"id":"65","source":"11","target":"19"},{"id":"66","source":"44","target":"41"},{"id":"67","source":"48","target":"35"},{"id":"68","source":"36","target":"10"},{"id":"69","source":"10","target":"1"},{"id":"70","source":"32","target":"49"},{"id":"71","source":"13","target":"34"},{"id":"72","source":"12","target":"6"},{"id":"73","source":"42","target":"35"},{"id":"74","source":"41","target":"9"},{"id":"75","source":"31","target":"32"}]},"type":"canvas","button":[],"buttonevent":[],"crosstalk":{"crosstalk_key":null,"crosstalk_group":null},"neighbours":{"nodes":"#eee","edges":"#eee"}},"evals":[],"jsHooks":[]}</script>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="st">  </span><span class="kw">sg_neighbours</span>()</a></code></pre>
+<div id="htmlwidget-78d492363ad0d5775dbd" style="width:100%;height:288px;" class="sigmajs html-widget"></div>
+<script type="application/json" data-for="htmlwidget-78d492363ad0d5775dbd">{"x":{"kill":false,"data":{"nodes":[{"id":"1","size":"3","color":"#B1E2A3","x":" 5.13533592","y":" 7.80611074"},{"id":"2","size":"3","color":"#AEE0A3","x":" 0.65023843","y":" 3.78203418"},{"id":"3","size":"3","color":"#ACDFA3","x":"-1.05018968","y":" 1.54658841"},{"id":"4","size":"2","color":"#AADEA3","x":" 3.98251885","y":"-0.53640555"},{"id":"5","size":"4","color":"#A8DDA3","x":" 6.46926528","y":" 7.56010754"},{"id":"6","size":"2","color":"#A6DBA3","x":" 2.09627735","y":" 6.11499720"},{"id":"7","size":"4","color":"#A4DAA3","x":"-0.85451840","y":" 0.99306310"},{"id":"8","size":"4","color":"#A2D9A4","x":" 9.41535348","y":" 2.35904095"},{"id":"9","size":"5","color":"#A0D8A4","x":" 5.64272508","y":" 3.06662993"},{"id":"10","size":"2","color":"#9ED6A4","x":" 4.04087053","y":" 8.67663927"},{"id":"11","size":"5","color":"#9CD5A4","x":" 1.44997023","y":" 7.54908444"},{"id":"12","size":"3","color":"#9AD4A4","x":" 5.36991773","y":" 1.13215392"},{"id":"13","size":"4","color":"#98D3A4","x":" 3.35798132","y":"-2.13451335"},{"id":"14","size":"2","color":"#91CEA2","x":" 0.16650748","y":" 1.50940655"},{"id":"15","size":"4","color":"#89C8A0","x":"-0.02891655","y":" 4.99776635"},{"id":"16","size":"3","color":"#81C29D","x":" 4.00373371","y":" 3.75730814"},{"id":"17","size":"3","color":"#78BC9A","x":"-1.19272389","y":" 0.18627059"},{"id":"18","size":"5","color":"#70B697","x":" 5.36368310","y":" 0.45722040"},{"id":"19","size":"3","color":"#68B095","x":" 5.89339055","y":" 1.90856785"},{"id":"20","size":"5","color":"#5FAA92","x":"-0.17333613","y":" 0.36917118"},{"id":"21","size":"2","color":"#57A48F","x":" 3.46360060","y":" 7.67480045"},{"id":"22","size":"3","color":"#4F9E8C","x":" 1.60059609","y":"-0.99208387"},{"id":"23","size":"4","color":"#469889","x":" 0.95543510","y":" 5.21647927"},{"id":"24","size":"4","color":"#3E9287","x":" 1.20640906","y":" 1.03004591"},{"id":"25","size":"4","color":"#368C84","x":" 4.56172398","y":" 0.81597571"},{"id":"26","size":"2","color":"#318782","x":" 7.47946865","y":" 6.99632802"},{"id":"27","size":"3","color":"#2F8380","x":" 5.00298924","y":"-1.49970021"},{"id":"28","size":"2","color":"#2D7F7F","x":" 2.81893897","y":" 0.23163848"},{"id":"29","size":"3","color":"#2B7C7D","x":" 4.82280588","y":" 1.78760778"},{"id":"30","size":"3","color":"#29787C","x":" 1.72584117","y":" 5.34345748"},{"id":"31","size":"3","color":"#28747A","x":" 2.94272326","y":" 4.19567223"},{"id":"32","size":"4","color":"#267178","x":" 2.73966625","y":" 8.65605369"},{"id":"33","size":"3","color":"#246D77","x":"-0.40721192","y":" 2.91717974"},{"id":"34","size":"3","color":"#226975","x":" 1.76734091","y":" 1.76234510"},{"id":"35","size":"3","color":"#206674","x":" 2.15272589","y":" 3.97644260"},{"id":"36","size":"4","color":"#1F6272","x":" 4.32046708","y":" 5.04963318"},{"id":"37","size":"5","color":"#1D5E71","x":" 0.55670190","y":" 7.03683595"},{"id":"38","size":"4","color":"#1C5E6F","x":" 6.24200863","y":" 0.01626118"},{"id":"39","size":"4","color":"#1C676F","x":" 3.95929810","y":" 1.19852773"},{"id":"40","size":"4","color":"#1D706F","x":" 2.48107448","y":"-1.41682260"},{"id":"41","size":"4","color":"#1E786E","x":" 4.39488113","y":" 2.73530975"},{"id":"42","size":"3","color":"#1E816E","x":" 3.86159076","y":"-3.17972095"},{"id":"43","size":"4","color":"#1F8A6D","x":" 0.43992635","y":" 0.31129674"},{"id":"44","size":"3","color":"#20936D","x":"-0.27068953","y":" 2.19473902"},{"id":"45","size":"4","color":"#209C6D","x":" 6.70389225","y":" 1.26711421"},{"id":"46","size":"2","color":"#21A56C","x":" 2.89678279","y":" 1.80627799"},{"id":"47","size":"3","color":"#22AE6C","x":" 2.71905346","y":" 5.29389639"},{"id":"48","size":"4","color":"#22B76B","x":" 8.98911518","y":" 4.68246866"},{"id":"49","size":"5","color":"#23C06B","x":" 7.08959519","y":" 2.88648683"},{"id":"50","size":"4","color":"#24C96B","x":" 5.74256193","y":" 5.73827303"}],"edges":[{"id":"1","source":"23","target":"30"},{"id":"2","source":"15","target":"6"},{"id":"3","source":"44","target":"7"},{"id":"4","source":"25","target":"4"},{"id":"5","source":"27","target":"13"},{"id":"6","source":"44","target":"24"},{"id":"7","source":"3","target":"44"},{"id":"8","source":"21","target":"1"},{"id":"9","source":"34","target":"24"},{"id":"10","source":"43","target":"3"},{"id":"11","source":"41","target":"18"},{"id":"12","source":"9","target":"36"},{"id":"13","source":"39","target":"28"},{"id":"14","source":"17","target":"20"},{"id":"15","source":"12","target":"45"},{"id":"16","source":"25","target":"46"},{"id":"17","source":"45","target":"29"},{"id":"18","source":"30","target":"31"},{"id":"19","source":"6","target":"11"},{"id":"20","source":"35","target":"6"},{"id":"21","source":"19","target":"39"},{"id":"22","source":"9","target":"25"},{"id":"23","source":"34","target":"46"},{"id":"24","source":"47","target":"23"},{"id":"25","source":"5","target":"1"},{"id":"26","source":"5","target":"26"},{"id":"27","source":"46","target":"14"},{"id":"28","source":"28","target":"24"},{"id":"29","source":"22","target":"13"},{"id":"30","source":"15","target":"33"},{"id":"31","source":"21","target":"6"},{"id":"32","source":"40","target":"28"},{"id":"33","source":"29","target":"19"},{"id":"34","source":"25","target":"18"},{"id":"35","source":"46","target":"35"},{"id":"36","source":"19","target":"9"},{"id":"37","source":"6","target":"47"},{"id":"38","source":"16","target":"41"},{"id":"39","source":"28","target":"4"},{"id":"40","source":"21","target":"32"},{"id":"41","source":"25","target":"28"},{"id":"42","source":"19","target":"18"},{"id":"43","source":"7","target":"14"},{"id":"44","source":"13","target":"42"},{"id":"45","source":"43","target":"28"},{"id":"46","source":"23","target":"2"},{"id":"47","source":"49","target":"9"},{"id":"48","source":"33","target":"20"},{"id":"49","source":"43","target":"20"},{"id":"50","source":"2","target":"44"},{"id":"51","source":"33","target":"2"},{"id":"52","source":"17","target":"14"},{"id":"53","source":"36","target":"31"},{"id":"54","source":"6","target":"37"},{"id":"55","source":"18","target":"27"},{"id":"56","source":"46","target":"12"},{"id":"57","source":"2","target":"31"},{"id":"58","source":"29","target":"16"},{"id":"59","source":"10","target":"21"},{"id":"60","source":"31","target":"16"},{"id":"61","source":"28","target":"22"},{"id":"62","source":"7","target":"43"},{"id":"63","source":"49","target":"19"},{"id":"64","source":"47","target":"16"},{"id":"65","source":"6","target":"36"},{"id":"66","source":"12","target":"29"},{"id":"67","source":"3","target":"14"},{"id":"68","source":"20","target":"22"},{"id":"69","source":"41","target":"31"},{"id":"70","source":"29","target":"28"},{"id":"71","source":"12","target":"38"},{"id":"72","source":"36","target":"50"},{"id":"73","source":"14","target":"33"},{"id":"74","source":"38","target":"25"},{"id":"75","source":"46","target":"39"}]},"type":"canvas","button":[],"buttonevent":[],"crosstalk":{"crosstalk_key":null,"crosstalk_group":null},"neighbours":{"nodes":"#eee","edges":"#eee"}},"evals":[],"jsHooks":[]}</script>
 </div>
 
 

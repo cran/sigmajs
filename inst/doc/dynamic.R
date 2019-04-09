@@ -47,3 +47,44 @@ sigmajs() %>%
     "Add edges" # label
   )
 
+## ------------------------------------------------------------------------
+nodes <- sg_make_nodes(75)
+nodes$batch <- c(
+	rep(1000, 25),
+	rep(3000, 25),
+	rep(5000, 25)
+)
+
+edges <- data.frame(
+	id = 1:120,
+	source = c(
+		sample(1:25, 40, replace = TRUE),
+		sample(1:50, 40, replace = TRUE),
+		sample(1:75, 40, replace = TRUE)
+	),
+	target = c(
+		sample(1:25, 40, replace = TRUE),
+		sample(1:50, 40, replace = TRUE),
+		sample(1:75, 40, replace = TRUE)
+	),
+	batch = c(
+		rep(1000, 40),
+		rep(3000, 40),
+		rep(5000, 40)
+	)
+) %>% 
+	dplyr::mutate_all(as.character)
+
+sigmajs() %>% 
+	sg_force_start() %>% 
+	sg_read_nodes(nodes, id, color, size, delay = batch) %>% 
+	sg_read_edges(edges, id, source, target, delay = batch) %>% 
+	sg_force_stop(6000) %>% 
+	sg_read_exec() %>% 
+	sg_button(
+		c("read_exec", "force_stop"), 
+		"Add nodes & edges",
+    class = "btn btn-primary",
+    tag = tags$a
+	)
+

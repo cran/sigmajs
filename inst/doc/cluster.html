@@ -12,7 +12,7 @@
 
 <meta name="author" content="John Coene" />
 
-<meta name="date" content="2018-11-18" />
+<meta name="date" content="2019-04-09" />
 
 <title>Cluster</title>
 
@@ -866,1050 +866,12 @@
 <script>(function(){"use strict";function a(a,b){function c(a){var b=window.getComputedStyle(a),c=function(a){return parseInt(b.getPropertyValue(a).replace("px",""))||0};return{left:a.getBoundingClientRect().left+c("padding-left"),top:a.getBoundingClientRect().top+c("padding-top")}}function d(a){t=!1,l.removeEventListener("mousemove",i),l.removeEventListener("mouseup",h),r.length||(p=null)}function e(a){s[a.data.node.id]||(r.push(a.data.node),s[a.data.node.id]=!0,r.length&&!t&&(p=r[r.length-1],n.addEventListener("mousedown",g)))}function f(a){var b=r.map(function(a){return a}).indexOf(a.data.node);r.splice(b,1),delete s[a.data.node.id],r.length&&!t?p=r[r.length-1]:n.removeEventListener("mousedown",g)}function g(a){t=!0;var b=k.graph.nodes().length;if(p&&b>1){n.removeEventListener("mousedown",g),l.addEventListener("mousemove",i),l.addEventListener("mouseup",h);var c,d;for(c in k.cameras)d=k.cameras[c],void 0!==d.edgequadtree&&(d.edgequadtree._enabled=!1);m.settings({mouseEnabled:!1,enableHovering:!1}),k.refresh(),j.dispatchEvent("startdrag",{node:p,captor:a,renderer:m})}}function h(a){t=!1,n.addEventListener("mousedown",g),l.removeEventListener("mousemove",i),l.removeEventListener("mouseup",h);var b,c;for(b in k.cameras)c=k.cameras[b],void 0!==c.edgequadtree&&(c.edgequadtree._enabled=!0);m.settings({mouseEnabled:!0,enableHovering:!0}),k.refresh(),u&&j.dispatchEvent("drop",{node:p,captor:a,renderer:m}),j.dispatchEvent("dragend",{node:p,captor:a,renderer:m}),u=!1,p=null}function i(a){function b(){for(var b=c(m.container),d=a.clientX-b.left,e=a.clientY-b.top,f=Math.cos(o.angle),g=Math.sin(o.angle),h=k.graph.nodes(),i=[],l=0;l<2;l++){var n=h[l],r={x:n.x*f+n.y*g,y:n.y*f-n.x*g,renX:n[q+"x"],renY:n[q+"y"]};i.push(r)}if(i[0].x===i[1].x&&i[0].y===i[1].y){var s=0===i[0].renX?1:i[0].renX,t=0===i[0].renY?1:i[0].renY;d=i[0].x/s*(d-i[0].renX)+i[0].x,e=i[0].y/t*(e-i[0].renY)+i[0].y}else{var s=(i[1].renX-i[0].renX)/(i[1].x-i[0].x),t=(i[1].renY-i[0].renY)/(i[1].y-i[0].y);i[1].x===i[0].x&&(s=t),i[1].y===i[0].y&&(t=s),d=(d-i[0].renX)/s+i[0].x,e=(e-i[0].renY)/t+i[0].y}p.x=d*f-e*g,p.y=e*f+d*g,k.refresh(),u=!0,j.dispatchEvent("drag",{node:p,captor:a,renderer:m})}if(navigator.userAgent.toLowerCase().indexOf("firefox")>-1){clearTimeout(d);var d=setTimeout(b,0)}else b()}sigma.classes.dispatcher.extend(this);var j=this,k=a,l=document.body,m=b,n=b.container.lastChild,o=b.camera,p=null,q="",r=[],s={},t=!1,u=!1;b instanceof sigma.renderers.svg&&(n=b.container.firstChild),q=b instanceof sigma.renderers.webgl?b.options.prefix.substr(5):b.options.prefix,b.bind("overNode",e),b.bind("outNode",f),b.bind("click",d),k.bind("kill",function(){j.unbindAll()}),this.unbindAll=function(){n.removeEventListener("mousedown",g),l.removeEventListener("mousemove",i),l.removeEventListener("mouseup",h),m.unbind("overNode",e),m.unbind("outNode",f)}}if("undefined"==typeof sigma)throw"sigma is not declared";sigma.utils.pkg("sigma.plugins");var b={};sigma.plugins.dragNodes=function(c,d){return b[c.id]||(b[c.id]=new a(c,d)),c.bind("kill",function(){sigma.plugins.killDragNodes(c)}),b[c.id]},sigma.plugins.killDragNodes=function(c){b[c.id]instanceof a&&(b[c.id].unbindAll(),delete b[c.id])}}).call(window);</script>
 <script>!function(){"use strict";sigma.utils.pkg("sigma.canvas.edgehovers"),sigma.canvas.edgehovers.dashed=function(a,b,c,d,e){var f=a.active?a.active_color||e("defaultEdgeActiveColor"):a.color,g=e("prefix")||"",h=a[g+"size"]||1,i=e("edgeColor"),j=e("defaultNodeColor"),k=e("defaultEdgeColor");if(!f)switch(i){case"source":f=b.color||j;break;case"target":f=c.color||j;break;default:f=k}f="edge"===e("edgeHoverColor")?a.hover_color||f:a.hover_color||e("defaultEdgeHoverColor")||f,h*=e("edgeHoverSizeRatio"),d.save(),d.setLineDash([8,3]),d.strokeStyle=f,d.lineWidth=h,d.beginPath(),d.moveTo(b[g+"x"],b[g+"y"]),d.lineTo(c[g+"x"],c[g+"y"]),d.stroke(),d.restore()}}(),function(){"use strict";sigma.utils.pkg("sigma.canvas.edgehovers"),sigma.canvas.edgehovers.dotted=function(a,b,c,d,e){var f=a.active?a.active_color||e("defaultEdgeActiveColor"):a.color,g=e("prefix")||"",h=a[g+"size"]||1,i=e("edgeColor"),j=e("defaultNodeColor"),k=e("defaultEdgeColor");if(!f)switch(i){case"source":f=b.color||j;break;case"target":f=c.color||j;break;default:f=k}f="edge"===e("edgeHoverColor")?a.hover_color||f:a.hover_color||e("defaultEdgeHoverColor")||f,h*=e("edgeHoverSizeRatio"),d.save(),d.setLineDash([2]),d.strokeStyle=f,d.lineWidth=h,d.beginPath(),d.moveTo(b[g+"x"],b[g+"y"]),d.lineTo(c[g+"x"],c[g+"y"]),d.stroke(),d.restore()}}(),function(){"use strict";sigma.utils.pkg("sigma.canvas.edgehovers"),sigma.canvas.edgehovers.parallel=function(a,b,c,d,e){var f,g,h=a.active?a.active_color||e("defaultEdgeActiveColor"):a.color,i=e("prefix")||"",j=a[i+"size"]||1,k=e("edgeColor"),l=e("defaultNodeColor"),m=e("defaultEdgeColor"),n=b[i+"x"],o=b[i+"y"],p=c[i+"x"],q=c[i+"y"],r=sigma.utils.getDistance(n,o,p,q);if(!h)switch(k){case"source":h=b.color||l;break;case"target":h=c.color||l;break;default:h=m}h="edge"===e("edgeHoverColor")?a.hover_color||h:a.hover_color||e("defaultEdgeHoverColor")||h,j*=e("edgeHoverSizeRatio"),f=sigma.utils.getCircleIntersection(n,o,j,p,q,r),g=sigma.utils.getCircleIntersection(p,q,j,n,o,r),d.save(),d.strokeStyle=h,d.lineWidth=j,d.beginPath(),d.moveTo(f.xi,f.yi),d.lineTo(g.xi_prime,g.yi_prime),d.closePath(),d.stroke(),d.beginPath(),d.moveTo(f.xi_prime,f.yi_prime),d.lineTo(g.xi,g.yi),d.closePath(),d.stroke(),d.restore()}}(),function(){"use strict";sigma.utils.pkg("sigma.canvas.edgehovers"),sigma.canvas.edgehovers.tapered=function(a,b,c,d,e){var f=a.active?a.active_color||e("defaultEdgeActiveColor"):a.color,g=e("prefix")||"",h=a[g+"size"]||1,i=e("edgeColor"),g=e("prefix")||"",j=e("defaultNodeColor"),k=e("defaultEdgeColor"),l=b[g+"x"],m=b[g+"y"],n=c[g+"x"],o=c[g+"y"],p=sigma.utils.getDistance(l,m,n,o);if(!f)switch(i){case"source":f=b.color||j;break;case"target":f=c.color||j;break;default:f=k}f="edge"===e("edgeHoverColor")?a.hover_color||f:a.hover_color||e("defaultEdgeHoverColor")||f,h*=e("edgeHoverSizeRatio");var q=sigma.utils.getCircleIntersection(l,m,h,n,o,p);d.save(),d.globalAlpha=.65,d.fillStyle=f,d.beginPath(),d.moveTo(n,o),d.lineTo(q.xi,q.yi),d.lineTo(q.xi_prime,q.yi_prime),d.closePath(),d.fill(),d.restore()}}(),function(){"use strict";sigma.utils.pkg("sigma.canvas.edges"),sigma.canvas.edges.dashed=function(a,b,c,d,e){var f=a.active?a.active_color||e("defaultEdgeActiveColor"):a.color,g=e("prefix")||"",h=a[g+"size"]||1,i=e("edgeColor"),j=e("defaultNodeColor"),k=e("defaultEdgeColor");if(!f)switch(i){case"source":f=b.color||j;break;case"target":f=c.color||j;break;default:f=k}d.save(),a.active?d.strokeStyle="edge"===e("edgeActiveColor")?f||k:e("defaultEdgeActiveColor"):d.strokeStyle=f,d.setLineDash([8,3]),d.lineWidth=h,d.beginPath(),d.moveTo(b[g+"x"],b[g+"y"]),d.lineTo(c[g+"x"],c[g+"y"]),d.stroke(),d.restore()}}(),function(){"use strict";sigma.utils.pkg("sigma.canvas.edges"),sigma.canvas.edges.dotted=function(a,b,c,d,e){var f=a.active?a.active_color||e("defaultEdgeActiveColor"):a.color,g=e("prefix")||"",h=a[g+"size"]||1,i=e("edgeColor"),j=e("defaultNodeColor"),k=e("defaultEdgeColor");if(!f)switch(i){case"source":f=b.color||j;break;case"target":f=c.color||j;break;default:f=k}d.save(),a.active?d.strokeStyle="edge"===e("edgeActiveColor")?f||k:e("defaultEdgeActiveColor"):d.strokeStyle=f,d.setLineDash([2]),d.lineWidth=h,d.beginPath(),d.moveTo(b[g+"x"],b[g+"y"]),d.lineTo(c[g+"x"],c[g+"y"]),d.stroke(),d.restore()}}(),function(){"use strict";sigma.utils.pkg("sigma.canvas.edges"),sigma.canvas.edges.parallel=function(a,b,c,d,e){var f,g,h=a.active?a.active_color||e("defaultEdgeActiveColor"):a.color,i=e("prefix")||"",j=a[i+"size"]||1,k=e("edgeColor"),l=e("defaultNodeColor"),m=e("defaultEdgeColor"),n=b[i+"x"],o=b[i+"y"],p=c[i+"x"],q=c[i+"y"],r=sigma.utils.getDistance(n,o,p,q);if(!h)switch(k){case"source":h=b.color||l;break;case"target":h=c.color||l;break;default:h=m}f=sigma.utils.getCircleIntersection(n,o,j,p,q,r),g=sigma.utils.getCircleIntersection(p,q,j,n,o,r),d.save(),a.active?d.strokeStyle="edge"===e("edgeActiveColor")?h||m:e("defaultEdgeActiveColor"):d.strokeStyle=h,d.lineWidth=j,d.beginPath(),d.moveTo(f.xi,f.yi),d.lineTo(g.xi_prime,g.yi_prime),d.closePath(),d.stroke(),d.beginPath(),d.moveTo(f.xi_prime,f.yi_prime),d.lineTo(g.xi,g.yi),d.closePath(),d.stroke(),d.restore()}}(),function(){"use strict";sigma.utils.pkg("sigma.canvas.edges"),sigma.canvas.edges.tapered=function(a,b,c,d,e){var f=a.active?a.active_color||e("defaultEdgeActiveColor"):a.color,g=e("prefix")||"",h=a[g+"size"]||1,i=e("edgeColor"),g=e("prefix")||"",j=e("defaultNodeColor"),k=e("defaultEdgeColor"),l=b[g+"x"],m=b[g+"y"],n=c[g+"x"],o=c[g+"y"],p=sigma.utils.getDistance(l,m,n,o);if(!f)switch(i){case"source":f=b.color||j;break;case"target":f=c.color||j;break;default:f=k}var q=sigma.utils.getCircleIntersection(l,m,h,n,o,p);d.save(),a.active?d.fillStyle="edge"===e("edgeActiveColor")?f||k:e("defaultEdgeActiveColor"):d.fillStyle=f,d.globalAlpha=.65,d.beginPath(),d.moveTo(n,o),d.lineTo(q.xi,q.yi),d.lineTo(q.xi_prime,q.yi_prime),d.closePath(),d.fill(),d.restore()}}();</script>
 <script>(function(){"use strict";if("undefined"==typeof sigma)throw"sigma is not declared";sigma.utils.pkg("sigma.plugins");sigma.plugins.relativeSize=function(a,b){for(var c=a.graph.nodes(),d=0;d<c.length;d++){var e=a.graph.degree(c[d].id);c[d].size=b*Math.sqrt(e)}a.refresh()}}).call(window);</script>
-<script>!function(){"use strict";function a(a,b,c,d,f,g,h,i,j){a.beginPath(),a.fillStyle=j;var k=e(b,c,d.x,d.y,f,g,h);a.arc(k.x,k.y,3*i,0,2*Math.PI,!1),a.fill()}function b(a,b,c,d){var e=1-a;return e*e*b+2*e*a*c+a*a*d}function c(a,c,d,e,f,g,h){return{x:b(h,a,d,f),y:b(h,c,e,g)}}function d(a,b,c,d){return Math.sqrt((c-a)*(c-a)+(d-b)*(d-b))}function e(a,b,e,f,g,h,i){for(var j=0,k=1e3,l=.001,m=0;m<1;m+=l){var n=c(a,b,e,f,g,h,m),o=d(a,b,n.x,n.y);Math.abs(o-i)<k&&(k=Math.abs(o-i),j=m)}return c(a,b,e,f,g,h,j)}sigma.utils.pkg("sigma.canvas.edges"),sigma.canvas.edges.dotCurve=function(b,c,d,e,f){var g=b.color,h=f("prefix")||"",i=b[h+"size"]||1,j=f("edgeColor"),k=f("defaultNodeColor"),l=f("defaultEdgeColor"),m={},n=c[h+"size"],o=c[h+"x"],p=c[h+"y"],q=d[h+"x"],r=d[h+"y"];if(m=c.id===d.id?sigma.utils.getSelfLoopControlPoints(o,p,n):sigma.utils.getQuadraticControlPoint(o,p,q,r),!g)switch(j){case"source":g=c.color||k;break;case"target":g=d.color||k;break;default:g=l}if(e.strokeStyle=g,e.lineWidth=i,e.beginPath(),e.moveTo(o,p),c.id===d.id?e.bezierCurveTo(m.x1,m.y1,m.x2,m.y2,q,r):e.quadraticCurveTo(m.x,m.y,q,r),e.stroke(),void 0!=b.sourceDotColor||void 0!=b.targetDotColor){var s=b.dotOffset||3,t=b.dotSize||1;t*=i,s*=n,void 0!=b.sourceDotColor&&a(e,o,p,m,q,r,s,t,b.sourceDotColor),void 0!=b.targetDotColor&&a(e,q,r,m,o,p,s,t,b.targetDotColor)}}}(),function(){"use strict";function a(a,b,c,d,f,g,h,i,j){a.beginPath(),a.fillStyle=j;var k=e(b,c,d.x,d.y,f,g,h);a.arc(k.x,k.y,3*i,0,2*Math.PI,!1),a.fill()}function b(a,b,c,d){var e=1-a;return e*e*b+2*e*a*c+a*a*d}function c(a,c,d,e,f,g,h){return{x:b(h,a,d,f),y:b(h,c,e,g)}}function d(a,b,c,d){return Math.sqrt((c-a)*(c-a)+(d-b)*(d-b))}function e(a,b,e,f,g,h,i){for(var j=0,k=1e3,l=.001,m=0;m<1;m+=l){var n=c(a,b,e,f,g,h,m),o=d(a,b,n.x,n.y);Math.abs(o-i)<k&&(k=Math.abs(o-i),j=m)}return c(a,b,e,f,g,h,j)}sigma.utils.pkg("sigma.canvas.edges"),sigma.canvas.edges.dotCurvedArrow=function(b,c,d,e,f){var g,h,i,j,k,l=b.color,m=f("prefix")||"",n=f("edgeColor"),o=f("defaultNodeColor"),p=f("defaultEdgeColor"),q={},r=b[m+"size"]||1,s=b.count||0,t=d[m+"size"],u=c[m+"x"],v=c[m+"y"],w=d[m+"x"],x=d[m+"y"],y=Math.max(2.5*r,f("minArrowSize"));if(q=c.id===d.id?sigma.utils.getSelfLoopControlPoints(u,v,t,s):sigma.utils.getQuadraticControlPoint(u,v,w,x,s),c.id===d.id?(g=Math.sqrt(Math.pow(w-q.x1,2)+Math.pow(x-q.y1,2)),h=q.x1+(w-q.x1)*(g-y-t)/g,i=q.y1+(x-q.y1)*(g-y-t)/g,j=(w-q.x1)*y/g,k=(x-q.y1)*y/g):(g=Math.sqrt(Math.pow(w-q.x,2)+Math.pow(x-q.y,2)),h=q.x+(w-q.x)*(g-y-t)/g,i=q.y+(x-q.y)*(g-y-t)/g,j=(w-q.x)*y/g,k=(x-q.y)*y/g),!l)switch(n){case"source":l=c.color||o;break;case"target":l=d.color||o;break;default:l=p}if(e.strokeStyle=l,e.lineWidth=r,e.beginPath(),e.moveTo(u,v),c.id===d.id?e.bezierCurveTo(q.x2,q.y2,q.x1,q.y1,h,i):e.quadraticCurveTo(q.x,q.y,h,i),e.stroke(),e.fillStyle=l,e.beginPath(),e.moveTo(h+j,i+k),e.lineTo(h+.6*k,i-.6*j),e.lineTo(h-.6*k,i+.6*j),e.lineTo(h+j,i+k),e.closePath(),e.fill(),void 0!=b.sourceDotColor||void 0!=b.targetDotColor){var z=b.dotOffset||3,A=b.dotSize||1;A*=r,z*=t,void 0!=b.sourceDotColor&&a(e,u,v,q,w,x,z,A,b.sourceDotColor),void 0!=b.targetDotColor&&a(e,w,x,q,u,v,z,A,b.targetDotColor)}}}();</script>
 <script>(function(a){"use strict";if("undefined"==typeof sigma)throw"sigma is not declared";sigma.utils.pkg("sigma.settings");var b={defaultEdgeLabelColor:"#000",defaultEdgeLabelActiveColor:"#000",defaultEdgeLabelSize:10,edgeLabelSize:"fixed",edgeLabelSizePowRatio:1,edgeLabelThreshold:1};sigma.settings=sigma.utils.extend(sigma.settings||{},b),sigma.settings.drawEdgeLabels=!0}).call(this),function(a){"use strict";if("undefined"==typeof sigma)throw"sigma is not declared";sigma.utils.pkg("sigma.canvas.edges.labels"),sigma.canvas.edges.labels.curve=function(a,b,c,d,e){if("string"==typeof a.label){var f=e("prefix")||"",g=a[f+"size"]||1;if(!(g<e("edgeLabelThreshold"))){var h,i,j,k=b[f+"size"],l=b[f+"x"],m=b[f+"y"],n=c[f+"x"],o=c[f+"y"],p=n-l,q=o-m,r=l<n?1:-1,s={},t=.5;b.id===c.id?(s=sigma.utils.getSelfLoopControlPoints(l,m,k),i=sigma.utils.getPointOnBezierCurve(t,l,m,n,o,s.x1,s.y1,s.x2,s.y2),j=Math.atan2(1,1)):(s=sigma.utils.getQuadraticControlPoint(l,m,n,o),i=sigma.utils.getPointOnQuadraticCurve(t,l,m,n,o,s.x,s.y),j=Math.atan2(q*r,p*r)),h="fixed"===e("edgeLabelSize")?e("defaultEdgeLabelSize"):e("defaultEdgeLabelSize")*g*Math.pow(g,-1/e("edgeLabelSizePowRatio")),d.save(),a.active?(d.font=[e("activeFontStyle"),h+"px",e("activeFont")||e("font")].join(" "),d.fillStyle="edge"===e("edgeActiveColor")?a.active_color||e("defaultEdgeActiveColor"):e("defaultEdgeLabelActiveColor")):(d.font=[e("fontStyle"),h+"px",e("font")].join(" "),d.fillStyle="edge"===e("edgeLabelColor")?a.color||e("defaultEdgeColor"):e("defaultEdgeLabelColor")),d.textAlign="center",d.textBaseline="alphabetic",d.translate(i.x,i.y),d.rotate(j),d.fillText(a.label,0,-g/2-3),d.restore()}}}}.call(this),function(a){"use strict";if("undefined"==typeof sigma)throw"sigma is not declared";sigma.utils.pkg("sigma.canvas.edges.labels"),sigma.canvas.edges.labels.curvedArrow=function(a,b,c,d,e){sigma.canvas.edges.labels.curve(a,b,c,d,e)}}.call(this),function(a){"use strict";if("undefined"==typeof sigma)throw"sigma is not declared";sigma.utils.pkg("sigma.canvas.edges.labels"),sigma.canvas.edges.labels.def=function(a,b,c,d,e){if("string"==typeof a.label&&b!=c){var f=e("prefix")||"",g=a[f+"size"]||1;if(!(g<e("edgeLabelThreshold"))){if(0===e("edgeLabelSizePowRatio"))throw'"edgeLabelSizePowRatio" must not be 0.';var h,i=(b[f+"x"]+c[f+"x"])/2,j=(b[f+"y"]+c[f+"y"])/2,k=c[f+"x"]-b[f+"x"],l=c[f+"y"]-b[f+"y"],m=b[f+"x"]<c[f+"x"]?1:-1,n=Math.atan2(l*m,k*m);h="fixed"===e("edgeLabelSize")?e("defaultEdgeLabelSize"):e("defaultEdgeLabelSize")*g*Math.pow(g,-1/e("edgeLabelSizePowRatio")),d.save(),a.active?(d.font=[e("activeFontStyle"),h+"px",e("activeFont")||e("font")].join(" "),d.fillStyle="edge"===e("edgeActiveColor")?a.active_color||e("defaultEdgeActiveColor"):e("defaultEdgeLabelActiveColor")):(d.font=[e("fontStyle"),h+"px",e("font")].join(" "),d.fillStyle="edge"===e("edgeLabelColor")?a.color||e("defaultEdgeColor"):e("defaultEdgeLabelColor")),d.textAlign="center",d.textBaseline="alphabetic",d.translate(i,j),d.rotate(n),d.fillText(a.label,0,-g/2-3),d.restore()}}}}.call(this);</script>
 <script>(function(a){"use strict";function b(a){var b={id:a.id,label:a.label};return a.viz&&(b.viz=a.viz),a.attributes&&(b.attributes=a.attributes),b}function c(a){var b={id:a.id,type:a.type||"undirected",label:a.label||"",source:a.source,target:a.target,weight:+a.weight||1};return a.viz&&(b.viz=a.viz),a.attributes&&(b.attributes=a.attributes),b}function d(a){function d(){var a={};return l.els.meta?(a.lastmodifieddate=l.els.meta.getAttribute("lastmodifieddate"),h.nodeListEach(l.els.meta.childNodes,function(b){a[b.tagName.toLowerCase()]=b.textContent}),a):a}function e(a){var b=[];return l.els.model[a]&&h.nodeListEach(l.els.model[a],function(a){var c={id:a.getAttribute("id")||a.getAttribute("for"),type:a.getAttribute("type")||"string",title:a.getAttribute("title")||""},d=h.nodeListToArray(a.childNodes);d.length>0&&(c.defaultValue=d[0].textContent),b.push(c)}),b.length>0&&b}function f(a,b){var c={},d=b.getElementsByTagName("attvalue"),e=h.nodeListToHash(d,function(a){var b=h.namedNodeMapToObject(a.attributes);return{key:b.id||b.for,value:b.value}});return a.map(function(a){c[a.id]=!(a.id in e)&&"defaultValue"in a?h.enforceType(a.type,a.defaultValue):h.enforceType(a.type,e[a.id])}),c}function g(a){var c=[];return h.nodeListEach(l.els.nodes,function(d){var e={id:d.getAttribute("id"),label:d.getAttribute("label")||""};a&&(e.attributes=f(a,d)),l.hasViz&&(e.viz=i(d)),c.push(b(e))}),c}function i(a){var b={},c=h.getFirstElementByTagNS(a,"viz","color");if(c){var d=["r","g","b","a"].map(function(a){return c.getAttribute(a)});b.color=h.getRGB(d)}var e=h.getFirstElementByTagNS(a,"viz","position");e&&(b.position={},["x","y","z"].map(function(a){b.position[a]=+e.getAttribute(a)}));var f=h.getFirstElementByTagNS(a,"viz","size");f&&(b.size=+f.getAttribute("value"));var g=h.getFirstElementByTagNS(a,"viz","shape");return g&&(b.shape=g.getAttribute("value")),b}function j(a,b){var d=[];return h.nodeListEach(l.els.edges,function(e){var g=h.namedNodeMapToObject(e.attributes);"type"in g||(g.type=b),a&&(g.attributes=f(a,e)),l.hasViz&&(g.viz=k(e)),d.push(c(g))}),d}function k(a){var b={},c=h.getFirstElementByTagNS(a,"viz","color");if(c){var d=["r","g","b","a"].map(function(a){return c.getAttribute(a)});b.color=h.getRGB(d)}var e=h.getFirstElementByTagNS(a,"viz","shape");e&&(b.shape=e.getAttribute("value"));var f=h.getFirstElementByTagNS(a,"viz","thickness");return f&&(b.thickness=+f.getAttribute("value")),b}var l={};l.els={root:a.getElementsByTagName("gexf")[0],graph:a.getElementsByTagName("graph")[0],meta:a.getElementsByTagName("meta")[0],nodes:a.getElementsByTagName("node"),edges:a.getElementsByTagName("edge"),model:h.getModelTags(a)},l.hasViz=!!h.getAttributeNS(l.els.root,"xmlns","viz"),l.version=l.els.root.getAttribute("version")||"1.0",l.mode=l.els.graph.getAttribute("mode")||"static";var m=l.els.graph.getAttribute("defaultedgetype");l.defaultEdgetype=m||"undirected";var n=e("node"),o=e("edge"),p={version:l.version,mode:l.mode,defaultEdgeType:l.defaultEdgetype,meta:d(),model:{},nodes:g(n),edges:j(o,l.defaultEdgetype)};return n&&(p.model.node=n),o&&(p.model.edge=o),p}function e(a,b){var c=function(){if(window.XMLHttpRequest)return new XMLHttpRequest;var a,b;if(window.ActiveXObject){a=["Msxml2.XMLHTTP.6.0","Msxml2.XMLHTTP.3.0","Msxml2.XMLHTTP","Microsoft.XMLHTTP"];for(b in a)try{return new ActiveXObject(a[b])}catch(a){}}return null}();if(!c)throw"XMLHttpRequest not supported, cannot load the file.";var d,e="function"==typeof b;return c.overrideMimeType?(c.overrideMimeType("text/xml"),d=function(a){return a.responseXML}):d=function(a){return(new DOMParser).parseFromString(a.responseText,"application/xml")},c.open("GET",a,e),e&&(c.onreadystatechange=function(){4===c.readyState&&b(d(c))}),c.send(),e?c:d(c)}function f(a){return d(a)}function g(a,b){return"function"==typeof b?e(a,function(a){b(d(a))}):d(e(a))}var h={getModelTags:function(a){var b,c=a.getElementsByTagName("attributes"),d={},e=c.length;for(b=0;b<e;b++)d[c[b].getAttribute("class")]=c[b].childNodes;return d},nodeListToArray:function(a){for(var b=[],c=0,d=a.length;c<d;++c)"#text"!==a[c].nodeName&&b.push(a[c]);return b},nodeListEach:function(a,b){for(var c=0,d=a.length;c<d;++c)"#text"!==a[c].nodeName&&b(a[c])},nodeListToHash:function(a,b){for(var c={},d=0;d<a.length;d++)if("#text"!==a[d].nodeName){var e=b(a[d]);c[e.key]=e.value}return c},namedNodeMapToObject:function(a){for(var b={},c=0;c<a.length;c++)b[a[c].name]=a[c].value;return b},getFirstElementByTagNS:function(a,b,c){var d=a.getElementsByTagName(b+":"+c)[0];return d||(d=a.getElementsByTagNameNS(b,c)[0]),d||(d=a.getElementsByTagName(c)[0]),d},getAttributeNS:function(b,c,d){var e=b.getAttribute(c+":"+d);return e===a&&(e=b.getAttributeNS(c,d)),e===a&&(e=b.getAttribute(d)),e},enforceType:function(a,b){switch(a){case"boolean":b="true"===b;break;case"integer":case"long":case"float":case"double":b=+b;break;case"liststring":b=b?b.split("|"):[]}return b},getRGB:function(a){return a[3]?"rgba("+a.join(",")+")":"rgb("+a.slice(0,-1).join(",")+")"}};if(void 0!==this.gexf)throw'gexf: error - a variable called "gexf" already exists in the global scope';this.gexf={parse:f,fetch:g,version:"0.1.1"},"undefined"!=typeof exports&&this.exports!==exports&&(module.exports=this.gexf)}).call(this),function(a){"use strict";function b(){return"e"+c++}if("undefined"==typeof sigma)throw"sigma is not declared";sigma.utils.pkg("sigma.parsers");var c=0;sigma.parsers.gexf=function(a,c,d){function e(a){for(h=a.nodes,f=0,g=h.length;f<g;f++)i=h[f],i.id=i.id,i.viz&&"object"==typeof i.viz&&(i.viz.position&&"object"==typeof i.viz.position&&(i.x=i.viz.position.x,i.y=-i.viz.position.y),i.size=i.viz.size,i.color=i.viz.color);for(h=a.edges,f=0,g=h.length;f<g;f++)i=h[f],i.id="string"==typeof i.id?i.id:b(),i.source=""+i.source,i.target=""+i.target,i.viz&&"object"==typeof i.viz&&(i.color=i.viz.color,i.size=i.viz.thickness),i.size=i.weight,i.direction=i.type,delete i.type;if(c instanceof sigma){for(c.graph.clear(),h=a.nodes,f=0,g=h.length;f<g;f++)c.graph.addNode(h[f]);for(h=a.edges,f=0,g=h.length;f<g;f++)c.graph.addEdge(h[f])}else"object"==typeof c?(c.graph=a,c=new sigma(c)):"function"==typeof c&&(d=c,c=null);return d?void d(c||a):a}var f,g,h,i;if("string"==typeof a)gexf.fetch(a,e);else if("object"==typeof a)return e(gexf.parse(a))}}.call(this);</script>
-<script>;(function(undefined) {
-  'use strict';
-
-  /**
-   * Sigma SVG Exporter
-   * ===================
-   *
-   * This plugin is designed to export a graph to a svg file that can be
-   * downloaded or just used elsewhere.
-   *
-   * Author: Guillaume Plique (Yomguithereal)
-   * Version: 0.0.1
-   */
-
-  // Terminating if sigma were not to be found
-  if (typeof sigma === 'undefined')
-    throw 'sigma.renderers.snapshot: sigma not in scope.';
-
-
-  /**
-   * Polyfills
-   */
-  var URL = this.URL || this.webkitURL || this;
-
-
-  /**
-   * Utilities
-   */
-  function createBlob(data) {
-    return new Blob(
-      [data],
-      {type: 'image/svg+xml;charset=utf-8'}
-    );
-  }
-
-  function download(string, filename) {
-
-    // Creating blob href
-    var blob = createBlob(string);
-
-    // Anchor
-    var o = {};
-    o.anchor = document.createElement('a');
-    o.anchor.setAttribute('href', URL.createObjectURL(blob));
-    o.anchor.setAttribute('download', filename);
-
-    // Click event
-    var event = document.createEvent('MouseEvent');
-    event.initMouseEvent('click', true, false, window, 0, 0, 0 ,0, 0,
-      false, false, false, false, 0, null);
-
-    URL.revokeObjectURL(blob);
-
-    o.anchor.dispatchEvent(event);
-    delete o.anchor;
-  }
-
-
-  /**
-   * Defaults
-   */
-  var DEFAULTS = {
-    size: '1000',
-    width: '1000',
-    height: '1000',
-    classes: true,
-    labels: true,
-    data: false,
-    download: false,
-    filename: 'graph.svg'
-  };
-
-  var XMLNS = 'http://www.w3.org/2000/svg';
-
-
-  /**
-   * Subprocesses
-   */
-  function optimize(svg, prefix, params) {
-    var nodeColorIndex = {},
-        edgeColorIndex = {},
-        count = 0,
-        color,
-        style,
-        styleText = '',
-        f,
-        i,
-        l;
-
-    // Creating style tag if needed
-    if (params.classes) {
-      style = document.createElementNS(XMLNS, 'style');
-      style.setAttribute('type', 'text/css')
-      svg.insertBefore(style, svg.firstChild);
-    }
-
-    // Iterating over nodes
-    var nodes = svg.querySelectorAll('[id="' + prefix + '-group-nodes"] > [class="' + prefix + '-node"]');
-
-    for (i = 0, l = nodes.length, f = true; i < l; i++) {
-      color = nodes[i].getAttribute('fill');
-
-      if (!params.data)
-        nodes[i].removeAttribute('data-node-id');
-
-      if (params.classes) {
-
-        if (!(color in nodeColorIndex)) {
-          nodeColorIndex[color] = (f ? prefix + '-node' : 'c-' + (count++));
-          styleText += '.' + nodeColorIndex[color] + '{fill: ' + color + '}';
-        }
-
-        if (nodeColorIndex[color] !== prefix + '-node')
-          nodes[i].setAttribute('class', nodes[i].getAttribute('class') + ' ' + nodeColorIndex[color]);
-        nodes[i].removeAttribute('fill');
-      }
-
-      f = false;
-    }
-
-    // Iterating over edges
-    var edges = svg.querySelectorAll('[id="' + prefix + '-group-edges"] > [class="' + prefix + '-edge"]');
-
-    for (i = 0, l = edges.length, f = true; i < l; i++) {
-      color = edges[i].getAttribute('stroke');
-
-      if (!params.data)
-        edges[i].removeAttribute('data-edge-id');
-
-      if (params.classes) {
-
-        if (!(color in edgeColorIndex)) {
-          edgeColorIndex[color] = (f ? prefix + '-edge' : 'c-' + (count++));
-          styleText += '.' + edgeColorIndex[color] + '{stroke: ' + color + '}';
-        }
-
-        if (edgeColorIndex[color] !== prefix + '-edge')
-          edges[i].setAttribute('class', edges[i].getAttribute('class') + ' ' + edgeColorIndex[color]);
-        edges[i].removeAttribute('stroke');
-      }
-
-      f = false;
-    }
-
-    if (params.classes)
-      style.appendChild(document.createTextNode(styleText));
-  }
-
-
-  /**
-   * Extending prototype
-   */
-  sigma.prototype.toSVG = function(params) {
-    params = params || {};
-
-    var prefix = this.settings('classPrefix'),
-        w = params.size || params.width || DEFAULTS.size,
-        h = params.size || params.height || DEFAULTS.size;
-
-    // Creating a dummy container
-    var container = document.createElement('div');
-    container.setAttribute('width', w);
-    container.setAttribute('height', h);
-    container.setAttribute('style', 'position:absolute; top: 0px; left:0px; width: ' + w + 'px; height: ' + h + 'px;');
-
-    // Creating a camera
-    var camera = this.addCamera();
-
-    // Creating a svg renderer
-    var renderer = this.addRenderer({
-      camera: camera,
-      container: container,
-      type: 'svg',
-      forceLabels: !!params.labels
-    });
-
-    // Refreshing
-    renderer.resize(w, h);
-    this.refresh();
-
-    // Dropping camera and renderers before something nasty happens
-    this.killRenderer(renderer);
-    this.killCamera(camera);
-
-    // Retrieving svg
-    var svg = container.querySelector('svg');
-    svg.removeAttribute('style');
-    svg.setAttribute('width', w + 'px');
-    svg.setAttribute('height', h + 'px');
-    svg.setAttribute('x', '0px');
-    svg.setAttribute('y', '0px');
-    // svg.setAttribute('viewBox', '0 0 1000 1000');
-
-    // Dropping labels
-    if (!params.labels) {
-      var labelGroup = svg.querySelector('[id="' + prefix + '-group-labels"]');
-      svg.removeChild(labelGroup);
-    }
-
-    // Dropping hovers
-    var hoverGroup = svg.querySelector('[id="' + prefix + '-group-hovers"]');
-    svg.removeChild(hoverGroup);
-
-    // Optims?
-    params.classes = (params.classes !== false);
-    if (!params.data || params.classes)
-      optimize(svg, prefix, params);
-
-    // Retrieving svg string
-    var svgString = svg.outerHTML;
-
-    // Paranoid cleanup
-    container = null;
-
-    // Output string
-    var output = '<?xml version="1.0" encoding="utf-8"?>\n';
-    output += '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">\n';
-    output += svgString;
-
-    if (params.download)
-      download(output, params.filename || DEFAULTS.filename);
-
-    return output;
-  };
-}).call(this);
-</script>
-<script>/**
- * This plugin provides a method to retrieve the neighborhood of a node.
- * Basically, it loads a graph and stores it in a headless sigma.classes.graph
- * instance, that you can query to retrieve neighborhoods.
- *
- * It is useful for people who want to provide a neighborhoods navigation
- * inside a big graph instead of just displaying it, and without having to
- * deploy an API or the list of every neighborhoods.
- *
- * This plugin also adds to the graph model a method called "neighborhood".
- * Check the code for more information.
- *
- * Here is how to use it:
- *
- *  > var db = new sigma.plugins.neighborhoods();
- *  > db.load('path/to/my/graph.json', function() {
- *  >   var nodeId = 'anyNodeID';
- *  >   mySigmaInstance
- *  >     .read(db.neighborhood(nodeId))
- *  >     .refresh();
- *  > });
- */
-(function() {
-  'use strict';
-
-  if (typeof sigma === 'undefined')
-    throw 'sigma is not declared';
-
-  /**
-   * This method takes the ID of node as argument and returns the graph of the
-   * specified node, with every other nodes that are connected to it and every
-   * edges that connect two of the previously cited nodes. It uses the built-in
-   * indexes from sigma's graph model to search in the graph.
-   *
-   * @param  {string} centerId The ID of the center node.
-   * @return {object}          The graph, as a simple descriptive object, in
-   *                           the format required by the "read" graph method.
-   */
-  sigma.classes.graph.addMethod(
-    'neighborhood',
-    function(centerId) {
-      var k1,
-          k2,
-          k3,
-          node,
-          center,
-          // Those two local indexes are here just to avoid duplicates:
-          localNodesIndex = {},
-          localEdgesIndex = {},
-          // And here is the resulted graph, empty at the moment:
-          graph = {
-            nodes: [],
-            edges: []
-          };
-
-      // Check that the exists:
-      if (!this.nodes(centerId))
-        return graph;
-
-      // Add center. It has to be cloned to add it the "center" attribute
-      // without altering the current graph:
-      node = this.nodes(centerId);
-      center = {};
-      center.center = true;
-      for (k1 in node)
-        center[k1] = node[k1];
-
-      localNodesIndex[centerId] = true;
-      graph.nodes.push(center);
-
-      // Add neighbors and edges between the center and the neighbors:
-      for (k1 in this.allNeighborsIndex[centerId]) {
-        if (!localNodesIndex[k1]) {
-          localNodesIndex[k1] = true;
-          graph.nodes.push(this.nodesIndex[k1]);
-        }
-
-        for (k2 in this.allNeighborsIndex[centerId][k1])
-          if (!localEdgesIndex[k2]) {
-            localEdgesIndex[k2] = true;
-            graph.edges.push(this.edgesIndex[k2]);
-          }
-      }
-
-      // Add edges connecting two neighbors:
-      for (k1 in localNodesIndex)
-        if (k1 !== centerId)
-          for (k2 in localNodesIndex)
-            if (
-              k2 !== centerId &&
-              k1 !== k2 &&
-              this.allNeighborsIndex[k1][k2]
-            )
-              for (k3 in this.allNeighborsIndex[k1][k2])
-                if (!localEdgesIndex[k3]) {
-                  localEdgesIndex[k3] = true;
-                  graph.edges.push(this.edgesIndex[k3]);
-                }
-
-      // Finally, let's return the final graph:
-      return graph;
-    }
-  );
-
-  sigma.utils.pkg('sigma.plugins');
-
-  /**
-   * sigma.plugins.neighborhoods constructor.
-   */
-  sigma.plugins.neighborhoods = function() {
-    var ready = false,
-        readyCallbacks = [],
-        graph = new sigma.classes.graph();
-
-    /**
-     * This method just returns the neighborhood of a node.
-     *
-     * @param  {string} centerNodeID The ID of the center node.
-     * @return {object}              Returns the neighborhood.
-     */
-    this.neighborhood = function(centerNodeID) {
-      return graph.neighborhood(centerNodeID);
-    };
-
-    /**
-     * This method loads the JSON graph at "path", stores it in the local graph
-     * instance, and executes the callback.
-     *
-     * @param {string}    path     The path of the JSON graph file.
-     * @param {?function} callback Eventually a callback to execute.
-     */
-    this.load = function(path, callback) {
-      // Quick XHR polyfill:
-      var xhr = (function() {
-        if (window.XMLHttpRequest)
-          return new XMLHttpRequest();
-
-        var names,
-            i;
-
-        if (window.ActiveXObject) {
-          names = [
-            'Msxml2.XMLHTTP.6.0',
-            'Msxml2.XMLHTTP.3.0',
-            'Msxml2.XMLHTTP',
-            'Microsoft.XMLHTTP'
-          ];
-
-          for (i in names)
-            try {
-              return new ActiveXObject(names[i]);
-            } catch (e) {}
-        }
-
-        return null;
-      })();
-
-      if (!xhr)
-        throw 'XMLHttpRequest not supported, cannot load the data.';
-
-      xhr.open('GET', path, true);
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4) {
-          graph.clear().read(JSON.parse(xhr.responseText));
-
-          if (callback)
-            callback();
-        }
-      };
-
-      // Start loading the file:
-      xhr.send();
-
-      return this;
-    };
-
-    /**
-     * This method cleans the graph instance "reads" a graph into it.
-     *
-     * @param {object} g The graph object to read.
-     */
-    this.read = function(g) {
-      graph.clear().read(g);
-    };
-  };
-}).call(window);
-</script>
-<script>;(function(undefined) {
-  'use strict';
-
-  if (typeof sigma === 'undefined')
-    throw 'sigma is not declared';
-
-  // Initialize package:
-  sigma.utils.pkg('sigma.plugins');
-
-  // Add custom graph methods:
-  /**
-   * This methods returns an array of nodes that are adjacent to a node.
-   *
-   * @param  {string} id The node id.
-   * @return {array}     The array of adjacent nodes.
-   */
-  if (!sigma.classes.graph.hasMethod('adjacentNodes'))
-    sigma.classes.graph.addMethod('adjacentNodes', function(id) {
-      if (typeof id !== 'string')
-        throw 'adjacentNodes: the node id must be a string.';
-
-      var target,
-          nodes = [];
-      for(target in this.allNeighborsIndex[id]) {
-        nodes.push(this.nodesIndex[target]);
-      }
-      return nodes;
-    });
-
-  /**
-   * This methods returns an array of edges that are adjacent to a node.
-   *
-   * @param  {string} id The node id.
-   * @return {array}     The array of adjacent edges.
-   */
-  if (!sigma.classes.graph.hasMethod('adjacentEdges'))
-    sigma.classes.graph.addMethod('adjacentEdges', function(id) {
-      if (typeof id !== 'string')
-        throw 'adjacentEdges: the node id must be a string.';
-
-      var a = this.allNeighborsIndex[id],
-          eid,
-          target,
-          edges = [];
-      for(target in a) {
-        for(eid in a[target]) {
-          edges.push(a[target][eid]);
-        }
-      }
-      return edges;
-    });
-
-  /**
-   * Sigma Filter
-   * =============================
-   *
-   * @author Sébastien Heymann <seb@linkurio.us> (Linkurious)
-   * @version 0.1
-   */
-
-   var _g = undefined,
-       _s = undefined,
-       _chain = [], // chain of wrapped filters
-       _keysIndex = Object.create(null),
-       Processors = {};   // available predicate processors
-
-
-  /**
-   * Library of processors
-   * ------------------
-   */
-
-   /**
-    *
-    * @param  {function} fn The predicate.
-    */
-  Processors.nodes = function nodes(fn) {
-    var n = _g.nodes(),
-        ln = n.length,
-        e = _g.edges(),
-        le = e.length;
-
-    // hide node, or keep former value
-    while(ln--)
-      n[ln].hidden = !fn.call(_g, n[ln]) || n[ln].hidden;
-
-    while(le--)
-      if (_g.nodes(e[le].source).hidden || _g.nodes(e[le].target).hidden)
-        e[le].hidden = true;
-  };
-
-   /**
-    *
-    * @param  {function} fn The predicate.
-    */
-  Processors.edges = function edges(fn) {
-    var e = _g.edges(),
-        le = e.length;
-
-    // hide edge, or keep former value
-    while(le--)
-      e[le].hidden = !fn.call(_g, e[le]) || e[le].hidden;
-  };
-
-   /**
-    *
-    * @param  {string} id The center node.
-    */
-  Processors.neighbors = function neighbors(id) {
-    var n = _g.nodes(),
-        ln = n.length,
-        e = _g.edges(),
-        le = e.length,
-        neighbors = _g.adjacentNodes(id),
-        nn = neighbors.length,
-        no = {};
-
-    while(nn--)
-      no[neighbors[nn].id] = true;
-
-    while(ln--)
-      if (n[ln].id !== id && !(n[ln].id in no))
-        n[ln].hidden = true;
-
-    while(le--)
-      if (_g.nodes(e[le].source).hidden || _g.nodes(e[le].target).hidden)
-        e[le].hidden = true;
-  };
-
-
-  /**
-   * This function adds a filter to the chain of filters.
-   *
-   * @param  {function} fn  The filter (i.e. predicate processor).
-   * @param  {function} p   The predicate.
-   * @param  {?string}  key The key to identify the filter.
-   */
-  function register(fn, p, key) {
-    if (key != undefined && typeof key !== 'string')
-      throw 'The filter key "'+ key.toString() +'" must be a string.';
-
-    if (key != undefined && !key.length)
-      throw 'The filter key must be a non-empty string.';
-
-    if (typeof fn !== 'function')
-      throw 'The predicate of key "'+ key +'" must be a function.';
-
-    if ('undo' === key)
-      throw '"undo" is a reserved key.';
-
-    if (_keysIndex[key])
-      throw 'The filter "' + key + '" already exists.';
-
-    if (key)
-      _keysIndex[key] = true;
-
-    _chain.push({
-      'key': key,
-      'processor': fn,
-      'predicate': p
-    });
-  };
-
-  /**
-   * This function removes a set of filters from the chain.
-   *
-   * @param {object} o The filter keys.
-   */
-  function unregister (o) {
-    _chain = _chain.filter(function(a) {
-      return !(a.key in o);
-    });
-
-    for(var key in o)
-      delete _keysIndex[key];
-  };
-
-
-
-
-  /**
-   * Filter Object
-   * ------------------
-   * @param  {sigma} s The related sigma instance.
-   */
-  function Filter(s) {
-    _s = s;
-    _g = s.graph;
-  };
-
-
-  /**
-   * This method is used to filter the nodes. The method must be called with
-   * the predicate, which is a function that takes a node as argument and
-   * returns a boolean. It may take an identifier as argument to undo the
-   * filter later. The method wraps the predicate into an anonymous function
-   * that looks through each node in the graph. When executed, the anonymous
-   * function hides the nodes that fail a truth test (predicate). The method
-   * adds the anonymous function to the chain of filters. The filter is not
-   * executed until the apply() method is called.
-   *
-   * > var filter = new sigma.plugins.filter(s);
-   * > filter.nodesBy(function(n) {
-   * >   return this.degree(n.id) > 0;
-   * > }, 'degreeNotNull');
-   *
-   * @param  {function}             fn  The filter predicate.
-   * @param  {?string}              key The key to identify the filter.
-   * @return {sigma.plugins.filter}     Returns the instance.
-   */
-  Filter.prototype.nodesBy = function(fn, key) {
-    // Wrap the predicate to be applied on the graph and add it to the chain.
-    register(Processors.nodes, fn, key);
-
-    return this;
-  };
-
-  /**
-   * This method is used to filter the edges. The method must be called with
-   * the predicate, which is a function that takes a node as argument and
-   * returns a boolean. It may take an identifier as argument to undo the
-   * filter later. The method wraps the predicate into an anonymous function
-   * that looks through each edge in the graph. When executed, the anonymous
-   * function hides the edges that fail a truth test (predicate). The method
-   * adds the anonymous function to the chain of filters. The filter is not
-   * executed until the apply() method is called.
-   *
-   * > var filter = new sigma.plugins.filter(s);
-   * > filter.edgesBy(function(e) {
-   * >   return e.size > 1;
-   * > }, 'edgeSize');
-   *
-   * @param  {function}             fn  The filter predicate.
-   * @param  {?string}              key The key to identify the filter.
-   * @return {sigma.plugins.filter}     Returns the instance.
-   */
-  Filter.prototype.edgesBy = function(fn, key) {
-    // Wrap the predicate to be applied on the graph and add it to the chain.
-    register(Processors.edges, fn, key);
-
-    return this;
-  };
-
-  /**
-   * This method is used to filter the nodes which are not direct connections
-   * of a given node. The method must be called with the node identifier. It
-   * may take an identifier as argument to undo the filter later. The filter
-   * is not executed until the apply() method is called.
-   *
-   * > var filter = new sigma.plugins.filter(s);
-   * > filter.neighborsOf('n0');
-   *
-   * @param  {string}               id  The node id.
-   * @param  {?string}              key The key to identify the filter.
-   * @return {sigma.plugins.filter}     Returns the instance.
-   */
-  Filter.prototype.neighborsOf = function(id, key) {
-    if (typeof id !== 'string')
-      throw 'The node id "'+ id.toString() +'" must be a string.';
-    if (!id.length)
-      throw 'The node id must be a non-empty string.';
-
-    // Wrap the predicate to be applied on the graph and add it to the chain.
-    register(Processors.neighbors, id, key);
-
-    return this;
-  };
-
-  /**
-   * This method is used to execute the chain of filters and to refresh the
-   * display.
-   *
-   * > var filter = new sigma.plugins.filter(s);
-   * > filter
-   * >   .nodesBy(function(n) {
-   * >     return this.degree(n.id) > 0;
-   * >   }, 'degreeNotNull')
-   * >   .apply();
-   *
-   * @return {sigma.plugins.filter}      Returns the instance.
-   */
-  Filter.prototype.apply = function() {
-    for (var i = 0, len = _chain.length; i < len; ++i) {
-      _chain[i].processor(_chain[i].predicate);
-    };
-
-    if (_chain[0] && 'undo' === _chain[0].key) {
-      _chain.shift();
-    }
-
-    _s.refresh();
-
-    return this;
-  };
-
-  /**
-   * This method undoes one or several filters, depending on how it is called.
-   *
-   * To undo all filters, call "undo" without argument. To undo a specific
-   * filter, call it with the key of the filter. To undo multiple filters, call
-   * it with an array of keys or multiple arguments, and it will undo each
-   * filter, in the same order. The undo is not executed until the apply()
-   * method is called. For instance:
-   *
-   * > var filter = new sigma.plugins.filter(s);
-   * > filter
-   * >   .nodesBy(function(n) {
-   * >     return this.degree(n.id) > 0;
-   * >   }, 'degreeNotNull');
-   * >   .edgesBy(function(e) {
-   * >     return e.size > 1;
-   * >   }, 'edgeSize')
-   * >   .undo();
-   *
-   * Other examples:
-   * > filter.undo();
-   * > filter.undo('myfilter');
-   * > filter.undo(['myfilter1', 'myfilter2']);
-   * > filter.undo('myfilter1', 'myfilter2');
-   *
-   * @param  {?(string|array|*string))} v Eventually one key, an array of keys.
-   * @return {sigma.plugins.filter}       Returns the instance.
-   */
-  Filter.prototype.undo = function(v) {
-    var q = Object.create(null),
-        la = arguments.length;
-
-    // find removable filters
-    if (la === 1) {
-      if (Object.prototype.toString.call(v) === '[object Array]')
-        for (var i = 0, len = v.length; i < len; i++)
-          q[v[i]] = true;
-
-      else // 1 filter key
-        q[v] = true;
-
-    } else if (la > 1) {
-      for (var i = 0; i < la; i++)
-        q[arguments[i]] = true;
-    }
-    else
-      this.clear();
-
-    unregister(q);
-
-    function processor() {
-      var n = _g.nodes(),
-          ln = n.length,
-          e = _g.edges(),
-          le = e.length;
-
-      while(ln--)
-        n[ln].hidden = false;
-
-      while(le--)
-        e[le].hidden = false;
-    };
-
-    _chain.unshift({
-      'key': 'undo',
-      'processor': processor
-    });
-
-    return this;
-  };
-
-  // fast deep copy function
-  function deepCopy(o) {
-    var copy = Object.create(null);
-    for (var i in o) {
-      if (typeof o[i] === "object" && o[i] !== null) {
-        copy[i] = deepCopy(o[i]);
-      }
-      else if (typeof o[i] === "function" && o[i] !== null) {
-        // clone function:
-        eval(" copy[i] = " +  o[i].toString());
-        //copy[i] = o[i].bind(_g);
-      }
-
-      else
-        copy[i] = o[i];
-    }
-    return copy;
-  };
-
-  function cloneChain(chain) {
-    // Clone the array of filters:
-    var copy = chain.slice(0);
-    for (var i = 0, len = copy.length; i < len; i++) {
-      copy[i] = deepCopy(copy[i]);
-      if (typeof copy[i].processor === "function")
-        copy[i].processor = 'filter.processors.' + copy[i].processor.name;
-    };
-    return copy;
-  }
-
-  /**
-   * This method is used to empty the chain of filters.
-   * Prefer the undo() method to reset filters.
-   *
-   * > var filter = new sigma.plugins.filter(s);
-   * > filter.clear();
-   *
-   * @return {sigma.plugins.filter} Returns the instance.
-   */
-  Filter.prototype.clear = function() {
-    _chain.length = 0; // clear the array
-    _keysIndex = Object.create(null);
-    return this;
-  };
-
-  /**
-   * This method clones the filter chain and return the copy.
-   *
-   * > var filter = new sigma.plugins.filter(s);
-   * > var chain = filter.export();
-   *
-   * @return {object}   The cloned chain of filters.
-   */
-  Filter.prototype.export = function() {
-    var c = cloneChain(_chain);
-    return c;
-  };
-
-  /**
-   * This method sets the chain of filters with the specified chain.
-   *
-   * > var filter = new sigma.plugins.filter(s);
-   * > var chain = [
-   * >   {
-   * >     key: 'my-filter',
-   * >     predicate: function(n) {...},
-   * >     processor: 'filter.processors.nodes'
-   * >   }, ...
-   * > ];
-   * > filter.import(chain);
-   *
-   * @param {array} chain The chain of filters.
-   * @return {sigma.plugins.filter} Returns the instance.
-   */
-  Filter.prototype.import = function(chain) {
-    if (chain === undefined)
-      throw 'Wrong arguments.';
-
-    if (Object.prototype.toString.call(chain) !== '[object Array]')
-      throw 'The chain" must be an array.';
-
-    var copy = cloneChain(chain);
-
-    for (var i = 0, len = copy.length; i < len; i++) {
-      if (copy[i].predicate === undefined || copy[i].processor === undefined)
-        throw 'Wrong arguments.';
-
-      if (copy[i].key != undefined && typeof copy[i].key !== 'string')
-        throw 'The filter key "'+ copy[i].key.toString() +'" must be a string.';
-
-      if (typeof copy[i].predicate !== 'function')
-        throw 'The predicate of key "'+ copy[i].key +'" must be a function.';
-
-      if (typeof copy[i].processor !== 'string')
-        throw 'The processor of key "'+ copy[i].key +'" must be a string.';
-
-      // Replace the processor name by the corresponding function:
-      switch(copy[i].processor) {
-        case 'filter.processors.nodes':
-          copy[i].processor = Processors.nodes;
-          break;
-        case 'filter.processors.edges':
-          copy[i].processor = Processors.edges;
-          break;
-        case 'filter.processors.neighbors':
-          copy[i].processor = Processors.neighbors;
-          break;
-        default:
-          throw 'Unknown processor ' + copy[i].processor;
-      }
-    };
-
-    _chain = copy;
-
-    return this;
-  };
-
-
-  /**
-   * Interface
-   * ------------------
-   *
-   * > var filter = new sigma.plugins.filter(s);
-   */
-  var filter = null;
-
-  /**
-   * @param  {sigma} s The related sigma instance.
-   */
-  sigma.plugins.filter = function(s) {
-    // Create filter if undefined
-    if (!filter) {
-      filter = new Filter(s);
-    }
-    return filter;
-  };
-
-}).call(this);
-</script>
-<script>;(function(undefined) {
-
-  /**
-   * Sigma Renderer Snapshot Utility
-   * ================================
-   *
-   * The aim of this plugin is to enable users to retrieve a static image
-   * of the graph being rendered.
-   *
-   * Author: Guillaume Plique (Yomguithereal)
-   * Version: 0.0.1
-   */
-
-  // Terminating if sigma were not to be found
-  if (typeof sigma === 'undefined')
-    throw 'sigma.renderers.snapshot: sigma not in scope.';
-
-  // Constants
-  var CONTEXTS = ['scene', 'edges', 'nodes', 'labels'],
-      TYPES = {
-        png: 'image/png',
-        jpg: 'image/jpeg',
-        gif: 'image/gif',
-        tiff: 'image/tiff'
-      };
-
-  // Utilities
-  function download(dataUrl, extension, filename) {
-
-    // Anchor
-    var anchor = document.createElement('a');
-    anchor.setAttribute('href', dataUrl);
-    anchor.setAttribute('download', filename || 'graph.' + extension);
-
-    // Click event
-    var event = document.createEvent('MouseEvent');
-    event.initMouseEvent('click', true, false, window, 0, 0, 0 ,0, 0,
-      false, false, false, false, 0, null);
-
-    anchor.dispatchEvent(event);
-    delete anchor;
-  }
-
-  // Main function
-  function snapshot(params) {
-    params = params || {};
-
-    // Enforcing
-    if (params.format && !(params.format in TYPES))
-      throw Error('sigma.renderers.snaphot: unsupported format "' +
-                  params.format + '".');
-
-    var self = this,
-        webgl = this instanceof sigma.renderers.webgl,
-        doneContexts = [];
-
-    // Creating a false canvas where we'll merge the other
-    var merged = document.createElement('canvas'),
-        mergedContext = merged.getContext('2d'),
-        sized = false;
-
-    // Iterating through context
-    CONTEXTS.forEach(function(name) {
-      if (!self.contexts[name])
-        return;
-
-      if (params.labels === false && name === 'labels')
-        return;
-
-      var canvas = self.domElements[name] || self.domElements['scene'],
-          context = self.contexts[name];
-
-      if (~doneContexts.indexOf(context))
-        return;
-
-      if (!sized) {
-        merged.width = webgl && context instanceof WebGLRenderingContext ?
-         canvas.width / 2 :
-         canvas.width;
-        merged.height = webgl && context instanceof WebGLRenderingContext ?
-          canvas.height / 2 :
-          canvas.height
-        sized = true;
-
-        // Do we want a background color?
-        if (params.background) {
-          mergedContext.rect(0, 0, merged.width, merged.height);
-          mergedContext.fillStyle = params.background;
-          mergedContext.fill();
-        }
-      }
-
-      if (context instanceof WebGLRenderingContext)
-        mergedContext.drawImage(canvas, 0, 0,
-          canvas.width / 2, canvas.height / 2);
-      else
-        mergedContext.drawImage(canvas, 0, 0);
-
-      doneContexts.push(context);
-    });
-
-    var dataUrl = merged.toDataURL(TYPES[params.format || 'png']);
-
-    if (params.download)
-      download(
-        dataUrl,
-        params.format || 'png',
-        params.filename
-      );
-
-    // Cleaning
-    delete mergedContext;
-    delete merged;
-    delete doneContexts;
-
-    return dataUrl;
-  }
-
-  // Extending canvas and webl renderers
-  sigma.renderers.canvas.prototype.snapshot = snapshot;
-  sigma.renderers.webgl.prototype.snapshot = snapshot;
-}).call(this);
-</script>
+<script>(function(a){"use strict";function b(a){return new Blob([a],{type:"image/svg+xml;charset=utf-8"})}function c(a,c){var d=b(a),f={};f.anchor=document.createElement("a"),f.anchor.setAttribute("href",e.createObjectURL(d)),f.anchor.setAttribute("download",c);var g=document.createEvent("MouseEvent");g.initMouseEvent("click",!0,!1,window,0,0,0,0,0,!1,!1,!1,!1,0,null),e.revokeObjectURL(d),f.anchor.dispatchEvent(g),delete f.anchor}function d(a,b,c){var d,e,f,h,i,j={},k={},l=0,m="";c.classes&&(e=document.createElementNS(g,"style"),e.setAttribute("type","text/css"),a.insertBefore(e,a.firstChild));var n=a.querySelectorAll('[id="'+b+'-group-nodes"] > [class="'+b+'-node"]');for(h=0,i=n.length,f=!0;h<i;h++)d=n[h].getAttribute("fill"),c.data||n[h].removeAttribute("data-node-id"),c.classes&&(d in j||(j[d]=f?b+"-node":"c-"+l++,m+="."+j[d]+"{fill: "+d+"}"),j[d]!==b+"-node"&&n[h].setAttribute("class",n[h].getAttribute("class")+" "+j[d]),n[h].removeAttribute("fill")),f=!1;var o=a.querySelectorAll('[id="'+b+'-group-edges"] > [class="'+b+'-edge"]');for(h=0,i=o.length,f=!0;h<i;h++)d=o[h].getAttribute("stroke"),c.data||o[h].removeAttribute("data-edge-id"),c.classes&&(d in k||(k[d]=f?b+"-edge":"c-"+l++,m+="."+k[d]+"{stroke: "+d+"}"),k[d]!==b+"-edge"&&o[h].setAttribute("class",o[h].getAttribute("class")+" "+k[d]),o[h].removeAttribute("stroke")),f=!1;c.classes&&e.appendChild(document.createTextNode(m))}if("undefined"==typeof sigma)throw"sigma.renderers.snapshot: sigma not in scope.";var e=this.URL||this.webkitURL||this,f={size:"1000",width:"1000",height:"1000",classes:!0,labels:!0,data:!1,download:!1,filename:"graph.svg"},g="http://www.w3.org/2000/svg";sigma.prototype.toSVG=function(a){a=a||{};var b=this.settings("classPrefix"),e=a.size||a.width||f.size,g=a.size||a.height||f.size,h=document.createElement("div");h.setAttribute("width",e),h.setAttribute("height",g),h.setAttribute("style","position:absolute; top: 0px; left:0px; width: "+e+"px; height: "+g+"px;");var i=this.addCamera(),j=this.addRenderer({camera:i,container:h,type:"svg",forceLabels:!!a.labels});j.resize(e,g),this.refresh(),this.killRenderer(j),this.killCamera(i);var k=h.querySelector("svg");if(k.removeAttribute("style"),k.setAttribute("width",e+"px"),k.setAttribute("height",g+"px"),k.setAttribute("x","0px"),k.setAttribute("y","0px"),!a.labels){var l=k.querySelector('[id="'+b+'-group-labels"]');k.removeChild(l)}var m=k.querySelector('[id="'+b+'-group-hovers"]');k.removeChild(m),a.classes=!1!==a.classes,a.data&&!a.classes||d(k,b,a);var n=k.outerHTML;h=null;var o='<?xml version="1.0" encoding="utf-8"?>\n';return o+='<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">\n',o+=n,a.download&&c(o,a.filename||f.filename),o}}).call(this);</script>
+<script>(function(){"use strict";if("undefined"==typeof sigma)throw"sigma is not declared";sigma.classes.graph.addMethod("neighborhood",function(a){var b,c,d,e,f,g={},h={},i={nodes:[],edges:[]};if(!this.nodes(a))return i;e=this.nodes(a),f={},f.center=!0;for(b in e)f[b]=e[b];g[a]=!0,i.nodes.push(f);for(b in this.allNeighborsIndex[a]){g[b]||(g[b]=!0,i.nodes.push(this.nodesIndex[b]));for(c in this.allNeighborsIndex[a][b])h[c]||(h[c]=!0,i.edges.push(this.edgesIndex[c]))}for(b in g)if(b!==a)for(c in g)if(c!==a&&b!==c&&this.allNeighborsIndex[b][c])for(d in this.allNeighborsIndex[b][c])h[d]||(h[d]=!0,i.edges.push(this.edgesIndex[d]));return i}),sigma.utils.pkg("sigma.plugins"),sigma.plugins.neighborhoods=function(){var a=new sigma.classes.graph;this.neighborhood=function(b){return a.neighborhood(b)},this.load=function(b,c){var d=function(){if(window.XMLHttpRequest)return new XMLHttpRequest;var a,b;if(window.ActiveXObject){a=["Msxml2.XMLHTTP.6.0","Msxml2.XMLHTTP.3.0","Msxml2.XMLHTTP","Microsoft.XMLHTTP"];for(b in a)try{return new ActiveXObject(a[b])}catch(a){}}return null}();if(!d)throw"XMLHttpRequest not supported, cannot load the data.";return d.open("GET",b,!0),d.onreadystatechange=function(){4===d.readyState&&(a.clear().read(JSON.parse(d.responseText)),c&&c())},d.send(),this},this.read=function(b){a.clear().read(b)}}}).call(window);</script>
+<script>(function(undefined){"use strict";function register(a,b,c){if(c!=undefined&&"string"!=typeof c)throw'The filter key "'+c.toString()+'" must be a string.';if(c!=undefined&&!c.length)throw"The filter key must be a non-empty string.";if("function"!=typeof a)throw'The predicate of key "'+c+'" must be a function.';if("undo"===c)throw'"undo" is a reserved key.';if(_keysIndex[c])throw'The filter "'+c+'" already exists.';c&&(_keysIndex[c]=!0),_chain.push({key:c,processor:a,predicate:b})}function unregister(a){_chain=_chain.filter(function(b){return!(b.key in a)});for(var b in a)delete _keysIndex[b]}function Filter(a){_s=a,_g=a.graph}function deepCopy(o){var copy=Object.create(null);for(var i in o)"object"==typeof o[i]&&null!==o[i]?copy[i]=deepCopy(o[i]):"function"==typeof o[i]&&null!==o[i]?eval(" copy[i] = "+o[i].toString()):copy[i]=o[i];return copy}function cloneChain(a){for(var b=a.slice(0),c=0,d=b.length;c<d;c++)b[c]=deepCopy(b[c]),"function"==typeof b[c].processor&&(b[c].processor="filter.processors."+b[c].processor.name);return b}if("undefined"==typeof sigma)throw"sigma is not declared";sigma.utils.pkg("sigma.plugins"),sigma.classes.graph.hasMethod("adjacentNodes")||sigma.classes.graph.addMethod("adjacentNodes",function(a){if("string"!=typeof a)throw"adjacentNodes: the node id must be a string.";var b,c=[];for(b in this.allNeighborsIndex[a])c.push(this.nodesIndex[b]);return c}),sigma.classes.graph.hasMethod("adjacentEdges")||sigma.classes.graph.addMethod("adjacentEdges",function(a){if("string"!=typeof a)throw"adjacentEdges: the node id must be a string.";var b,c,d=this.allNeighborsIndex[a],e=[];for(c in d)for(b in d[c])e.push(d[c][b]);return e});var _g=undefined,_s=undefined,_chain=[],_keysIndex=Object.create(null),Processors={};Processors.nodes=function(a){for(var b=_g.nodes(),c=b.length,d=_g.edges(),e=d.length;c--;)b[c].hidden=!a.call(_g,b[c])||b[c].hidden;for(;e--;)(_g.nodes(d[e].source).hidden||_g.nodes(d[e].target).hidden)&&(d[e].hidden=!0)},Processors.edges=function(a){for(var b=_g.edges(),c=b.length;c--;)b[c].hidden=!a.call(_g,b[c])||b[c].hidden},Processors.neighbors=function(a){for(var b=_g.nodes(),c=b.length,d=_g.edges(),e=d.length,f=_g.adjacentNodes(a),g=f.length,h={};g--;)h[f[g].id]=!0;for(;c--;)b[c].id===a||b[c].id in h||(b[c].hidden=!0);for(;e--;)(_g.nodes(d[e].source).hidden||_g.nodes(d[e].target).hidden)&&(d[e].hidden=!0)},Filter.prototype.nodesBy=function(a,b){return register(Processors.nodes,a,b),this},Filter.prototype.edgesBy=function(a,b){return register(Processors.edges,a,b),this},Filter.prototype.neighborsOf=function(a,b){if("string"!=typeof a)throw'The node id "'+a.toString()+'" must be a string.';if(!a.length)throw"The node id must be a non-empty string.";return register(Processors.neighbors,a,b),this},Filter.prototype.apply=function(){for(var a=0,b=_chain.length;a<b;++a)_chain[a].processor(_chain[a].predicate);return _chain[0]&&"undo"===_chain[0].key&&_chain.shift(),_s.refresh(),this},Filter.prototype.undo=function(a){function b(){for(var a=_g.nodes(),b=a.length,c=_g.edges(),d=c.length;b--;)a[b].hidden=!1;for(;d--;)c[d].hidden=!1}var c=Object.create(null),d=arguments.length;if(1===d)if("[object Array]"===Object.prototype.toString.call(a))for(var e=0,f=a.length;e<f;e++)c[a[e]]=!0;else c[a]=!0;else if(d>1)for(var e=0;e<d;e++)c[arguments[e]]=!0;else this.clear();return unregister(c),_chain.unshift({key:"undo",processor:b}),this},Filter.prototype.clear=function(){return _chain.length=0,_keysIndex=Object.create(null),this},Filter.prototype.export=function(){return cloneChain(_chain)},Filter.prototype.import=function(a){if(a===undefined)throw"Wrong arguments.";if("[object Array]"!==Object.prototype.toString.call(a))throw'The chain" must be an array.';for(var b=cloneChain(a),c=0,d=b.length;c<d;c++){if(b[c].predicate===undefined||b[c].processor===undefined)throw"Wrong arguments.";if(b[c].key!=undefined&&"string"!=typeof b[c].key)throw'The filter key "'+b[c].key.toString()+'" must be a string.';if("function"!=typeof b[c].predicate)throw'The predicate of key "'+b[c].key+'" must be a function.';if("string"!=typeof b[c].processor)throw'The processor of key "'+b[c].key+'" must be a string.';switch(b[c].processor){case"filter.processors.nodes":b[c].processor=Processors.nodes;break;case"filter.processors.edges":b[c].processor=Processors.edges;break;case"filter.processors.neighbors":b[c].processor=Processors.neighbors;break;default:throw"Unknown processor "+b[c].processor}}return _chain=b,this};var filter=null;sigma.plugins.filter=function(a){return filter||(filter=new Filter(a)),filter}}).call(this);</script>
+<script>(function(a){function b(a,b,c){var d=document.createElement("a");d.setAttribute("href",a),d.setAttribute("download",c||"graph."+b);var e=document.createEvent("MouseEvent");e.initMouseEvent("click",!0,!1,window,0,0,0,0,0,!1,!1,!1,!1,0,null),d.dispatchEvent(e),delete d}function c(a){if(a=a||{},a.format&&!(a.format in e))throw Error('sigma.renderers.snaphot: unsupported format "'+a.format+'".');var c=this,f=this instanceof sigma.renderers.webgl,g=[],h=document.createElement("canvas"),i=h.getContext("2d"),j=!1;d.forEach(function(b){if(c.contexts[b]&&(!1!==a.labels||"labels"!==b)){var d=c.domElements[b]||c.domElements.scene,e=c.contexts[b];~g.indexOf(e)||(j||(h.width=f&&e instanceof WebGLRenderingContext?d.width/2:d.width,h.height=f&&e instanceof WebGLRenderingContext?d.height/2:d.height,j=!0,a.background&&(i.rect(0,0,h.width,h.height),i.fillStyle=a.background,i.fill())),e instanceof WebGLRenderingContext?i.drawImage(d,0,0,d.width/2,d.height/2):i.drawImage(d,0,0),g.push(e))}});var k=h.toDataURL(e[a.format||"png"]);return a.download&&b(k,a.format||"png",a.filename),delete i,delete h,delete g,k}if("undefined"==typeof sigma)throw"sigma.renderers.snapshot: sigma not in scope.";var d=["scene","edges","nodes","labels"],e={png:"image/png",jpg:"image/jpeg",gif:"image/gif",tiff:"image/tiff"};sigma.renderers.canvas.prototype.snapshot=c,sigma.renderers.webgl.prototype.snapshot=c}).call(this);</script>
 <script>sigma.classes.graph.addMethod('neighbors', function(nodeId) {
     var k,
         neighbors = {},
@@ -1965,29 +927,23 @@ HTMLWidgets.widget({
 						}
 					);
 				} else {
-					// create
-					if(!initialized){
-					  initialized = true;
-    				s = new sigma({
-    					graph: x.data,
-    					settings: x.settings
-    				});
-					} 
-					
-					if(x.kill === true){
-					  
-					  s.kill();
-					  
-    				s = new sigma({
-    					graph: x.data,
-    					settings: x.settings
-    				});
+
+					if (HTMLWidgets.shinyMode) { 
+						sigInst = document.getElementById(el.id)
+						while (sigInst.firstChild) {
+							sigInst.removeChild(sigInst.firstChild);
+						}
 					}
 					
+					s = new sigma({
+						graph: x.data,
+						settings: x.settings
+					});
+					s.refresh();
+
 				  renderer = s.addRenderer({
 						container: el.id,
 						type: x.type
-						
 				  });
 				}
 				
@@ -2399,6 +1355,42 @@ HTMLWidgets.widget({
 			  }
 			  
 			}
+
+			if(x.hasOwnProperty('read')){
+			  
+				var is_it_running = s.isForceAtlas2Running();
+				
+			  if(x.buttonevent.indexOf('read_exec') > -1){
+  			  for (var i = 0; i < x.button.length; i++){
+    		    x.button[i].btn.addEventListener("click", function(event) {
+      				x.read.data.forEach(function(data){
+								setTimeout(function(){
+									if(x.read.refresh == true && is_it_running == true)
+										s.killForceAtlas2();
+								
+									s.graph.read(data);
+		
+									if(x.read.refresh == true && is_it_running == true)
+										s.startForceAtlas2();
+								}, data.nodes[0].delay)
+							});
+    		    });  
+  			  }
+			  } else {
+					x.read.data.forEach(function(data){
+						setTimeout(function(){
+							if(x.read.refresh == true && is_it_running == true)
+								s.killForceAtlas2();
+							
+							s.graph.read(data);
+
+							if(x.read.refresh == true && is_it_running == true)
+								s.startForceAtlas2();
+							
+						}, data.nodes[0].delay)
+					});
+				}
+			}
 			
       sel_handle.setGroup(x.crosstalk.crosstalk_group);
       //filter_handle.setGroup(x.crosstalk.crosstalk_group);
@@ -2414,7 +1406,7 @@ HTMLWidgets.widget({
 
 					// click nodeS
 					s.bind('clickNodes', function (e) {
-						Shiny.setInputValue(el.id + '_click_nodes' + ":sigmajsParseJS", e.data.nodes);
+						Shiny.setInputValue(el.id + '_click_nodes' + ":sigmajsParseJS", e.data.node);
 					});
 
 					// click edge
@@ -2424,22 +1416,22 @@ HTMLWidgets.widget({
 
 					// click edgeS
 					s.bind('clickEdges', function (e) {
-						Shiny.setInputValue(el.id + '_click_edges' + ":sigmajsParseJS", e.data.edges);
+						Shiny.setInputValue(el.id + '_click_edges' + ":sigmajsParseJS", e.data.edge);
 					});
 
 					// click stage
 					s.bind('clickStage', function (e) {
-						Shiny.setInputValue(el.id + '_click_stage' + ":sigmajsParseJS", true);
+						Shiny.setInputValue(el.id + '_click_stage' + ":sigmajsParseJS", e.data, {priority: "event"});
 					});
 
 					// double click stage
 					s.bind('doubleClickStage', function (e) {
-						Shiny.setInputValue(el.id + '_double_click_stage' + ":sigmajsParseJS", true);
+						Shiny.setInputValue(el.id + '_double_click_stage' + ":sigmajsParseJS", e.data, {priority: "event"});
 					});
 
 					// right click stage
 					s.bind('rightClickStage', function (e) {
-						Shiny.setInputValue(el.id + '_right_click_stage' + ":sigmajsParseJS", true);
+						Shiny.setInputValue(el.id + '_right_click_stage' + ":sigmajsParseJS", e.data, {priority: "event"});
 					});
 
 					// double click node
@@ -2449,7 +1441,7 @@ HTMLWidgets.widget({
 
 					// double click nodeS
 					s.bind('doubleClickNodes', function (e) {
-						Shiny.setInputValue(el.id + '_double_click_nodes' + ":sigmajsParseJS", e.data.nodes);
+						Shiny.setInputValue(el.id + '_double_click_nodes' + ":sigmajsParseJS", e.data.node);
 					});
 
 					// double click edge
@@ -2459,7 +1451,7 @@ HTMLWidgets.widget({
 
 					// double click edgeS
 					s.bind('doubleClickEdges', function (e) {
-						Shiny.setInputValue(el.id + '_double_click_edges' + ":sigmajsParseJS", e.data.edges);
+						Shiny.setInputValue(el.id + '_double_click_edges' + ":sigmajsParseJS", e.data.edge);
 					});
 
 					// right click node
@@ -2479,7 +1471,7 @@ HTMLWidgets.widget({
 
 					// right click edgeS
 					s.bind('rightClickEdges', function (e) {
-						Shiny.setInputValue(el.id + '_right_click_edges' + ":sigmajsParseJS", e.data.edges);
+						Shiny.setInputValue(el.id + '_right_click_edges' + ":sigmajsParseJS", e.data.edge);
 					});
 
 					// over node
@@ -2489,7 +1481,7 @@ HTMLWidgets.widget({
 
 					// over nodeS
 					s.bind('overNodes', function (e) {
-						Shiny.setInputValue(el.id + '_over_nodes' + ":sigmajsParseJS", e.data.nodes);
+						Shiny.setInputValue(el.id + '_over_nodes' + ":sigmajsParseJS", e.data.node);
 					});
 
 					// over edge
@@ -2499,7 +1491,7 @@ HTMLWidgets.widget({
 
 					// over edgeS
 					s.bind('overEdges', function (e) {
-						Shiny.setInputValue(el.id + '_over_edges' + ":sigmajsParseJS", e.data.edges);
+						Shiny.setInputValue(el.id + '_over_edges' + ":sigmajsParseJS", e.data.edge);
 					});
 
 					// out node
@@ -2509,7 +1501,7 @@ HTMLWidgets.widget({
 
 					// out nodeS
 					s.bind('outNodes', function (e) {
-						Shiny.setInputValue(el.id + '_out_nodes' + ":sigmajsParseJS", e.data.nodes);
+						Shiny.setInputValue(el.id + '_out_nodes' + ":sigmajsParseJS", e.data.node);
 					});
 
 					// out edge
@@ -2519,9 +1511,11 @@ HTMLWidgets.widget({
 
 					// out edgeS
 					s.bind('outEdges', function (e) {
-						Shiny.setInputValue(el.id + '_out_edges' + ":sigmajsParseJS", e.data.edges);
+						Shiny.setInputValue(el.id + '_out_edges' + ":sigmajsParseJS", e.data.edge);
 					});
 				}
+
+				var initialized = true;
 			
 		},
 
@@ -2532,6 +1526,10 @@ HTMLWidgets.widget({
 		
 		getCamera: function() {
 		  return cam;
+		},
+
+		getEl: function() {
+		  return el.id;
 		},
 
 		getChart: function () {
@@ -2556,6 +1554,20 @@ function get_sigma_graph(id) {
 
 	if (typeof htmlWidgetsObj != 'undefined') { // get chart if defined
 		s = htmlWidgetsObj.getChart();
+	}
+
+	return (s);
+}
+
+// get element id
+function get_sigma_element(id) {
+
+	var htmlWidgetsObj = HTMLWidgets.find("#" + id); // find object
+
+	var s; // define
+
+	if (typeof htmlWidgetsObj != 'undefined') { // get chart if defined
+		s = htmlWidgetsObj.getEl();
 	}
 
 	return (s);
@@ -2816,6 +1828,42 @@ if (HTMLWidgets.shinyMode) {
 			}
 		}
 	);
+
+	Shiny.addCustomMessageHandler('sg_drop_nodes_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			if (typeof s != 'undefined') {
+				message.data.forEach((element) => {
+					s.graph.dropNode(element);
+					if (message.refresh === true && message.rate === "iteration") {
+						s.refresh();
+					}
+				});
+
+				if (message.refresh === true && message.rate === "once") {
+					s.refresh();
+				}
+			}
+		}
+	);
+
+	Shiny.addCustomMessageHandler('sg_drop_edges_p',
+	function (message) {
+		var s = get_sigma_graph(message.id);
+		if (typeof s != 'undefined') {
+			message.data.forEach((element) => {
+				s.graph.dropEdge(element);
+				if (message.refresh === true && message.rate === "iteration") {
+					s.refresh();
+				}
+			});
+
+			if (message.refresh === true && message.rate === "once") {
+				s.refresh();
+			}
+		}
+	}
+);
 	
 	// add edges delay
 	Shiny.addCustomMessageHandler('sg_drop_edges_delay_p',
@@ -2888,6 +1936,50 @@ if (HTMLWidgets.shinyMode) {
 			}
 		}
 	);
+
+	// read data
+	Shiny.addCustomMessageHandler('sg_read_exec_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			if (typeof s != 'undefined') {
+				s.graph.read(message.data)
+			}
+		}
+	);
+
+	// read batch data
+	Shiny.addCustomMessageHandler('sg_read_bacth_exec_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			if (typeof s != 'undefined') {
+				message.data.forEach(function(data){
+					var running = s.isForceAtlas2Running();
+					setTimeout(function () {
+						if (message.refresh === true && running === true) {
+							s.killForceAtlas2();
+						}
+						s.graph.read(data);
+						if(message.refresh === true)
+							s.refresh();
+						if (message.refresh === true && running === true) {
+							s.startForceAtlas2();
+						}
+					}, data.nodes[0].delay);
+				});
+			}
+		}
+	);
+
+	// noverlap
+	Shiny.addCustomMessageHandler('sg_noverlap_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			if (typeof s != 'undefined') {
+				var listener_proxy = s.configNoverlap(message.config);
+				s.startNoverlap();
+			}
+		}
+	);
 	
 	// export
 	Shiny.addCustomMessageHandler('sg_export_svg_p',
@@ -2907,6 +1999,85 @@ if (HTMLWidgets.shinyMode) {
 			}
 		}
 	);
+
+	Shiny.addCustomMessageHandler('sg_zoom_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			if (typeof s != 'undefined') {
+				let n = s.graph.nodes()[message.node];
+				sigma.misc.animation.camera(
+					s.camera, 
+					{
+						x: n[s.camera.readPrefix + 'x'], 
+						y: n[s.camera.readPrefix + 'y'],
+						ratio: message.ratio
+					}, 
+					{duration: message.duration}
+				);
+			}
+		}
+	);
+
+	Shiny.addCustomMessageHandler('sg_get_nodes_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			var id = get_sigma_element(message.id);
+			if (typeof s != 'undefined') {
+				Shiny.setInputValue(id + '_nodes' + ":sigmajsParseJS", s.graph.nodes(), {priority: "event"});
+			}
+		}
+	);
+
+	Shiny.addCustomMessageHandler('sg_get_edges_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			var id = get_sigma_element(message.id);
+			if (typeof s != 'undefined') {
+				Shiny.setInputValue(id + '_edges' + ":sigmajsParseJS", s.graph.edges(), {priority: "event"});
+			}
+		}
+	);
+
+	// change node attributes
+	Shiny.addCustomMessageHandler('sg_change_nodes_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			var i = 0;
+			if (typeof s != 'undefined') {
+				s.graph.nodes().forEach((n) => {
+					n[message.message.attribute] = message.message.value[i];
+					if (message.message.refresh === true && message.message.rate === "iteration") {
+						s.refresh();
+					}
+					i = i + 1
+				});
+
+				if (message.message.refresh === true && message.message.rate === "once") {
+					s.refresh();
+				}
+			}
+		}
+	);
+
+	Shiny.addCustomMessageHandler('sg_change_edges_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			var i = 0;
+			if (typeof s != 'undefined') {
+				s.graph.edges().forEach((n) => {
+					n[message.message.attribute] = message.message.value[i];
+					if (message.message.refresh === true && message.message.rate === "iteration") {
+						s.refresh();
+					}
+					i = i + 1
+				});
+
+				if (message.message.refresh === true && message.message.rate === "once") {
+					s.refresh();
+				}
+			}
+		}
+	);
 	
 	// filter greater than
 	Shiny.addCustomMessageHandler('sg_filter_gt_p',
@@ -2919,27 +2090,24 @@ if (HTMLWidgets.shinyMode) {
 			  
 			  if(message.target === "both"){
           filter
-            .undo()
             .nodesBy(function(n) {
               return n[message.var] > message.input;
-            })
+            }, message.name[0])
             .edgesBy(function(e) {
               return e[message.var] > message.input;
-            })
+            }, message.name[1])
             .apply();
 			  } else if(message.target === "nodes"){
           filter
-            .undo()
             .nodesBy(function(n) {
               return n[message.var] > message.input;
-            })
+            }, message.name)
             .apply();
 			  } else {
           filter
-            .undo()
             .edgesBy(function(e) {
               return e[message.var] > message.input;
-            })
+            }, message.name)
             .apply();
 			  }
 				
@@ -2958,30 +2126,182 @@ if (HTMLWidgets.shinyMode) {
 			  
 			  if(message.target === "both"){
           filter
-            .undo()
             .nodesBy(function(n) {
               return n[message.var] < message.input;
-            })
+            }, message.name[0])
             .edgesBy(function(e) {
               return e[message.var] < message.input;
-            })
+            }, message.name[1])
             .apply();
 			  } else if(message.target === "nodes"){
           filter
-            .undo()
             .nodesBy(function(n) {
               return n[message.var] < message.input;
-            })
+            }, message.name)
             .apply();
 			  } else {
           filter
-            .undo()
             .edgesBy(function(e) {
               return e[message.var] < message.input;
-            })
+            }, message.name)
             .apply();
 			  }
 				
+			}
+		}
+	);
+
+	// filter equal
+	Shiny.addCustomMessageHandler('sg_filter_eq_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			
+			if (typeof s != 'undefined') {
+			  
+			  var filter = new sigma.plugins.filter(s);
+			  
+			  if(message.target === "both"){
+          filter
+            .nodesBy(function(n) {
+              return n[message.var] == message.input;
+            }, message.name[0])
+            .edgesBy(function(e) {
+              return e[message.var] == message.input;
+            }, message.name[1])
+            .apply();
+			  } else if(message.target === "nodes"){
+          filter
+            .nodesBy(function(n) {
+              return n[message.var] == message.input;
+            }, message.name)
+            .apply();
+			  } else {
+          filter
+            .edgesBy(function(e) {
+              return e[message.var] == message.input;
+            }, message.name)
+            .apply();
+			  }
+				
+			}
+		}
+	);
+
+	// filter not equal
+	Shiny.addCustomMessageHandler('sg_filter_not_eq_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			
+			if (typeof s != 'undefined') {
+			  
+			  var filter = new sigma.plugins.filter(s);
+			  
+			  if(message.target === "both"){
+          filter
+            .nodesBy(function(n) {
+              return n[message.var] != message.input;
+            }, message.name[0])
+            .edgesBy(function(e) {
+              return e[message.var] != message.input;
+            }, message.name[1])
+            .apply();
+			  } else if(message.target === "nodes"){
+          filter
+            .nodesBy(function(n) {
+              return n[message.var] != message.input;
+            }, message.name)
+            .apply();
+			  } else {
+          filter
+            .edgesBy(function(e) {
+              return e[message.var] != message.input;
+            }, message.name)
+            .apply();
+			  }
+				
+			}
+		}
+	);
+
+	// filter undo
+	Shiny.addCustomMessageHandler('sg_filter_undo_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			
+			if (typeof s != 'undefined') {
+			  
+			  var filter = new sigma.plugins.filter(s);
+			  
+				filter
+					.undo(message.name)
+					.apply()
+				
+			}
+		}
+	);
+
+	// filter neighbours
+	Shiny.addCustomMessageHandler('sg_filter_neighbours_p',
+		function (message) {
+			var s = get_sigma_graph(message.id);
+			
+			if (typeof s != 'undefined') {
+			  
+			  var filter = new sigma.plugins.filter(s);
+			  
+				filter
+					.neighborsOf(message.node, message.name)
+					.apply()
+				
+			}
+		}
+	);
+
+	// set neightbours highlight
+	Shiny.addCustomMessageHandler('sg_neighbours_p',
+		function(message){
+			var s = get_sigma_graph(message.id);
+			
+			if (typeof s != 'undefined') {
+			  
+				db = new sigma.plugins.neighborhoods();
+
+				s.graph.nodes().forEach(function(n) {
+					n.originalColor = n.color;
+				});
+				s.graph.edges().forEach(function(e) {
+					e.originalColor = e.color;
+				});
+				s.bind("clickNode", function(e) {
+					var nodeId = e.data.node.id,
+							toKeep = s.graph.neighbors(nodeId);
+					toKeep[nodeId] = e.data.node;
+					sel_handle.set(nodeId);
+					s.graph.nodes().forEach(function(n) {
+						if (toKeep[n.id])
+							n.color = n.originalColor;
+						else
+							n.color = message.nodes;
+					});
+					s.graph.edges().forEach(function(e) {
+						if (toKeep[e.source] && toKeep[e.target])
+							e.color = e.originalColor;
+						else
+							e.color = message.edges;
+					});
+					s.refresh();
+				});
+				s.bind("clickStage", function(e) {
+					s.graph.nodes().forEach(function(n) {
+						n.color = n.originalColor;
+					});
+					s.graph.edges().forEach(function(e) {
+						e.color = e.originalColor;
+					});
+					s.refresh();
+					sel_handle.clear();
+				});
+
 			}
 		}
 	);
@@ -3022,27 +2342,21 @@ padding-right: inherit;
 
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; min-height: 1.25em; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
+code.sourceCode { white-space: pre; }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
 a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
 pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
+  { position: relative; }
 pre.numberSource a.sourceLine::before
   { content: attr(data-line-number);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -3050,41 +2364,61 @@ pre.numberSource a.sourceLine::before
     color: #aaaaaa;
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; color: initial; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.dt { color: #902000; } /* DataType */
 code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
+code span.bn { color: #40a070; } /* BaseN */
 code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
+code span.ch { color: #4070a0; } /* Char */
 code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.ot { color: #007020; } /* Other */
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.fu { color: #06287e; } /* Function */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #880000; } /* Constant */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #19177c; } /* Variable */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.op { color: #666666; } /* Operator */
+code span.bu { } /* BuiltIn */
+code span.ex { } /* Extension */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.at { color: #7d9029; } /* Attribute */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+
 </style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
 
@@ -3272,6 +2606,9 @@ code > span.al { color: #ff0000; font-weight: bold; }
 code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
+
+
+
 </head>
 
 <body>
@@ -3280,26 +2617,26 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 <h1 class="title toc-ignore">Cluster</h1>
-<h4 class="author"><em>John Coene</em></h4>
-<h4 class="date"><em>2018-11-18</em></h4>
+<h4 class="author">John Coene</h4>
+<h4 class="date">2019-04-09</h4>
 
 
 
 <p>Since <code>v3.0.0</code> you can color the nodes by cluster. Simply use <code>sg_cluster</code> with your <a href="http://igraph.org/r/">igraph</a> clustering algorithm of choice.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">nodes &lt;-<span class="st"> </span><span class="kw">sg_make_nodes</span>() </a>
+<pre class="sourceCode r" id="cb1"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">nodes &lt;-<span class="st"> </span><span class="kw">sg_make_nodes</span>() </a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">edges &lt;-<span class="st"> </span><span class="kw">sg_make_edges</span>(nodes, <span class="dv">17</span>)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">sigmajs</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1-5" data-line-number="5"><span class="st">  </span><span class="kw">sg_nodes</span>(nodes, id, size) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"><span class="st">  </span><span class="kw">sg_edges</span>(edges, id, source, target) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1-7" data-line-number="7"><span class="st">  </span><span class="kw">sg_layout</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="st">  </span><span class="kw">sg_cluster</span>()</a></code></pre></div>
-<div id="htmlwidget-8351e906feb94b2af7c6" style="width:100%;height:288px;" class="sigmajs html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8351e906feb94b2af7c6">{"x":{"kill":false,"data":{"nodes":[{"grp":"4","color":"#B1E2A3","id":"1","size":"2","x":"4.509055","y":" 3.2213609"},{"grp":"4","color":"#B1E2A3","id":"8","size":"4","x":"3.858809","y":" 2.3388458"},{"grp":"2","color":"#76BA99","id":"2","size":"4","x":"8.107013","y":"-0.5332288"},{"grp":"2","color":"#76BA99","id":"7","size":"5","x":"9.165654","y":"-0.9839561"},{"grp":"3","color":"#236B76","id":"3","size":"5","x":"4.253910","y":"-0.3105862"},{"grp":"3","color":"#236B76","id":"6","size":"4","x":"5.291256","y":"-0.9246818"},{"grp":"1","color":"#24C96B","id":"4","size":"3","x":"6.254256","y":" 0.3198575"},{"grp":"1","color":"#24C96B","id":"5","size":"3","x":"5.332436","y":" 1.8927137"},{"grp":"1","color":"#24C96B","id":"9","size":"5","x":"6.375593","y":" 1.3043417"},{"grp":"1","color":"#24C96B","id":"10","size":"3","x":"4.978567","y":" 1.0919593"}],"edges":[{"id":"1","source":"3","target":"3"},{"id":"2","source":"4","target":"2"},{"id":"3","source":"4","target":"5"},{"id":"4","source":"8","target":"1"},{"id":"5","source":"2","target":"7"},{"id":"6","source":"10","target":"4"},{"id":"7","source":"9","target":"4"},{"id":"8","source":"5","target":"10"},{"id":"9","source":"2","target":"7"},{"id":"10","source":"10","target":"9"},{"id":"11","source":"3","target":"6"},{"id":"12","source":"5","target":"1"},{"id":"13","source":"10","target":"5"},{"id":"14","source":"3","target":"10"},{"id":"15","source":"6","target":"4"},{"id":"16","source":"7","target":"7"},{"id":"17","source":"10","target":"8"}]},"type":"canvas","button":[],"buttonevent":[],"crosstalk":{"crosstalk_key":null,"crosstalk_group":null}},"evals":[],"jsHooks":[]}</script>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="st">  </span><span class="kw">sg_cluster</span>()</a></code></pre>
+<div id="htmlwidget-0cca7f9d5cf3a92209a7" style="width:100%;height:288px;" class="sigmajs html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0cca7f9d5cf3a92209a7">{"x":{"kill":false,"data":{"nodes":[{"grp":"2","color":"#B1E2A3","id":"1","size":"3","x":"3.536638","y":"17.57008"},{"grp":"2","color":"#B1E2A3","id":"5","size":"5","x":"2.670846","y":"17.17217"},{"grp":"2","color":"#B1E2A3","id":"6","size":"4","x":"4.198881","y":"15.59043"},{"grp":"2","color":"#B1E2A3","id":"7","size":"3","x":"3.316178","y":"16.40919"},{"grp":"2","color":"#B1E2A3","id":"8","size":"3","x":"4.008133","y":"16.36736"},{"grp":"2","color":"#B1E2A3","id":"10","size":"5","x":"4.156286","y":"17.30873"},{"grp":"3","color":"#328983","id":"2","size":"4","x":"5.221549","y":"19.50053"},{"grp":"1","color":"#24C96B","id":"3","size":"4","x":"4.933746","y":"16.85300"},{"grp":"1","color":"#24C96B","id":"4","size":"4","x":"6.196788","y":"16.82229"},{"grp":"1","color":"#24C96B","id":"9","size":"3","x":"5.481777","y":"16.10906"}],"edges":[{"id":"1","source":"1","target":"3"},{"id":"2","source":"10","target":"8"},{"id":"3","source":"7","target":"1"},{"id":"4","source":"3","target":"6"},{"id":"5","source":"5","target":"8"},{"id":"6","source":"5","target":"1"},{"id":"7","source":"3","target":"9"},{"id":"8","source":"10","target":"1"},{"id":"9","source":"6","target":"8"},{"id":"10","source":"3","target":"4"},{"id":"11","source":"9","target":"4"},{"id":"12","source":"3","target":"10"},{"id":"13","source":"8","target":"7"},{"id":"14","source":"10","target":"7"},{"id":"15","source":"6","target":"7"},{"id":"16","source":"9","target":"8"},{"id":"17","source":"6","target":"6"}]},"type":"canvas","button":[],"buttonevent":[],"crosstalk":{"crosstalk_key":null,"crosstalk_group":null}},"evals":[],"jsHooks":[]}</script>
 <p>Clustering is brilliant, in part, because (most) are bottom-up approaches; the number of cluster is not pre-defined. However, this might make the above approach somewhat awkward as the node colors should be discrete. In an interactive environment <code>sg_cluster</code> prints the number of clusters identified to the console, so you could then set the exact number of colors needed then re-run the graph.</p>
 <p>Perhaps a better approach is to use the helper function <code>sg_get_cluster</code> to return nodes with an added column, the group they belong to. The helper also lets you set (or re-set) the node colors according to the group they belong to.</p>
 <p>Let’s take a look at an example</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">19880525</span>) <span class="co"># for reproducability</span></a>
+<pre class="sourceCode r" id="cb2"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">19880525</span>) <span class="co"># for reproducability</span></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co"># make a slightly larger graph</span></a>
 <a class="sourceLine" id="cb2-4" data-line-number="4">nodes &lt;-<span class="st"> </span><span class="kw">sg_make_nodes</span>(<span class="dv">50</span>)</a>
@@ -3321,9 +2658,9 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb2-20" data-line-number="20"><span class="st">  </span><span class="kw">sg_nodes</span>(nodes, id, size, color) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb2-21" data-line-number="21"><span class="st">  </span><span class="kw">sg_edges</span>(edges, id, source, target) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb2-22" data-line-number="22"><span class="st">  </span><span class="kw">sg_layout</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="st">  </span><span class="kw">sg_neighbours</span>()</a></code></pre></div>
-<div id="htmlwidget-99522c481a502e06006b" style="width:100%;height:288px;" class="sigmajs html-widget"></div>
-<script type="application/json" data-for="htmlwidget-99522c481a502e06006b">{"x":{"kill":false,"data":{"nodes":[{"id":"1","size":"2","color":"#331A00","x":"-1.50226503","y":" 1.81072941"},{"id":"2","size":"4","color":"#331A00","x":"-0.32995850","y":" 4.28081127"},{"id":"9","size":"4","color":"#331A00","x":" 0.91305093","y":" 4.22605143"},{"id":"14","size":"5","color":"#331A00","x":" 2.07122269","y":" 2.42403713"},{"id":"22","size":"3","color":"#331A00","x":"-0.58016450","y":" 2.98093850"},{"id":"24","size":"4","color":"#331A00","x":" 0.55312801","y":" 2.16893396"},{"id":"25","size":"3","color":"#331A00","x":"-2.23004237","y":" 2.78736146"},{"id":"43","size":"5","color":"#331A00","x":"-3.14548547","y":" 2.39971617"},{"id":"3","size":"2","color":"#663000","x":"-1.71563067","y":"-0.50490161"},{"id":"8","size":"3","color":"#663000","x":"-2.54796789","y":" 0.80028527"},{"id":"18","size":"4","color":"#663000","x":"-1.24335781","y":" 1.35180251"},{"id":"30","size":"2","color":"#663000","x":" 0.26562959","y":"-0.85310260"},{"id":"32","size":"2","color":"#663000","x":" 0.70895996","y":"-0.28664681"},{"id":"47","size":"3","color":"#663000","x":"-2.24451901","y":"-0.82080019"},{"id":"4","size":"4","color":"#996136","x":"-3.55400850","y":"-0.02251629"},{"id":"7","size":"3","color":"#996136","x":"-1.19366243","y":"-2.33502165"},{"id":"13","size":"4","color":"#996136","x":"-3.92472200","y":"-1.10545570"},{"id":"17","size":"4","color":"#996136","x":"-2.74670971","y":"-1.53569852"},{"id":"31","size":"3","color":"#996136","x":"-4.47881582","y":" 1.04446553"},{"id":"5","size":"3","color":"#CC9B7A","x":"-2.04759353","y":" 5.15627780"},{"id":"12","size":"3","color":"#CC9B7A","x":"-2.93523983","y":" 4.16399449"},{"id":"38","size":"3","color":"#CC9B7A","x":"-4.31055150","y":" 3.80347219"},{"id":"49","size":"4","color":"#CC9B7A","x":"-3.50618309","y":" 3.91400991"},{"id":"6","size":"3","color":"#D9AF98","x":"-0.01357036","y":" 3.52774794"},{"id":"15","size":"2","color":"#D9AF98","x":"-0.18765703","y":" 2.05278450"},{"id":"21","size":"2","color":"#D9AF98","x":"-0.05494995","y":" 0.81578353"},{"id":"26","size":"4","color":"#D9AF98","x":"-1.24442593","y":" 3.18894662"},{"id":"29","size":"2","color":"#D9AF98","x":"-0.98627301","y":" 0.67690453"},{"id":"33","size":"2","color":"#D9AF98","x":"-1.46530797","y":"-0.02324790"},{"id":"36","size":"3","color":"#D9AF98","x":" 0.37693099","y":" 1.41141452"},{"id":"37","size":"4","color":"#D9AF98","x":"-0.99361395","y":" 4.03608018"},{"id":"50","size":"4","color":"#D9AF98","x":"-2.37516636","y":" 1.67597885"},{"id":"10","size":"4","color":"#F2DACE","x":" 2.50468109","y":" 0.53639048"},{"id":"16","size":"2","color":"#F2DACE","x":" 1.70911065","y":"-0.28873084"},{"id":"23","size":"2","color":"#F2DACE","x":"-0.22633575","y":"-0.35366739"},{"id":"27","size":"4","color":"#F2DACE","x":" 1.40927606","y":"-1.79817216"},{"id":"42","size":"2","color":"#F2DACE","x":" 2.89716729","y":"-1.01884211"},{"id":"46","size":"5","color":"#F2DACE","x":" 1.83904986","y":" 1.56079129"},{"id":"48","size":"2","color":"#F2DACE","x":" 1.39895857","y":" 0.43496465"},{"id":"11","size":"2","color":"#CCFDFF","x":" 1.73888716","y":" 3.78152459"},{"id":"19","size":"2","color":"#CCFDFF","x":" 0.95987760","y":" 3.31023020"},{"id":"34","size":"4","color":"#CCFDFF","x":" 3.04534769","y":" 3.23949352"},{"id":"41","size":"2","color":"#CCFDFF","x":" 0.03346902","y":" 4.79001870"},{"id":"20","size":"4","color":"#99F8FF","x":" 3.54315512","y":" 6.62775280"},{"id":"28","size":"5","color":"#66F0FF","x":"-3.03685108","y":"-2.80699590"},{"id":"45","size":"2","color":"#66F0FF","x":"-2.30513695","y":"-2.41789491"},{"id":"35","size":"2","color":"#33E4FF","x":" 4.28670105","y":" 0.28133903"},{"id":"39","size":"4","color":"#33E4FF","x":" 3.44575561","y":" 1.26320866"},{"id":"44","size":"5","color":"#33E4FF","x":" 5.17700064","y":" 1.54314101"},{"id":"40","size":"5","color":"#00AACC","x":" 0.91901705","y":"-3.00850811"}],"edges":[{"id":"1","source":"6","target":"26"},{"id":"2","source":"34","target":"11"},{"id":"3","source":"24","target":"9"},{"id":"4","source":"32","target":"30"},{"id":"5","source":"28","target":"47"},{"id":"6","source":"21","target":"22"},{"id":"7","source":"18","target":"8"},{"id":"8","source":"39","target":"48"},{"id":"9","source":"11","target":"46"},{"id":"10","source":"36","target":"29"},{"id":"11","source":"23","target":"7"},{"id":"12","source":"33","target":"15"},{"id":"13","source":"18","target":"4"},{"id":"14","source":"5","target":"41"},{"id":"15","source":"25","target":"22"},{"id":"16","source":"36","target":"6"},{"id":"17","source":"35","target":"39"},{"id":"18","source":"38","target":"49"},{"id":"19","source":"48","target":"36"},{"id":"20","source":"32","target":"48"},{"id":"21","source":"10","target":"16"},{"id":"22","source":"39","target":"34"},{"id":"23","source":"46","target":"32"},{"id":"24","source":"21","target":"29"},{"id":"25","source":"50","target":"23"},{"id":"26","source":"37","target":"5"},{"id":"27","source":"27","target":"16"},{"id":"28","source":"48","target":"39"},{"id":"29","source":"30","target":"48"},{"id":"30","source":"30","target":"47"},{"id":"31","source":"34","target":"19"},{"id":"32","source":"50","target":"12"},{"id":"33","source":"30","target":"40"},{"id":"34","source":"3","target":"32"},{"id":"35","source":"28","target":"45"},{"id":"36","source":"1","target":"43"},{"id":"37","source":"41","target":"24"},{"id":"38","source":"46","target":"10"},{"id":"39","source":"29","target":"33"},{"id":"40","source":"11","target":"37"},{"id":"41","source":"33","target":"17"},{"id":"42","source":"18","target":"21"},{"id":"43","source":"18","target":"23"},{"id":"44","source":"21","target":"36"},{"id":"45","source":"42","target":"16"},{"id":"46","source":"21","target":"10"},{"id":"47","source":"23","target":"21"},{"id":"48","source":"38","target":"25"},{"id":"49","source":"46","target":"10"},{"id":"50","source":"50","target":"47"},{"id":"51","source":"19","target":"41"},{"id":"52","source":"16","target":"48"},{"id":"53","source":"16","target":"24"},{"id":"54","source":"37","target":"26"},{"id":"55","source":"3","target":"8"},{"id":"56","source":"31","target":"50"},{"id":"57","source":"29","target":"21"},{"id":"58","source":"23","target":"48"},{"id":"59","source":"13","target":"3"},{"id":"60","source":"2","target":"22"},{"id":"61","source":"46","target":"15"},{"id":"62","source":"15","target":"21"},{"id":"63","source":"8","target":"25"},{"id":"64","source":"1","target":"48"},{"id":"65","source":"18","target":"19"},{"id":"66","source":"27","target":"23"},{"id":"67","source":"44","target":"39"},{"id":"68","source":"6","target":"37"},{"id":"69","source":"8","target":"1"},{"id":"70","source":"31","target":"4"},{"id":"71","source":"24","target":"14"},{"id":"72","source":"5","target":"12"},{"id":"73","source":"1","target":"22"},{"id":"74","source":"33","target":"36"},{"id":"75","source":"49","target":"5"},{"id":"76","source":"7","target":"17"},{"id":"77","source":"50","target":"37"},{"id":"78","source":"9","target":"22"},{"id":"79","source":"28","target":"45"},{"id":"80","source":"45","target":"33"},{"id":"81","source":"25","target":"43"},{"id":"82","source":"15","target":"36"},{"id":"83","source":"4","target":"13"},{"id":"84","source":"10","target":"35"},{"id":"85","source":"50","target":"49"},{"id":"86","source":"15","target":"2"},{"id":"87","source":"15","target":"26"},{"id":"88","source":"1","target":"18"},{"id":"89","source":"29","target":"50"},{"id":"90","source":"8","target":"47"},{"id":"91","source":"48","target":"42"},{"id":"92","source":"16","target":"23"},{"id":"93","source":"50","target":"33"},{"id":"94","source":"3","target":"21"},{"id":"95","source":"18","target":"26"},{"id":"96","source":"24","target":"25"},{"id":"97","source":"4","target":"17"},{"id":"98","source":"36","target":"14"},{"id":"99","source":"43","target":"1"},{"id":"100","source":"24","target":"30"}]},"type":"canvas","button":[],"buttonevent":[],"crosstalk":{"crosstalk_key":null,"crosstalk_group":null},"neighbours":{"nodes":"#eee","edges":"#eee"}},"evals":[],"jsHooks":[]}</script>
+<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="st">  </span><span class="kw">sg_neighbours</span>()</a></code></pre>
+<div id="htmlwidget-6dd0120ef85aeb5b6511" style="width:100%;height:288px;" class="sigmajs html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6dd0120ef85aeb5b6511">{"x":{"kill":false,"data":{"nodes":[{"id":"1","size":"2","color":"#331A00","x":"-1.50226503","y":" 1.81072941"},{"id":"2","size":"4","color":"#331A00","x":"-0.32995850","y":" 4.28081127"},{"id":"9","size":"4","color":"#331A00","x":" 0.91305093","y":" 4.22605143"},{"id":"14","size":"5","color":"#331A00","x":" 2.07122269","y":" 2.42403713"},{"id":"22","size":"3","color":"#331A00","x":"-0.58016450","y":" 2.98093850"},{"id":"24","size":"4","color":"#331A00","x":" 0.55312801","y":" 2.16893396"},{"id":"25","size":"3","color":"#331A00","x":"-2.23004237","y":" 2.78736146"},{"id":"43","size":"5","color":"#331A00","x":"-3.14548547","y":" 2.39971617"},{"id":"3","size":"2","color":"#663000","x":"-1.71563067","y":"-0.50490161"},{"id":"8","size":"3","color":"#663000","x":"-2.54796789","y":" 0.80028527"},{"id":"18","size":"4","color":"#663000","x":"-1.24335781","y":" 1.35180251"},{"id":"30","size":"2","color":"#663000","x":" 0.26562959","y":"-0.85310260"},{"id":"32","size":"2","color":"#663000","x":" 0.70895996","y":"-0.28664681"},{"id":"47","size":"3","color":"#663000","x":"-2.24451901","y":"-0.82080019"},{"id":"4","size":"4","color":"#996136","x":"-3.55400850","y":"-0.02251629"},{"id":"7","size":"3","color":"#996136","x":"-1.19366243","y":"-2.33502165"},{"id":"13","size":"4","color":"#996136","x":"-3.92472200","y":"-1.10545570"},{"id":"17","size":"4","color":"#996136","x":"-2.74670971","y":"-1.53569852"},{"id":"31","size":"3","color":"#996136","x":"-4.47881582","y":" 1.04446553"},{"id":"5","size":"3","color":"#CC9B7A","x":"-2.04759353","y":" 5.15627780"},{"id":"12","size":"3","color":"#CC9B7A","x":"-2.93523983","y":" 4.16399449"},{"id":"38","size":"3","color":"#CC9B7A","x":"-4.31055150","y":" 3.80347219"},{"id":"49","size":"4","color":"#CC9B7A","x":"-3.50618309","y":" 3.91400991"},{"id":"6","size":"3","color":"#D9AF98","x":"-0.01357036","y":" 3.52774794"},{"id":"15","size":"2","color":"#D9AF98","x":"-0.18765703","y":" 2.05278450"},{"id":"21","size":"2","color":"#D9AF98","x":"-0.05494995","y":" 0.81578353"},{"id":"26","size":"4","color":"#D9AF98","x":"-1.24442593","y":" 3.18894662"},{"id":"29","size":"2","color":"#D9AF98","x":"-0.98627301","y":" 0.67690453"},{"id":"33","size":"2","color":"#D9AF98","x":"-1.46530797","y":"-0.02324790"},{"id":"36","size":"3","color":"#D9AF98","x":" 0.37693099","y":" 1.41141452"},{"id":"37","size":"4","color":"#D9AF98","x":"-0.99361395","y":" 4.03608018"},{"id":"50","size":"4","color":"#D9AF98","x":"-2.37516636","y":" 1.67597885"},{"id":"10","size":"4","color":"#F2DACE","x":" 2.50468109","y":" 0.53639048"},{"id":"16","size":"2","color":"#F2DACE","x":" 1.70911065","y":"-0.28873084"},{"id":"23","size":"2","color":"#F2DACE","x":"-0.22633575","y":"-0.35366739"},{"id":"27","size":"4","color":"#F2DACE","x":" 1.40927606","y":"-1.79817216"},{"id":"42","size":"2","color":"#F2DACE","x":" 2.89716729","y":"-1.01884211"},{"id":"46","size":"5","color":"#F2DACE","x":" 1.83904986","y":" 1.56079129"},{"id":"48","size":"2","color":"#F2DACE","x":" 1.39895857","y":" 0.43496465"},{"id":"11","size":"2","color":"#CCFDFF","x":" 1.73888716","y":" 3.78152459"},{"id":"19","size":"2","color":"#CCFDFF","x":" 0.95987760","y":" 3.31023020"},{"id":"34","size":"4","color":"#CCFDFF","x":" 3.04534769","y":" 3.23949352"},{"id":"41","size":"2","color":"#CCFDFF","x":" 0.03346902","y":" 4.79001870"},{"id":"20","size":"4","color":"#99F8FF","x":" 3.54315512","y":" 6.62775280"},{"id":"28","size":"5","color":"#66F0FF","x":"-3.03685108","y":"-2.80699590"},{"id":"45","size":"2","color":"#66F0FF","x":"-2.30513695","y":"-2.41789491"},{"id":"35","size":"2","color":"#33E4FF","x":" 4.28670105","y":" 0.28133903"},{"id":"39","size":"4","color":"#33E4FF","x":" 3.44575561","y":" 1.26320866"},{"id":"44","size":"5","color":"#33E4FF","x":" 5.17700064","y":" 1.54314101"},{"id":"40","size":"5","color":"#00AACC","x":" 0.91901705","y":"-3.00850811"}],"edges":[{"id":"1","source":"6","target":"26"},{"id":"2","source":"34","target":"11"},{"id":"3","source":"24","target":"9"},{"id":"4","source":"32","target":"30"},{"id":"5","source":"28","target":"47"},{"id":"6","source":"21","target":"22"},{"id":"7","source":"18","target":"8"},{"id":"8","source":"39","target":"48"},{"id":"9","source":"11","target":"46"},{"id":"10","source":"36","target":"29"},{"id":"11","source":"23","target":"7"},{"id":"12","source":"33","target":"15"},{"id":"13","source":"18","target":"4"},{"id":"14","source":"5","target":"41"},{"id":"15","source":"25","target":"22"},{"id":"16","source":"36","target":"6"},{"id":"17","source":"35","target":"39"},{"id":"18","source":"38","target":"49"},{"id":"19","source":"48","target":"36"},{"id":"20","source":"32","target":"48"},{"id":"21","source":"10","target":"16"},{"id":"22","source":"39","target":"34"},{"id":"23","source":"46","target":"32"},{"id":"24","source":"21","target":"29"},{"id":"25","source":"50","target":"23"},{"id":"26","source":"37","target":"5"},{"id":"27","source":"27","target":"16"},{"id":"28","source":"48","target":"39"},{"id":"29","source":"30","target":"48"},{"id":"30","source":"30","target":"47"},{"id":"31","source":"34","target":"19"},{"id":"32","source":"50","target":"12"},{"id":"33","source":"30","target":"40"},{"id":"34","source":"3","target":"32"},{"id":"35","source":"28","target":"45"},{"id":"36","source":"1","target":"43"},{"id":"37","source":"41","target":"24"},{"id":"38","source":"46","target":"10"},{"id":"39","source":"29","target":"33"},{"id":"40","source":"11","target":"37"},{"id":"41","source":"33","target":"17"},{"id":"42","source":"18","target":"21"},{"id":"43","source":"18","target":"23"},{"id":"44","source":"21","target":"36"},{"id":"45","source":"42","target":"16"},{"id":"46","source":"21","target":"10"},{"id":"47","source":"23","target":"21"},{"id":"48","source":"38","target":"25"},{"id":"49","source":"46","target":"10"},{"id":"50","source":"50","target":"47"},{"id":"51","source":"19","target":"41"},{"id":"52","source":"16","target":"48"},{"id":"53","source":"16","target":"24"},{"id":"54","source":"37","target":"26"},{"id":"55","source":"3","target":"8"},{"id":"56","source":"31","target":"50"},{"id":"57","source":"29","target":"21"},{"id":"58","source":"23","target":"48"},{"id":"59","source":"13","target":"3"},{"id":"60","source":"2","target":"22"},{"id":"61","source":"46","target":"15"},{"id":"62","source":"15","target":"21"},{"id":"63","source":"8","target":"25"},{"id":"64","source":"1","target":"48"},{"id":"65","source":"18","target":"19"},{"id":"66","source":"27","target":"23"},{"id":"67","source":"44","target":"39"},{"id":"68","source":"6","target":"37"},{"id":"69","source":"8","target":"1"},{"id":"70","source":"31","target":"4"},{"id":"71","source":"24","target":"14"},{"id":"72","source":"5","target":"12"},{"id":"73","source":"1","target":"22"},{"id":"74","source":"33","target":"36"},{"id":"75","source":"49","target":"5"},{"id":"76","source":"7","target":"17"},{"id":"77","source":"50","target":"37"},{"id":"78","source":"9","target":"22"},{"id":"79","source":"28","target":"45"},{"id":"80","source":"45","target":"33"},{"id":"81","source":"25","target":"43"},{"id":"82","source":"15","target":"36"},{"id":"83","source":"4","target":"13"},{"id":"84","source":"10","target":"35"},{"id":"85","source":"50","target":"49"},{"id":"86","source":"15","target":"2"},{"id":"87","source":"15","target":"26"},{"id":"88","source":"1","target":"18"},{"id":"89","source":"29","target":"50"},{"id":"90","source":"8","target":"47"},{"id":"91","source":"48","target":"42"},{"id":"92","source":"16","target":"23"},{"id":"93","source":"50","target":"33"},{"id":"94","source":"3","target":"21"},{"id":"95","source":"18","target":"26"},{"id":"96","source":"24","target":"25"},{"id":"97","source":"4","target":"17"},{"id":"98","source":"36","target":"14"},{"id":"99","source":"43","target":"1"},{"id":"100","source":"24","target":"30"}]},"type":"canvas","button":[],"buttonevent":[],"crosstalk":{"crosstalk_key":null,"crosstalk_group":null},"neighbours":{"nodes":"#eee","edges":"#eee"}},"evals":[],"jsHooks":[]}</script>
 
 
 

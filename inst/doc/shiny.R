@@ -7,17 +7,6 @@ knitr::opts_chunk$set(
 library(htmltools)
 library(sigmajs)
 
-## ---- echo=FALSE---------------------------------------------------------
-div(
-  class = "panel panel-danger",
-  div(
-    class = "panel-body",
-    tags$i(class = "fa fa-warning text-danger"),
-    " Set", code("kill"), "to", code("TRUE"), "in", code("sigmajs"), "or pipe", code("sg_kill"), "to your graph if you are",
-    strong("not updating the Shiny graph with", code("sigmajsProxy"))
-  )
-)
-
 ## ---- eval = FALSE-------------------------------------------------------
 #  library(shiny)
 #  library(sigmajs)
@@ -157,6 +146,7 @@ div(
 #  shinyApp(ui, server) # run
 
 ## ---- eval = FALSE-------------------------------------------------------
+#  
 #  nodes <- sg_make_nodes()
 #  edges <- sg_make_edges(nodes)
 #  
@@ -181,7 +171,8 @@ div(
 #  
 #    observeEvent(input$filter, {
 #      sigmajsProxy("sg") %>%
-#        sg_filter_gt_p(input$filterNodes, "size")
+#        sg_filter_undo_p("sz") %>% # we undo the filter before applying it
+#        sg_filter_gt_p(input$filter, "size", name = "sz")
 #    })
 #  
 #  }

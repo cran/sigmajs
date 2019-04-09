@@ -1,7 +1,6 @@
 globalVariables(c("from", "to", "."))
 
 .build_data <- function(data, ...){
-
   data %>% 
     dplyr::select(...)
 }
@@ -88,7 +87,7 @@ globalVariables(c("from", "to", "."))
     "drag_nodes", "relative_size", "add_nodes", 
     "add_edges", "drop_nodes", "drop_edges", 
     "animate", "export_svg", "export_img",
-    "add_nodes_edges", "progress")
+    "add_nodes_edges", "progress", "read_exec")
 }
 
 
@@ -109,18 +108,14 @@ globalVariables(c("from", "to", "."))
   )
 }
 
-.build_igraph <- function(edges, directed = directed, nodes){
+.build_igraph <- function(edges, directed = FALSE, nodes, save = TRUE){
   
-  opt <- getOption("SIGMAJS_STORAGE")
-  g <- NULL
-  
-  if(isTRUE(opt))
-    g <- .get_graph()
+  g <- .get_graph()
   
   if(is.null(g)){
-    g <- igraph::graph_from_data_frame(edges, directed = directed, nodes)
+    g <- igraph::graph_from_data_frame(edges, directed, nodes)
     
-    if(isTRUE(opt))
+    if(isTRUE(save))
       assign("igraph", g, envir = storage_env)
   } 
   
@@ -130,4 +125,11 @@ globalVariables(c("from", "to", "."))
 
 .make_rand_id <- function(){
   paste0(sample(LETTERS, 5), 1:9, collapse = "")
+}
+
+.grp <- function(x, y){
+  list(
+    nodes = x,
+    edges = y
+  )
 }

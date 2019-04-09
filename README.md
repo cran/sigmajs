@@ -4,6 +4,8 @@
 [![CircleCI](https://img.shields.io/circleci/project/github/JohnCoene/sigmajs.svg)](https://github.com/JohnCoene/sigmajs) [![Coverage status](https://coveralls.io/repos/github/JohnCoene/sigmajs/badge.svg)](https://coveralls.io/r/JohnCoene/sigmajs?branch=master) [![Coverage status](https://codecov.io/gh/JohnCoene/sigmajs/branch/master/graph/badge.svg)](https://codecov.io/github/JohnCoene/sigmajs?branch=master) [![DOI](http://joss.theoj.org/papers/10.21105/joss.00814/status.svg)](https://doi.org/10.21105/joss.00814) [![twinetverse](https://img.shields.io/badge/twinetverse-0.0.2-yellow.svg)](http://twinetverse.john-coene.com/)
 [![CRAN log](http://cranlogs.r-pkg.org/badges/grand-total/sigmajs)](http://cranlogs.r-pkg.org/badges/sigmajs)
 
+<img src="./man/figures/logo.png" height="150" align="right" />
+
 [sigmajs](http://sigmajs.org/) for R.
 
 * [Install](#install)
@@ -36,8 +38,6 @@ devtools::install_bitbucket("JohnCoene/sigmajs") # bitbucket
 # Examples
 
 Most functions have corresponding `demo()`, see [documentation](http://sigmajs.john-coene.com/) and [shiny demo](http://shiny.john-coene.com/sigmajs/).
-
-*Note that the graphs do not work in the RStudio viewer, and thus open in your default browser.*
 
 ```r
 library(sigmajs)

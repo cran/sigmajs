@@ -20,10 +20,3 @@ sigmajs() %>%
   sg_from_igraph(lesmis_igraph, layout) %>%
   sg_settings(drawLabels = FALSE, drawEdgeLabels = FALSE)
 
-## ------------------------------------------------------------------------
-gexf <- system.file("examples/arctic.gexf", package = "sigmajs")
-
-sigmajs() %>% 
-  sg_from_gexf(gexf) %>%
-  sg_settings(drawLabels = FALSE, drawEdgeLabels = FALSE)
-
