@@ -5,7 +5,7 @@
 #' @inheritParams sg_nodes
 #' @param event Event the button triggers, see valid events.
 #' @param class Button \code{CSS} class, see note.
-#' @param tag A Valid \link[htmltools]{tags} function.
+#' @param tag A Valid \code{htmltools} tags function.
 #' @param id A valid CSS id.
 #' @param position Position of button, \code{top} or \code{bottom}.
 #' @param ... Content of the button, complient with \code{htmltools}.
@@ -58,6 +58,8 @@
 #'   sg_button("add_nodes", "add nodes")
 #' 
 #' @note The default class (\code{btn btn-default}) works with Bootstrap 3 (the default framework for Shiny and R markdown).
+#' 
+#' @return An object of class \code{htmlwidget} which renders the visualisation on print.
 #' 
 #' @export
 sg_button <- function(sg, event, ..., position = "top", class = "btn btn-default", tag = htmltools::tags$button, id = NULL){

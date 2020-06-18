@@ -7,19 +7,39 @@
 \alias{sg_filter_not_eq_p}
 \alias{sg_filter_undo_p}
 \alias{sg_filter_neighbours_p}
-\title{FIlter}
+\title{Filter}
 \usage{
-sg_filter_gt_p(proxy, input, var, target = c("nodes", "edges", "both"),
-  name = NULL)
+sg_filter_gt_p(
+  proxy,
+  input,
+  var,
+  target = c("nodes", "edges", "both"),
+  name = NULL
+)
 
-sg_filter_lt_p(proxy, input, var, target = c("nodes", "edges", "both"),
-  name = NULL)
+sg_filter_lt_p(
+  proxy,
+  input,
+  var,
+  target = c("nodes", "edges", "both"),
+  name = NULL
+)
 
-sg_filter_eq_p(proxy, input, var, target = c("nodes", "edges", "both"),
-  name = NULL)
+sg_filter_eq_p(
+  proxy,
+  input,
+  var,
+  target = c("nodes", "edges", "both"),
+  name = NULL
+)
 
-sg_filter_not_eq_p(proxy, input, var, target = c("nodes", "edges",
-  "both"), name = NULL)
+sg_filter_not_eq_p(
+  proxy,
+  input,
+  var,
+  target = c("nodes", "edges", "both"),
+  name = NULL
+)
 
 sg_filter_undo_p(proxy, name)
 
@@ -38,6 +58,9 @@ sg_filter_neighbours_p(proxy, node, name = NULL)
 
 \item{node}{Node id to filter neighbours.}
 }
+\value{
+The \code{proxy} object.
+}
 \description{
 Filter nodes and/or edges.
 }
@@ -52,7 +75,3 @@ Filter nodes and/or edges.
 }
 }
 
-\examples{
-# demo("filter-nodes", package = "sigmajs")
-
-}

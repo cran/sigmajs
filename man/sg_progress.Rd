@@ -4,8 +4,17 @@
 \alias{sg_progress}
 \title{Text}
 \usage{
-sg_progress(sg, data, delay, text, ..., position = "top", id = NULL,
-  tag = htmltools::span, cumsum = TRUE)
+sg_progress(
+  sg,
+  data,
+  delay,
+  text,
+  ...,
+  position = "top",
+  id = NULL,
+  tag = htmltools::span,
+  cumsum = TRUE
+)
 }
 \arguments{
 \item{sg}{An object of class \code{sigmajs}as intatiated by \code{\link{sigmajs}}.}
@@ -22,9 +31,12 @@ sg_progress(sg, data, delay, text, ..., position = "top", id = NULL,
 
 \item{id}{A valid CSS id.}
 
-\item{tag}{A Valid \link[htmltools]{tags} function.}
+\item{tag}{A Valid \code{htmltools} tags function.}
 
 \item{cumsum}{Whether to compute the cumulative sum on the \code{delay}.}
+}
+\value{
+A modified version of the \code{sg} object.
 }
 \description{
 Add text to your graph.

@@ -23,18 +23,25 @@ sigmajs_render <- function(sg){
 #'
 #' @import htmlwidgets
 #' @importFrom stats runif
+#' @importFrom htmltools tags
 #' 
 #' @note Keep \code{width} at \code{100\%} for a responsive visualisation.
 #' 
 #' @seealso \code{\link{sg_kill}}.
-#'
+#' 
+#' @return An object of class \code{htmlwidget} which renders the visualisation on print.
+#' 
 #' @export
-sigmajs <- function(type = "canvas", width = "100%", kill = FALSE, height = NULL, elementId = NULL) {
+sigmajs <- function(type = NULL, width = "100%", kill = FALSE, height = NULL, elementId = NULL) {
   
   assign("igraph", NULL, envir = storage_env)
 
+  if(!is.null(type))
+    cat("Argument `type` is no longer in use.\n")
+
   # forward options using x
   x = list(
+    events = list(),
     kill = kill,
     data = list(),
 		type = type,

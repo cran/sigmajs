@@ -4,8 +4,7 @@
 \alias{sg_animate}
 \title{Animate}
 \usage{
-sg_animate(sg, mapping, options = list(easing = "cubicInOut"),
-  delay = 5000)
+sg_animate(sg, mapping, options = list(easing = "cubicInOut"), delay = 5000)
 }
 \arguments{
 \item{sg}{An object of class \code{sigmajs}as intatiated by \code{\link{sigmajs}}.}
@@ -15,6 +14,9 @@ sg_animate(sg, mapping, options = list(easing = "cubicInOut"),
 \item{options}{Animations options.}
 
 \item{delay}{Delay in milliseconds before animation is triggered.}
+}
+\value{
+An object of class \code{htmlwidget} which renders the visualisation on print.
 }
 \description{
 Animate graph components.

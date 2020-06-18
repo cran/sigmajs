@@ -7,18 +7,45 @@
 \alias{sg_export_svg_p}
 \title{Export}
 \usage{
-sg_export_svg(sg, download = TRUE, file = "graph.svg", size = 1000,
-  width = 1000, height = 1000, labels = FALSE, data = FALSE)
+sg_export_svg(
+  sg,
+  download = TRUE,
+  file = "graph.svg",
+  size = 1000,
+  width = 1000,
+  height = 1000,
+  labels = FALSE,
+  data = FALSE
+)
 
-sg_export_img(sg, download = TRUE, file = "graph.png",
-  background = "white", format = "png", labels = FALSE)
+sg_export_img(
+  sg,
+  download = TRUE,
+  file = "graph.png",
+  background = "white",
+  format = "png",
+  labels = FALSE
+)
 
-sg_export_img_p(proxy, download = TRUE, file = "graph.png",
-  background = "white", format = "png", labels = FALSE)
+sg_export_img_p(
+  proxy,
+  download = TRUE,
+  file = "graph.png",
+  background = "white",
+  format = "png",
+  labels = FALSE
+)
 
-sg_export_svg_p(proxy, download = TRUE, file = "graph.svg",
-  size = 1000, width = 1000, height = 1000, labels = FALSE,
-  data = FALSE)
+sg_export_svg_p(
+  proxy,
+  download = TRUE,
+  file = "graph.svg",
+  size = 1000,
+  width = 1000,
+  height = 1000,
+  labels = FALSE,
+  data = FALSE
+)
 }
 \arguments{
 \item{sg}{An object of class \code{sigmajs}as intatiated by \code{\link{sigmajs}}.}
@@ -41,6 +68,10 @@ sg_export_svg_p(proxy, download = TRUE, file = "graph.svg",
 
 \item{proxy}{An object of class \code{sigmajsProxy} as returned by \code{\link{sigmajsProxy}}.}
 }
+\value{
+An object of class \code{htmlwidget} which renders the visualisation on print.
+Functions ending in \code{_p} return the \code{proxy}.
+}
 \description{
 Export graph to SVG.
 }
@@ -53,7 +84,5 @@ sigmajs() \%>\%
   sg_edges(edges, id, source, target) \%>\% 
   sg_export_svg() \%>\% 
   sg_button("export_svg", "download")
-
-# demo("export-graph", package = "sigmajs")
 
 }

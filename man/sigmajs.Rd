@@ -4,8 +4,13 @@
 \alias{sigmajs}
 \title{Initialise}
 \usage{
-sigmajs(type = "canvas", width = "100\%", kill = FALSE,
-  height = NULL, elementId = NULL)
+sigmajs(
+  type = NULL,
+  width = "100\%",
+  kill = FALSE,
+  height = NULL,
+  elementId = NULL
+)
 }
 \arguments{
 \item{type}{Renderer type, one of \code{canvas}, \code{webgl} or \code{svg}.}
@@ -16,6 +21,9 @@ sigmajs(type = "canvas", width = "100\%", kill = FALSE,
 if using \code{\link{sigmajsProxy}}, else set to \code{TRUE}. Only useful in Shiny.}
 
 \item{elementId}{Id of elment.}
+}
+\value{
+An object of class \code{htmlwidget} which renders the visualisation on print.
 }
 \description{
 Initialise a graph.

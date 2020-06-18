@@ -4,8 +4,15 @@
 \alias{sg_button}
 \title{Buttons}
 \usage{
-sg_button(sg, event, ..., position = "top", class = "btn btn-default",
-  tag = htmltools::tags$button, id = NULL)
+sg_button(
+  sg,
+  event,
+  ...,
+  position = "top",
+  class = "btn btn-default",
+  tag = htmltools::tags$button,
+  id = NULL
+)
 }
 \arguments{
 \item{sg}{An object of class \code{sigmajs}as intatiated by \code{\link{sigmajs}}.}
@@ -18,9 +25,12 @@ sg_button(sg, event, ..., position = "top", class = "btn btn-default",
 
 \item{class}{Button \code{CSS} class, see note.}
 
-\item{tag}{A Valid \link[htmltools]{tags} function.}
+\item{tag}{A Valid \code{htmltools} tags function.}
 
 \item{id}{A valid CSS id.}
+}
+\value{
+An object of class \code{htmlwidget} which renders the visualisation on print.
 }
 \description{
 Add buttons to your graph.
